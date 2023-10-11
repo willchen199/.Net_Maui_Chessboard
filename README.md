@@ -1,1 +1,0 @@
-# Cse-310-Chess-board
