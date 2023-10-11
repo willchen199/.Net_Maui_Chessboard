@@ -1,0 +1,21 @@
+﻿Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChessApp", "ChessApp.ChessApp\ChessApp.csproj", "{61E3E5BA-DBDB-4E31-825D-6C3BE2804149}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Orbit.Engine", "ChessApp.Orbit.Engine\Orbit.Engine.csproj", "{6CC87437-0309-4335-BF0C-5E304F00C77C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{61E3E5BA-DBDB-4E31-825D-6C3BE2804149}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{61E3E5BA-DBDB-4E31-825D-6C3BE2804149}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{61E3E5BA-DBDB-4E31-825D-6C3BE2804149}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{61E3E5BA-DBDB-4E31-825D-6C3BE2804149}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6CC87437-0309-4335-BF0C-5E304F00C77C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6CC87437-0309-4335-BF0C-5E304F00C77C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6CC87437-0309-4335-BF0C-5E304F00C77C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6CC87437-0309-4335-BF0C-5E304F00C77C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
