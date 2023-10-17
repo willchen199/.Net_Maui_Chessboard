@@ -1,4 +1,5 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+﻿<?xml version="1.0" encoding="utf-8"?>
+
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="ChessApp.MainPage">
@@ -12,153 +13,143 @@
             <!-- Row 1: Star-sized row for the chessboard grid -->
             <RowDefinition Height="*" />
             <!-- Row 2: Star-sized row for additional content (if needed) -->
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
         <!-- Title Label -->
         <Label Text="Chessboard" FontSize="Large" HorizontalOptions="Center" VerticalOptions="Center" />
 
         <!-- This is the inner Grid that represents the chessboard itself. -->
-        <Grid Grid.Row="1" BackgroundColor="Wheat">
+        <Grid x:Name="ChessboardGrid"
+              Grid.Row="1"
+              BackgroundColor="Wheat">
             <!-- Define the row structure for the inner Grid. -->
             <Grid.RowDefinitions>
-                <!-- Row 0: Star-sized row for the first row of the chessboard -->
+                <!-- Row 0: Star-sized row for the first row of the chessboard 1-->
                 <RowDefinition Height="*" />
-                <!-- Row 1: Star-sized row for the second row of the chessboard -->
+                <!-- Row 1: Star-sized row for the second row of the chessboard 2-->
                 <RowDefinition Height="*" />
-                <!-- Row 2: Star-sized row for the third row of the chessboard -->
+                <!-- Row 2: Star-sized row for the third row of the chessboard 3-->
                 <RowDefinition Height="*" />
-                <!-- Row 3: Star-sized row for the fourth row of the chessboard -->
+                <!-- Row 3: Star-sized row for the fourth row of the chessboard 4-->
                 <RowDefinition Height="*" />
-                <!-- Row 4: Star-sized row for the fifth row of the chessboard -->
+                <!-- Row 4: Star-sized row for the fifth row of the chessboard 5-->
                 <RowDefinition Height="*" />
-                <!-- Row 5: Star-sized row for the sixth row of the chessboard -->
+                <!-- Row 5: Star-sized row for the sixth row of the chessboard 6-->
                 <RowDefinition Height="*" />
-                <!-- Row 6: Star-sized row for the seventh row of the chessboard -->
+                <!-- Row 6: Star-sized row for the seventh row of the chessboard 7-->
                 <RowDefinition Height="*" />
-                <!-- Row 7: Star-sized row for the eighth row of the chessboard -->
+                <!-- Row 7: Star-sized row for the eighth row of the chessboard 8-->
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
 
             <!-- Define the column structure for the inner Grid. -->
             <Grid.ColumnDefinitions>
-                <!-- Column 0: Star-sized column for the first column of the chessboard -->
+                <!-- Column 0: Star-sized column for the first column of the chessboard (H)-->
                 <ColumnDefinition Width="*" />
-                <!-- Column 1: Star-sized column for the second column of the chessboard -->
+                <!-- Column 1: Star-sized column for the second column of the chessboard (G)-->
                 <ColumnDefinition Width="*" />
-                <!-- Column 2: Star-sized column for the third column of the chessboard -->
+                <!-- Column 2: Star-sized column for the third column of the chessboard (F)-->
                 <ColumnDefinition Width="*" />
-                <!-- Column 3: Star-sized column for the fourth column of the chessboard -->
+                <!-- Column 3: Star-sized column for the fourth column of the chessboard (E)-->
                 <ColumnDefinition Width="*" />
-                <!-- Column 4: Star-sized column for the fifth column of the chessboard -->
+                <!-- Column 4: Star-sized column for the fifth column of the chessboard (D)-->
                 <ColumnDefinition Width="*" />
-                <!-- Column 5: Star-sized column for the sixth column of the chessboard -->
+                <!-- Column 5: Star-sized column for the sixth column of the chessboard (C)-->
                 <ColumnDefinition Width="*" />
-                <!-- Column 6: Star-sized column for the seventh column of the chessboard -->
+                <!-- Column 6: Star-sized column for the seventh column of the chessboard (B)-->
                 <ColumnDefinition Width="*" />
-                <!-- Column 7: Star-sized column for the eighth column of the chessboard -->
+                <!-- Column 7: Star-sized column for the eighth column of the chessboard (A)-->
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
 
-            <!-- Each square on the chessboard is represented by an Image control. -->
-            <!-- Replace the Source property with the actual image source for each square. -->
-            <!-- For example, Source="your_image_source_1.jpg" should be replaced with the image you want to use. -->
-            <!-- Aspect="AspectFill" ensures that the images maintain their aspect ratio and fill the grid cell. -->
+            <!-- ~1~ Each square on the chessboard is represented by an Image control. @1@ -->
+            <!-- ~1~ Replace the Source property with the actual image source for each square. @1@ -->
+            <!-- ~1~ For example, Source="your_image_source_1.jpg" should be replaced with the image you want to use. @1@ -->
+            <!-- ~1~ Aspect="AspectFill" ensures that the images maintain their aspect ratio and fill the grid cell. @1@ -->
+            <!-- -->
+            <!-- ~1~ Row 0 @1@ -->
+            <!-- <Image Grid.Row="0" Grid.Column="0" Source="white_chess_tile.png" Aspect="AspectFill" /> -->
+            <!-- <Image Grid.Row="0" Grid.Column="1" Source="brown_chess_tile.png" Aspect="AspectFill" /> -->
+            <!-- <Image Grid.Row="0" Grid.Column="2" Source="white_chess_tile.png" Aspect="AspectFill" /> -->
+            <!-- <Image Grid.Row="0" Grid.Column="3" Source="brown_chess_tile.png" Aspect="AspectFill" /> -->
+            <!-- <Image Grid.Row="0" Grid.Column="4" Source="white_chess_tile.png" Aspect="AspectFill" /> -->
+            <!-- <Image Grid.Row="0" Grid.Column="5" Source="brown_chess_tile.png" Aspect="AspectFill" /> -->
+            <!-- <Image Grid.Row="0" Grid.Column="6" Source="white_chess_tile.png" Aspect="AspectFill" /> -->
+            <!-- <Image Grid.Row="0" Grid.Column="7" Source="brown_chess_tile.png" Aspect="AspectFill" /> -->
+            <!-- ~1~ Continue adding Image controls for the rest of the first row @1@ -->
+            <!-- -->
+            <!-- ~1~ Row 1 @1@ -->
+            <!-- <Image Grid.Row="1" Grid.Column="0" Source="brown_chess_tile.png" Aspect="AspectFill" /> -->
+            <!-- <Image Grid.Row="1" Grid.Column="1" Source="white_chess_tile.png" Aspect="AspectFill" /> -->
+            <!-- <Image Grid.Row="1" Grid.Column="2" Source="brown_chess_tile.png" Aspect="AspectFill" /> -->
+            <!-- <Image Grid.Row="1" Grid.Column="3" Source="white_chess_tile.png" Aspect="AspectFill" /> -->
+            <!-- <Image Grid.Row="1" Grid.Column="4" Source="brown_chess_tile.png" Aspect="AspectFill" /> -->
+            <!-- <Image Grid.Row="1" Grid.Column="5" Source="white_chess_tile.png" Aspect="AspectFill" /> -->
+            <!-- <Image Grid.Row="1" Grid.Column="6" Source="brown_chess_tile.png" Aspect="AspectFill" /> -->
+            <!-- <Image Grid.Row="1" Grid.Column="7" Source="white_chess_tile.png" Aspect="AspectFill" /> -->
+            <!-- -->
+            <!-- ~1~ Row 2 @1@ -->
+            <!-- <Image Grid.Row="2" Grid.Column="0" Source="white_chess_tile.png" Aspect="AspectFill" /> -->
+            <!-- <Image Grid.Row="2" Grid.Column="1" Source="brown_chess_tile.png" Aspect="AspectFill" /> -->
+            <!-- <Image Grid.Row="2" Grid.Column="2" Source="white_chess_tile.png" Aspect="AspectFill" /> -->
+            <!-- <Image Grid.Row="2" Grid.Column="3" Source="brown_chess_tile.png" Aspect="AspectFill" /> -->
+            <!-- <Image Grid.Row="2" Grid.Column="4" Source="white_chess_tile.png" Aspect="AspectFill" /> -->
+            <!-- <Image Grid.Row="2" Grid.Column="5" Source="brown_chess_tile.png" Aspect="AspectFill" /> -->
+            <!-- <Image Grid.Row="2" Grid.Column="6" Source="white_chess_tile.png" Aspect="AspectFill" /> -->
+            <!-- <Image Grid.Row="2" Grid.Column="7" Source="brown_chess_tile.png" Aspect="AspectFill" /> -->
+            <!-- -->
+            <!-- ~1~ Row 3 @1@ -->
+            <!-- <Image Grid.Row="3" Grid.Column="0" Source="brown_chess_tile.png" Aspect="AspectFill" /> -->
+            <!-- <Image Grid.Row="3" Grid.Column="1" Source="white_chess_tile.png" Aspect="AspectFill" /> -->
+            <!-- <Image Grid.Row="3" Grid.Column="2" Source="brown_chess_tile.png" Aspect="AspectFill" /> -->
+            <!-- <Image Grid.Row="3" Grid.Column="3" Source="white_chess_tile.png" Aspect="AspectFill" /> -->
+            <!-- <Image Grid.Row="3" Grid.Column="4" Source="brown_chess_tile.png" Aspect="AspectFill" /> -->
+            <!-- <Image Grid.Row="3" Grid.Column="5" Source="white_chess_tile.png" Aspect="AspectFill" /> -->
+            <!-- <Image Grid.Row="3" Grid.Column="6" Source="brown_chess_tile.png" Aspect="AspectFill" /> -->
+            <!-- <Image Grid.Row="3" Grid.Column="7" Source="white_chess_tile.png" Aspect="AspectFill" /> -->
+            <!-- -->
+            <!-- -->
+            <!-- ~1~ Row 4 @1@ -->
+            <!-- <Image Grid.Row="4" Grid.Column="0" Source="white_chess_tile.png" Aspect="AspectFill" /> -->
+            <!-- <Image Grid.Row="4" Grid.Column="1" Source="brown_chess_tile.png" Aspect="AspectFill" /> -->
+            <!-- <Image Grid.Row="4" Grid.Column="2" Source="white_chess_tile.png" Aspect="AspectFill" /> -->
+            <!-- <Image Grid.Row="4" Grid.Column="3" Source="brown_chess_tile.png" Aspect="AspectFill" /> -->
+            <!-- <Image Grid.Row="4" Grid.Column="4" Source="white_chess_tile.png" Aspect="AspectFill" /> -->
+            <!-- <Image Grid.Row="4" Grid.Column="5" Source="brown_chess_tile.png" Aspect="AspectFill" /> -->
+            <!-- <Image Grid.Row="4" Grid.Column="6" Source="white_chess_tile.png" Aspect="AspectFill" /> -->
+            <!-- <Image Grid.Row="4" Grid.Column="7" Source="brown_chess_tile.png" Aspect="AspectFill" /> -->
+            <!-- -->
+            <!-- ~1~ Row 5 @1@ -->
+            <!-- <Image Grid.Row="5" Grid.Column="0" Source="brown_chess_tile.png" Aspect="AspectFill" /> -->
+            <!-- <Image Grid.Row="5" Grid.Column="1" Source="white_chess_tile.png" Aspect="AspectFill" /> -->
+            <!-- <Image Grid.Row="5" Grid.Column="2" Source="brown_chess_tile.png" Aspect="AspectFill" /> -->
+            <!-- <Image Grid.Row="5" Grid.Column="3" Source="white_chess_tile.png" Aspect="AspectFill" /> -->
+            <!-- <Image Grid.Row="5" Grid.Column="4" Source="brown_chess_tile.png" Aspect="AspectFill" /> -->
+            <!-- <Image Grid.Row="5" Grid.Column="5" Source="white_chess_tile.png" Aspect="AspectFill" /> -->
+            <!-- <Image Grid.Row="5" Grid.Column="6" Source="brown_chess_tile.png" Aspect="AspectFill" /> -->
+            <!-- <Image Grid.Row="5" Grid.Column="7" Source="white_chess_tile.png" Aspect="AspectFill" /> -->
+            <!-- -->
+            <!-- ~1~ Row 6 @1@ -->
+            <!-- <Image Grid.Row="6" Grid.Column="0" Source="white_chess_tile.png" Aspect="AspectFill" /> -->
+            <!-- <Image Grid.Row="6" Grid.Column="1" Source="brown_chess_tile.png" Aspect="AspectFill" /> -->
+            <!-- <Image Grid.Row="6" Grid.Column="2" Source="white_chess_tile.png" Aspect="AspectFill" /> -->
+            <!-- <Image Grid.Row="6" Grid.Column="3" Source="brown_chess_tile.png" Aspect="AspectFill" /> -->
+            <!-- <Image Grid.Row="6" Grid.Column="4" Source="white_chess_tile.png" Aspect="AspectFill" /> -->
+            <!-- <Image Grid.Row="6" Grid.Column="5" Source="brown_chess_tile.png" Aspect="AspectFill" /> -->
+            <!-- <Image Grid.Row="6" Grid.Column="6" Source="white_chess_tile.png" Aspect="AspectFill" /> -->
+            <!-- <Image Grid.Row="6" Grid.Column="7" Source="brown_chess_tile.png" Aspect="AspectFill" /> -->
+            <!-- -->
+            <!-- ~1~ Row 7 @1@ -->
+            <!-- <Image Grid.Row="7" Grid.Column="0" Source="brown_chess_tile.png" Aspect="AspectFill" /> -->
+            <!-- <Image Grid.Row="7" Grid.Column="1" Source="white_chess_tile.png" Aspect="AspectFill" /> -->
+            <!-- <Image Grid.Row="7" Grid.Column="2" Source="brown_chess_tile.png" Aspect="AspectFill" /> -->
+            <!-- <Image Grid.Row="7" Grid.Column="3" Source="white_chess_tile.png" Aspect="AspectFill" /> -->
+            <!-- <Image Grid.Row="7" Grid.Column="4" Source="brown_chess_tile.png" Aspect="AspectFill" /> -->
+            <!-- <Image Grid.Row="7" Grid.Column="5" Source="white_chess_tile.png" Aspect="AspectFill" /> -->
+            <!-- <Image Grid.Row="7" Grid.Column="6" Source="brown_chess_tile.png" Aspect="AspectFill" /> -->
+            <!-- <Image Grid.Row="7" Grid.Column="7" Source="white_chess_tile.png" Aspect="AspectFill" /> -->
 
-            <!-- Row 0 -->
-            <Image Grid.Row="0" Grid.Column="0" Source="white_chess_tile.png" Aspect="AspectFill" />
-            <Image Grid.Row="0" Grid.Column="1" Source="brown_chess_tile.png" Aspect="AspectFill" />
-            <Image Grid.Row="0" Grid.Column="2" Source="white_chess_tile.png" Aspect="AspectFill" />
-            <Image Grid.Row="0" Grid.Column="3" Source="brown_chess_tile.png" Aspect="AspectFill" />
-            <Image Grid.Row="0" Grid.Column="4" Source="white_chess_tile.png" Aspect="AspectFill" />
-            <Image Grid.Row="0" Grid.Column="5" Source="brown_chess_tile.png" Aspect="AspectFill" />
-            <Image Grid.Row="0" Grid.Column="6" Source="white_chess_tile.png" Aspect="AspectFill" />
-            <Image Grid.Row="0" Grid.Column="7" Source="brown_chess_tile.png" Aspect="AspectFill" />
-            <Image Grid.Row="0" Grid.Column="8" Source="brown_chess_tile.png" Aspect="AspectFill" />
-            <!-- Continue adding Image controls for the rest of the first row -->
-
-            <!-- Row 1 -->
-            <Image Grid.Row="1" Grid.Column="0" Source="brown_chess_tile.png" Aspect="AspectFill" />
-            <Image Grid.Row="1" Grid.Column="1" Source="white_chess_tile.png" Aspect="AspectFill" />
-            <Image Grid.Row="1" Grid.Column="2" Source="brown_chess_tile.png" Aspect="AspectFill" />
-            <Image Grid.Row="1" Grid.Column="3" Source="white_chess_tile.png" Aspect="AspectFill" />
-            <Image Grid.Row="1" Grid.Column="4" Source="brown_chess_tile.png" Aspect="AspectFill" />
-            <Image Grid.Row="1" Grid.Column="5" Source="white_chess_tile.png" Aspect="AspectFill" />
-            <Image Grid.Row="1" Grid.Column="6" Source="brown_chess_tile.png" Aspect="AspectFill" />
-            <Image Grid.Row="1" Grid.Column="7" Source="white_chess_tile.png" Aspect="AspectFill" />
-            <Image Grid.Row="1" Grid.Column="8" Source="white_chess_tile.png" Aspect="AspectFill" />
-
-            <!-- Row 1 -->
-            <Image Grid.Row="2" Grid.Column="0" Source="white_chess_tile.png" Aspect="AspectFill" />
-            <Image Grid.Row="2" Grid.Column="1" Source="brown_chess_tile.png" Aspect="AspectFill" />
-            <Image Grid.Row="2" Grid.Column="2" Source="white_chess_tile.png" Aspect="AspectFill" />
-            <Image Grid.Row="2" Grid.Column="3" Source="brown_chess_tile.png" Aspect="AspectFill" />
-            <Image Grid.Row="2" Grid.Column="4" Source="white_chess_tile.png" Aspect="AspectFill" />
-            <Image Grid.Row="2" Grid.Column="5" Source="brown_chess_tile.png" Aspect="AspectFill" />
-            <Image Grid.Row="2" Grid.Column="6" Source="white_chess_tile.png" Aspect="AspectFill" />
-            <Image Grid.Row="2" Grid.Column="7" Source="brown_chess_tile.png" Aspect="AspectFill" />
-            <Image Grid.Row="2" Grid.Column="8" Source="brown_chess_tile.png" Aspect="AspectFill" />
-
-            <!-- Row 1 -->
-            <Image Grid.Row="3" Grid.Column="0" Source="brown_chess_tile.png" Aspect="AspectFill" />
-            <Image Grid.Row="3" Grid.Column="1" Source="white_chess_tile.png" Aspect="AspectFill" />
-            <Image Grid.Row="3" Grid.Column="2" Source="brown_chess_tile.png" Aspect="AspectFill" />
-            <Image Grid.Row="3" Grid.Column="3" Source="white_chess_tile.png" Aspect="AspectFill" />
-            <Image Grid.Row="3" Grid.Column="4" Source="brown_chess_tile.png" Aspect="AspectFill" />
-            <Image Grid.Row="3" Grid.Column="5" Source="white_chess_tile.png" Aspect="AspectFill" />
-            <Image Grid.Row="3" Grid.Column="6" Source="brown_chess_tile.png" Aspect="AspectFill" />
-            <Image Grid.Row="3" Grid.Column="7" Source="white_chess_tile.png" Aspect="AspectFill" />
-            <Image Grid.Row="3" Grid.Column="8" Source="white_chess_tile.png" Aspect="AspectFill" />
-
-
-            <!-- Row 1 -->
-            <Image Grid.Row="4" Grid.Column="0" Source="white_chess_tile.png" Aspect="AspectFill" />
-            <Image Grid.Row="4" Grid.Column="1" Source="brown_chess_tile.png" Aspect="AspectFill" />
-            <Image Grid.Row="4" Grid.Column="2" Source="white_chess_tile.png" Aspect="AspectFill" />
-            <Image Grid.Row="4" Grid.Column="3" Source="brown_chess_tile.png" Aspect="AspectFill" />
-            <Image Grid.Row="4" Grid.Column="4" Source="white_chess_tile.png" Aspect="AspectFill" />
-            <Image Grid.Row="4" Grid.Column="5" Source="brown_chess_tile.png" Aspect="AspectFill" />
-            <Image Grid.Row="4" Grid.Column="6" Source="white_chess_tile.png" Aspect="AspectFill" />
-            <Image Grid.Row="4" Grid.Column="7" Source="brown_chess_tile.png" Aspect="AspectFill" />
-            <Image Grid.Row="4" Grid.Column="8" Source="brown_chess_tile.png" Aspect="AspectFill" />
-
-            <!-- Row 1 -->
-            <Image Grid.Row="5" Grid.Column="0" Source="brown_chess_tile.png" Aspect="AspectFill" />
-            <Image Grid.Row="5" Grid.Column="1" Source="white_chess_tile.png" Aspect="AspectFill" />
-            <Image Grid.Row="5" Grid.Column="2" Source="brown_chess_tile.png" Aspect="AspectFill" />
-            <Image Grid.Row="5" Grid.Column="3" Source="white_chess_tile.png" Aspect="AspectFill" />
-            <Image Grid.Row="5" Grid.Column="4" Source="brown_chess_tile.png" Aspect="AspectFill" />
-            <Image Grid.Row="5" Grid.Column="5" Source="white_chess_tile.png" Aspect="AspectFill" />
-            <Image Grid.Row="5" Grid.Column="6" Source="brown_chess_tile.png" Aspect="AspectFill" />
-            <Image Grid.Row="5" Grid.Column="7" Source="white_chess_tile.png" Aspect="AspectFill" />
-            <Image Grid.Row="5" Grid.Column="8" Source="white_chess_tile.png" Aspect="AspectFill" />
-
-            <!-- Row 1 -->
-            <Image Grid.Row="6" Grid.Column="0" Source="white_chess_tile.png" Aspect="AspectFill" />
-            <Image Grid.Row="6" Grid.Column="1" Source="brown_chess_tile.png" Aspect="AspectFill" />
-            <Image Grid.Row="6" Grid.Column="2" Source="white_chess_tile.png" Aspect="AspectFill" />
-            <Image Grid.Row="6" Grid.Column="3" Source="brown_chess_tile.png" Aspect="AspectFill" />
-            <Image Grid.Row="6" Grid.Column="4" Source="white_chess_tile.png" Aspect="AspectFill" />
-            <Image Grid.Row="6" Grid.Column="5" Source="brown_chess_tile.png" Aspect="AspectFill" />
-            <Image Grid.Row="6" Grid.Column="6" Source="white_chess_tile.png" Aspect="AspectFill" />
-            <Image Grid.Row="6" Grid.Column="7" Source="brown_chess_tile.png" Aspect="AspectFill" />
-            <Image Grid.Row="6" Grid.Column="8" Source="brown_chess_tile.png" Aspect="AspectFill" />
-
-            <!-- Row 1 -->
-            <Image Grid.Row="7" Grid.Column="0" Source="brown_chess_tile.png" Aspect="AspectFill" />
-            <Image Grid.Row="7" Grid.Column="1" Source="white_chess_tile.png" Aspect="AspectFill" />
-            <Image Grid.Row="7" Grid.Column="2" Source="brown_chess_tile.png" Aspect="AspectFill" />
-            <Image Grid.Row="7" Grid.Column="3" Source="white_chess_tile.png" Aspect="AspectFill" />
-            <Image Grid.Row="7" Grid.Column="4" Source="brown_chess_tile.png" Aspect="AspectFill" />
-            <Image Grid.Row="7" Grid.Column="5" Source="white_chess_tile.png" Aspect="AspectFill" />
-            <Image Grid.Row="7" Grid.Column="6" Source="brown_chess_tile.png" Aspect="AspectFill" />
-            <Image Grid.Row="7" Grid.Column="7" Source="white_chess_tile.png" Aspect="AspectFill" />
-            <Image Grid.Row="7" Grid.Column="8" Source="white_chess_tile.png" Aspect="AspectFill" />
-
-            <!-- Continue adding Image controls for the rest of the second row -->
-
-            <!-- Continue adding Image controls for the remaining rows and columns -->
-            <!-- Row 2, Row 3, ..., Row 7 -->
         </Grid>
     </Grid>
 
