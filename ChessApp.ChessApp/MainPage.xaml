@@ -1,41 +1,64 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="ChessApp.MainPage">
+﻿<?xml version="1.0" encoding="utf-8"?>
 
-    <ScrollView>
-        <VerticalStackLayout
-            Spacing="25"
-            Padding="30,0"
-            VerticalOptions="Center">
+<ContentPage
+    x:Class="ChessApp.MainPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
 
-            <Image
-                Source="dotnet_bot.png"
-                SemanticProperties.Description="Cute dot net bot waving hi to you!"
-                HeightRequest="200"
-                HorizontalOptions="Center" />
+    <ScrollView x:Name="Layout">
+        <ScrollView.GestureRecognizers>
+            <TapGestureRecognizer Tapped="OnScrollViewTapGestureRecognizerTapped" />
+        </ScrollView.GestureRecognizers>
+        <Grid x:Name="MainGrid"
+              RowSpacing="25"
+              ColumnSpacing="25"
+              Padding="30,0">
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+                <!-- Add more rows as needed -->
+            </Grid.RowDefinitions>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+                <!-- Add more columns as needed -->
+            </Grid.ColumnDefinitions>
+
+            <Image x:Name="robotMan"
+                   Grid.Row="0" Grid.Column="0"
+                   HeightRequest="200"
+                   HorizontalOptions="Center"
+                   TranslationX="{Binding Robot1.PositionX}"
+                   TranslationY="{Binding Robot1.PositionY}"
+                   SemanticProperties.Description="Cute dot net bot waving hi to you!"
+                   Source="{Binding Robot1.ImageFileName}">
+                <Image.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="OnImageTapGestureRecognizerTapped" />
+                </Image.GestureRecognizers>
+            </Image>
 
             <Label
-                Text="Hello, World!"
-                SemanticProperties.HeadingLevel="Level1"
                 FontSize="32"
-                HorizontalOptions="Center" />
+                HorizontalOptions="Center"
+                SemanticProperties.HeadingLevel="Level1"
+                Text="Hello, World!" />
 
             <Label
-                Text="Welcome to .NET Multi-platform App UI"
-                SemanticProperties.HeadingLevel="Level2"
-                SemanticProperties.Description="Welcome to dot net Multi platform App U I"
                 FontSize="18"
-                HorizontalOptions="Center" />
+                HorizontalOptions="Center"
+                SemanticProperties.Description="Welcome to dot net Multi platform App U I"
+                SemanticProperties.HeadingLevel="Level2"
+                Text="Welcome to .NET Multi-platform App UI" />
 
             <Button
-                x:Name="CounterBtn"
-                Text="Click me"
-                SemanticProperties.Hint="Counts the number of times you click"
                 Clicked="OnCounterClicked"
-                HorizontalOptions="Center" />
-
-        </VerticalStackLayout>
+                HorizontalOptions="Center"
+                SemanticProperties.Hint="Counts the number of times you click"
+                Text="Click me"
+                x:Name="CounterBtn" />
+        </Grid>
     </ScrollView>
 
 </ContentPage>
