@@ -48,21 +48,23 @@ public partial class MainPage : ContentPage, INotifyPropertyChanged
         SemanticScreenReader.Announce(CounterBtn.Text);
     }
 
+
+    private Image selectedImage; 
     private void OnImageTapGestureRecognizerTapped(object sender, TappedEventArgs e)
     {
-        if (!_imageSelected) _imageSelected = true;
+        if (!_imageSelected)
+        {
+            _imageSelected = true;
+            selectedImage = (Image)sender;
+        }
         // Robot1.PositionX = e.GetPosition();
     }
 
-    private void OnScrollViewTapGestureRecognizerTapped(object sender, TappedEventArgs e)
+    private async void OnScrollViewTapGestureRecognizerTapped(object sender, TappedEventArgs e)
     {
-        Point? relativeToContainerPosition = e.GetPosition((View)sender);
-        if (relativeToContainerPosition != null)
-        {
-            Console.WriteLine(relativeToContainerPosition.Value.X);
-            Console.WriteLine(relativeToContainerPosition.Value.Y);
-        }
-
-        Console.WriteLine("Not image");
+        Console.WriteLine("Not imagee");
+        await Navigation.PushAsync(new DragDropPage());
     }
+
+    
 }

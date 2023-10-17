@@ -1,5 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-
+﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage
     x:Class="ChessApp.MainPage"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
@@ -9,36 +8,11 @@
         <ScrollView.GestureRecognizers>
             <TapGestureRecognizer Tapped="OnScrollViewTapGestureRecognizerTapped" />
         </ScrollView.GestureRecognizers>
-        <Grid x:Name="MainGrid"
-              RowSpacing="25"
-              ColumnSpacing="25"
-              Padding="30,0">
-
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="*" />
-                <!-- Add more rows as needed -->
-            </Grid.RowDefinitions>
-
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto" />
-                <ColumnDefinition Width="*" />
-                <!-- Add more columns as needed -->
-            </Grid.ColumnDefinitions>
-
-            <Image x:Name="robotMan"
-                   Grid.Row="0" Grid.Column="0"
-                   HeightRequest="200"
-                   HorizontalOptions="Center"
-                   TranslationX="{Binding Robot1.PositionX}"
-                   TranslationY="{Binding Robot1.PositionY}"
-                   SemanticProperties.Description="Cute dot net bot waving hi to you!"
-                   Source="{Binding Robot1.ImageFileName}">
-                <Image.GestureRecognizers>
-                    <TapGestureRecognizer Tapped="OnImageTapGestureRecognizerTapped" />
-                </Image.GestureRecognizers>
-            </Image>
-
+        <VerticalStackLayout
+            Padding="30,0"
+            Spacing="25"
+            VerticalOptions="Center">
+            
             <Label
                 FontSize="32"
                 HorizontalOptions="Center"
@@ -58,7 +32,8 @@
                 SemanticProperties.Hint="Counts the number of times you click"
                 Text="Click me"
                 x:Name="CounterBtn" />
-        </Grid>
+
+        </VerticalStackLayout>
     </ScrollView>
 
 </ContentPage>
