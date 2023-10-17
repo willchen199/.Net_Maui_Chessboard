@@ -1,70 +1,27 @@
-﻿using System.ComponentModel;
+﻿using System;
+using Microsoft.Maui.Accessibility;
+using Microsoft.Maui.Controls;
 
 namespace ChessApp;
 
-public partial class MainPage : ContentPage, INotifyPropertyChanged
+public partial class MainPage : ContentPage
 {
-    private int _count;
-
-    private bool _imageSelected;
-    private Robot _robot1;
+    int count = 0;
 
     public MainPage()
     {
-        Robot1 = new Robot("dotnet_bot.png");
         InitializeComponent();
-        BindingContext = this;
     }
 
-    public Robot Robot1
+/*    private void OnCounterClicked(object sender, EventArgs e)
     {
-        get => _robot1;
-        set
-        {
-            if (_robot1 != value)
-            {
-                _robot1 = value;
-                OnPropertyChanged(nameof(Robot1));
-            }
-        }
-    }
+        count++;
 
-    public event PropertyChangedEventHandler PropertyChanged;
-
-    protected virtual void OnPropertyChanged(string propertyName)
-    {
-        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-    }
-
-    private void OnCounterClicked(object sender, EventArgs e)
-    {
-        _count++;
-
-        if (_count == 1)
-            CounterBtn.Text = $"Clicked {_count} time";
+        if (count == 1)
+            CounterBtn.Text = $"Clicked {count} time";
         else
-            CounterBtn.Text = $"Clicked {_count} times";
+            CounterBtn.Text = $"Clicked {count} times";
 
         SemanticScreenReader.Announce(CounterBtn.Text);
-    }
-
-
-    private Image selectedImage; 
-    private void OnImageTapGestureRecognizerTapped(object sender, TappedEventArgs e)
-    {
-        if (!_imageSelected)
-        {
-            _imageSelected = true;
-            selectedImage = (Image)sender;
-        }
-        // Robot1.PositionX = e.GetPosition();
-    }
-
-    private async void OnScrollViewTapGestureRecognizerTapped(object sender, TappedEventArgs e)
-    {
-        Console.WriteLine("Not imagee");
-        await Navigation.PushAsync(new DragDropPage());
-    }
-
-    
+    }*/
 }
