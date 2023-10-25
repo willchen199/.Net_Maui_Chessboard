@@ -1,12 +1,14 @@
-﻿namespace ChessApp;
+﻿using System.Collections.ObjectModel;
+
+namespace ChessApp;
 
 public partial class MainPage : ContentPage
 {
-    private Chessboard chessboard;
+    public ObservableCollection<ChessboardSquareVM> ChessboardVM { get; set; }
 
     public MainPage()
     {
         InitializeComponent();
-        chessboard = new Chessboard(ChessboardGrid);
+        ChessboardVM = new ChessboardVM().Squares;
     }
 }
