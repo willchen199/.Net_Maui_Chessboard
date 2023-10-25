@@ -19,13 +19,11 @@
                 </Label.GestureRecognizers>
             </Label>
         </Frame>
-        
         <Frame Margin="20">
             <Frame.GestureRecognizers>
                 <DropGestureRecognizer AllowDrop="True" Drop="DropGestureRecognizer_Drop_1" />
             </Frame.GestureRecognizers>
         </Frame>
-
         <Entry Text="" >
             <Entry.GestureRecognizers>
                 <DropGestureRecognizer AllowDrop="True" Drop="DropGestureRecognizer_Drop_1" />
