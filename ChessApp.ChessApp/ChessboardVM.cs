@@ -7,12 +7,9 @@ namespace ChessApp;
 
 public class ChessboardVM : INotifyPropertyChanged
 {
-    private readonly ChessboardModel1 chessboard;
-
-
     public ChessboardVM()
     {
-        chessboard = new ChessboardModel1();
+        var chessboard = new ChessboardModel1();
         // Convert Chessboard's Squares to ObservableCollection for data-binding
         Squares = new ObservableCollection<ChessboardSquareVM>(
             chessboard.Squares.Select(s => new ChessboardSquareVM(s.Value)));

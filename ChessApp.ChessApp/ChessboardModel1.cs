@@ -15,7 +15,8 @@ public class ChessboardModel1
                 ChessboardSquareModel chessboardSquare = new(row, col, isWhiteSquare ? "white_chess_tile.png" : "brown_chess_tile.png");
 
                 // Set starting pieces if they exist on this square
-                if (IsStartingSquareForPiece(row, col, out ChessPieceModel piece)) chessboardSquare.Piece = piece;
+                if (IsStartingSquareForPiece(row, col, out ChessPieceModel piece))
+                    chessboardSquare.Piece = piece;
 
                 Squares[(row, col)] = chessboardSquare;
             }

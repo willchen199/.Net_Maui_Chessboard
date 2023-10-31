@@ -5,15 +5,18 @@ namespace ChessApp;
 
 public class ChessboardSquareVM : INotifyPropertyChanged
 {
-    private readonly ChessboardSquareModel _square;
+    private readonly ChessboardSquareModel square;
 
     public ChessboardSquareVM(ChessboardSquareModel square)
     {
-        _square = square;
+        this.square = square;
     }
 
-    public string BackgroundImageSource => _square.Piece?.BackgroundPieceImage;
-    public string ImageSource => _square.Piece?.Image;
+    public int OriginalRow => square.Row;
+    public int OriginalCol => square.Col;
+    
+    public string BackgroundImageSource => square.Piece?.BackgroundPieceImage;
+    public string ImageSource => square.Piece?.Image;
 
     public event PropertyChangedEventHandler PropertyChanged;
 
