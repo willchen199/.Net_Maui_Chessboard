@@ -31,7 +31,8 @@
         <!--  This is the inner Grid that represents the chessboard itself.  -->
         <CollectionView Grid.Row="1" ItemsSource="{Binding Squares}">
             <CollectionView.ItemsLayout>
-                <GridItemsLayout Orientation="Vertical" />
+                <GridItemsLayout Orientation="Vertical"
+                                 />
             </CollectionView.ItemsLayout>
 
             <CollectionView.ItemTemplate>

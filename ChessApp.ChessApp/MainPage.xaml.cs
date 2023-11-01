@@ -1,4 +1,6 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
+using Microsoft.Maui.Controls;
 
 namespace ChessApp;
 
@@ -10,5 +12,6 @@ public partial class MainPage : ContentPage
     {
         InitializeComponent();
         ChessboardVM = new ChessboardVM().Squares;
+        Console.WriteLine("break");
     }
 }
