@@ -11,6 +11,19 @@ public partial class MainPage : ContentPage
     public MainPage()
     {
         InitializeComponent();
+        MakeChessboard();
+        MakeChessboard();
+    }
+
+    private void MakeChessboard()
+    {
+        ImageButton chessGridSquare = new ImageButton()
+        {
+            Source = "bishop_b.png",
+            BackgroundColor = Colors.White
+        };
+        
+        UxChessGrid.Children.Add(chessGridSquare);
     }
 
 /*    private void OnCounterClicked(object sender, EventArgs e)
@@ -24,4 +37,8 @@ public partial class MainPage : ContentPage
 
         SemanticScreenReader.Announce(CounterBtn.Text);
     }*/
+private void ImageButton_OnClicked(object sender, EventArgs e)
+{
+    throw new NotImplementedException();
+}
 }

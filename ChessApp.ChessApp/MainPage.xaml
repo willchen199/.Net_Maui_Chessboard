@@ -1,11 +1,15 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="ChessApp.MainPage">
+<ContentPage
+    x:Class="ChessApp.MainPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
 
     <Grid>
-        <!-- Create a 2D grid for the chessboard -->
-        <Grid x:Name="chessGrid" RowSpacing="1" ColumnSpacing="1">
+        <!--  Create a 2D grid for the chessboard  -->
+        <Grid
+            ColumnSpacing="1"
+            RowSpacing="1"
+            x:Name="UxChessGrid">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*" />
                 <RowDefinition Height="*" />
@@ -26,53 +30,10 @@
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
-
-            <!-- Create buttons for each chess square (background) -->
-
-
-            <!-- Create ImageButton controls for each chess square with images -->
-            <ImageButton Grid.Row="0" Grid.Column="0" BackgroundColor="White" Command="{Binding ChessCommand}" CommandParameter="A1">
-                <ImageButton.Source>
-                    <FileImageSource File="knight_b.png" />
-                </ImageButton.Source>
-            </ImageButton>
-            <ImageButton Grid.Row="0" Grid.Column="1" BackgroundColor="Black" Command="{Binding ChessCommand}" CommandParameter="B1">
-                <ImageButton.Source>
-                    <FileImageSource File="pawn_b.png" />
-                </ImageButton.Source>
-            </ImageButton>
-            <ImageButton Grid.Row="0" Grid.Column="0" BackgroundColor="White" Command="{Binding ChessCommand}" CommandParameter="A1">
-                <ImageButton.Source>
-                    <FileImageSource File="knight_b.png" />
-                </ImageButton.Source>
-            </ImageButton>
-            <ImageButton Grid.Row="0" Grid.Column="1" BackgroundColor="Black" Command="{Binding ChessCommand}" CommandParameter="B1">
-                <ImageButton.Source>
-                    <FileImageSource File="pawn_b.png" />
-                </ImageButton.Source>
-            </ImageButton>
-            <ImageButton Grid.Row="0" Grid.Column="0" BackgroundColor="White" Command="{Binding ChessCommand}" CommandParameter="A1">
-                <ImageButton.Source>
-                    <FileImageSource File="knight_b.png" />
-                </ImageButton.Source>
-            </ImageButton>
-            <ImageButton Grid.Row="0" Grid.Column="1" BackgroundColor="Black" Command="{Binding ChessCommand}" CommandParameter="B1">
-                <ImageButton.Source>
-                    <FileImageSource File="pawn_b.png" />
-                </ImageButton.Source>
-            </ImageButton>
-
-
-
-
-
-            <!-- Overlay Image controls for chess pieces -->
-            <Image Source="white_rook.png" Grid.Row="0" Grid.Column="0" Aspect="AspectFit" />
-            <Image Source="black_knight.png" Grid.Row="0" Grid.Column="1" Aspect="AspectFit" />
-            <!-- Repeat this pattern for the chess pieces on the board -->
         </Grid>
+        <ImageButton Clicked="ImageButton_OnClicked" />
 
-        <!-- Add other UI elements or controls here -->
+        <!--  Add other UI elements or controls here  -->
     </Grid>
 
 </ContentPage>
