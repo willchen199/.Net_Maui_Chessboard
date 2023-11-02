@@ -10,7 +10,7 @@ public class Chessboard
         for (int col = 0; col < 8; col++)
         {
             bool isWhiteSquare = (row + col) % 2 == 0;
-            string squareImageSource = isWhiteSquare ? "white_chess_tile.png" : "brown_chess_tile.png";
+            Color squareImageSource = isWhiteSquare ? Colors.White : Colors.Black;
             Image squareImage = new()
             {
                 Source = ImageSource.FromFile(squareImageSource),
