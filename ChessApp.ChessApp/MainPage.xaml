@@ -3,37 +3,31 @@
     x:Class="ChessApp.MainPage"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
-
-    <Grid>
-        <!--  Create a 2D grid for the chessboard  -->
-        <Grid
-            ColumnSpacing="1"
-            RowSpacing="1"
-            x:Name="UxChessGrid">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="*" />
-                <RowDefinition Height="*" />
-                <RowDefinition Height="*" />
-                <RowDefinition Height="*" />
-                <RowDefinition Height="*" />
-                <RowDefinition Height="*" />
-                <RowDefinition Height="*" />
-                <RowDefinition Height="*" />
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
-        </Grid>
-        <ImageButton Clicked="ImageButton_OnClicked" />
-
-        <!--  Add other UI elements or controls here  -->
+    <Grid ColumnDefinitions="2*, 6*, 2*" RowDefinitions="2*, 6*, 2*">
+        <CollectionView
+            Grid.Column="1"
+            Grid.Row="1"
+            ItemsSource="{Binding Squares}"
+            SizeChanged="OnCollectionViewSizeChanged"
+            x:Name="ChessboardView">
+            <CollectionView.ItemsLayout>
+                <GridItemsLayout
+                    HorizontalItemSpacing="0"
+                    Orientation="Horizontal"
+                    Span="8"
+                    VerticalItemSpacing="0" />
+            </CollectionView.ItemsLayout>
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <ImageButton
+                        Aspect="AspectFill"
+                        BackgroundColor="{Binding Color}"
+                        Clicked="ImageButton_OnClicked"
+                        HeightRequest="{Binding Height}"
+                        Source="{Binding ImageSource}"
+                        WidthRequest="{Binding Width}" />
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
     </Grid>
-
 </ContentPage>

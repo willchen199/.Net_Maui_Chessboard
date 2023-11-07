@@ -1,44 +1,41 @@
-﻿using System;
-using Microsoft.Maui.Accessibility;
-using Microsoft.Maui.Controls;
-
-namespace ChessApp;
+﻿namespace ChessApp;
 
 public partial class MainPage : ContentPage
 {
-    int count = 0;
-
     public MainPage()
     {
         InitializeComponent();
-        MakeChessboard();
-        MakeChessboard();
+        BindingContext = new ChessboardVM();
     }
 
-    private void MakeChessboard()
+    private void ImageButton_OnClicked(object sender, EventArgs e)
     {
-        ImageButton chessGridSquare = new ImageButton()
+        if (sender.GetType() == typeof(ImageButton))
         {
-            Source = "bishop_b.png",
-            BackgroundColor = Colors.White
-        };
-        
-        UxChessGrid.Children.Add(chessGridSquare);
+            ImageButton pressedButton = (ImageButton)sender;
+            pressedButton.Source = ImageSource.FromFile("black_tile.png");
+        }
+    }
+    
+    public double MaxValue {
+        get => (double)GetValue(maxValueProperty);
+        set => SetValue(maxValueProperty, value);
     }
 
-/*    private void OnCounterClicked(object sender, EventArgs e)
+    private readonly BindableProperty maxValueProperty =
+        BindableProperty.Create("MaxValue", typeof(double), typeof(MainPage), 45);
+
+    private void OnCollectionViewSizeChanged(object sender, EventArgs e)
     {
-        count++;
-
-        if (count == 1)
-            CounterBtn.Text = $"Clicked {count} time";
-        else
-            CounterBtn.Text = $"Clicked {count} times";
-
-        SemanticScreenReader.Announce(CounterBtn.Text);
-    }*/
-private void ImageButton_OnClicked(object sender, EventArgs e)
-{
-    throw new NotImplementedException();
-}
+        var collectionView = sender as CollectionView;
+        if (collectionView != null)
+        {
+            var size = collectionView.Width / 8; // Assuming collectionView.Width == collectionView.Height
+            foreach (ChessboardSquare item in (collectionView.ItemsSource as IEnumerable<ChessboardSquare>)!)
+            {
+                item.Width = (int)size;
+                item.Height = (int)size;
+            }
+        }
+    }
 }
