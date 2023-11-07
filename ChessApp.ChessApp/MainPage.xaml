@@ -8,6 +8,7 @@
             Grid.Column="1"
             Grid.Row="1"
             ItemsSource="{Binding Squares}"
+            Margin="0"
             SizeChanged="OnCollectionViewSizeChanged"
             x:Name="ChessboardView">
             <CollectionView.ItemsLayout>
@@ -20,7 +21,6 @@
             <CollectionView.ItemTemplate>
                 <DataTemplate>
                     <ImageButton
-                        Aspect="AspectFill"
                         BackgroundColor="{Binding Color}"
                         Clicked="ImageButton_OnClicked"
                         HeightRequest="{Binding Height}"

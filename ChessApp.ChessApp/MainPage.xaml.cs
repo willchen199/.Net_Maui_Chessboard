@@ -6,6 +6,7 @@ public partial class MainPage : ContentPage
     {
         InitializeComponent();
         BindingContext = new ChessboardVM();
+        isLoaded = true;
     }
 
     private void ImageButton_OnClicked(object sender, EventArgs e)
@@ -17,21 +18,15 @@ public partial class MainPage : ContentPage
         }
     }
     
-    public double MaxValue {
-        get => (double)GetValue(maxValueProperty);
-        set => SetValue(maxValueProperty, value);
-    }
-
-    private readonly BindableProperty maxValueProperty =
-        BindableProperty.Create("MaxValue", typeof(double), typeof(MainPage), 45);
-
+    private bool isLoaded = false;
+    
     private void OnCollectionViewSizeChanged(object sender, EventArgs e)
     {
         var collectionView = sender as CollectionView;
-        if (collectionView != null)
+        if (collectionView != null && isLoaded)
         {
-            var size = collectionView.Width / 8; // Assuming collectionView.Width == collectionView.Height
-            foreach (ChessboardSquare item in (collectionView.ItemsSource as IEnumerable<ChessboardSquare>)!)
+            var size = collectionView.Width / 8; // Assuming collectionView.Width is not null
+            foreach (ChessboardSquare item in (collectionView.ItemsSource as IEnumerable<ChessboardSquare>))
             {
                 item.Width = (int)size;
                 item.Height = (int)size;
