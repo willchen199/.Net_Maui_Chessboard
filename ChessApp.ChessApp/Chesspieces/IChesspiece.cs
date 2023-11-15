@@ -19,10 +19,9 @@ public interface IChesspiece
     public bool IsInCheckOrCheckmateOrStalemateOrNone { get; set; }
     public bool IsInCheckAndCheckmateOrStalemateOrNone { get; set; }
     public bool IsInCheckOrCheckmateAndStalemateOrNone { get; set; }
-    
+
     public void Move();
     public bool CanMove(int newRow, int newColumn);
     public void Capture();
     public void Promote();
-    
 }

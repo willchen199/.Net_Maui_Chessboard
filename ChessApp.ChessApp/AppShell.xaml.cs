@@ -1,6 +1,4 @@
-﻿using Microsoft.Maui.Controls;
-
-namespace ChessApp;
+﻿namespace ChessApp;
 
 public partial class AppShell : Shell
 {
