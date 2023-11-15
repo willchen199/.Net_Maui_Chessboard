@@ -22,7 +22,7 @@
                            WidthRequest="{Binding Width}">
                         <ImageButton Aspect="AspectFill"
                                      BackgroundColor="{Binding Color}"
-                                     Clicked="ImageButton_OnClicked"
+                                     Clicked="ChessSquare_OnClicked"
                                      HorizontalOptions="FillAndExpand"
                                      Source="{Binding ImageSource}"
                                      VerticalOptions="FillAndExpand" />

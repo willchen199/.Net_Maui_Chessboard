@@ -18,7 +18,7 @@ public partial class MainPage : ContentPage
         Window.MinimumWidth = 750;
     }
 
-    private void ImageButton_OnClicked(object sender, EventArgs e)
+    private void ChessSquare_OnClicked(object sender, EventArgs e)
     {
         if (sender.GetType() == typeof(ImageButton))
         {

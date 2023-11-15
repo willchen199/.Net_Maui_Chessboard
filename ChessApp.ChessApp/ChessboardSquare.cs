@@ -5,11 +5,18 @@ namespace ChessApp;
 
 public class ChessboardSquare : INotifyPropertyChanged
 {
-    public ChessboardSquare(int width, int height)
+    public ChessboardSquare(int width, int height, int row, int column, ImageSource imageSource, Color color)
     {
         _width = width;
         _height = height;
+        Row = row;
+        Column = column;
+        ImageSource = imageSource;
+        Color = color;
     }
+    
+    public int Row { get; set; }
+    public int Column { get; set; }
     
     private ImageSource imageSource;
     public ImageSource ImageSource

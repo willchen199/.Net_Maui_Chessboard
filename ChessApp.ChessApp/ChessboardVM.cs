@@ -11,20 +11,19 @@ public class ChessboardVM : INotifyPropertyChanged
         Squares = new ObservableCollection<ChessboardSquare>();
 
         for (var row = 0; row < 8; row++)
-        for (var col = 0; col < 8; col++)
         {
-            var isWhiteSquare = (row + col) % 2 == 0;
-            var squareColor = isWhiteSquare ? Colors.White : Colors.Black;
-
-            Squares.Add(new ChessboardSquare(45, 45)
+            for (var col = 0; col < 8; col++)
             {
-                ImageSource = ImageSource.FromFile("dotnet_bot.png"),
-                Color = squareColor
-            });
+                var isWhiteSquare = (row + col) % 2 == 0;
+                var squareColor = isWhiteSquare ? Colors.White : Colors.Black;
+
+                Squares.Add(new ChessboardSquare(45, 45, row, col, 
+                    ImageSource.FromFile("dotnet_bot.png"), squareColor));
+            }
         }
     }
 
-    public ObservableCollection<ChessboardSquare> Squares { get; private set; }
+    private ObservableCollection<ChessboardSquare> Squares { get; }
     public event PropertyChangedEventHandler PropertyChanged;
 
     protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
