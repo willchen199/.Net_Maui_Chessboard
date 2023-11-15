@@ -1,4 +1,6 @@
-﻿namespace ChessApp;
+﻿using System.Collections;
+
+namespace ChessApp;
 
 public partial class MainPage : ContentPage
 {
@@ -8,29 +10,88 @@ public partial class MainPage : ContentPage
         BindingContext = new ChessboardVM();
         isLoaded = true;
     }
+    
+    protected override void OnAppearing()
+    {
+        base.OnAppearing();
+        Window.MinimumHeight = 850;
+        Window.MinimumWidth = 750;
+    }
 
     private void ImageButton_OnClicked(object sender, EventArgs e)
     {
         if (sender.GetType() == typeof(ImageButton))
         {
             ImageButton pressedButton = (ImageButton)sender;
-            pressedButton.Source = ImageSource.FromFile("black_tile.png");
+            if (pressedButton.Source == ImageSource.FromFile("black_tile.png"))
+            {
+                ImageSource.FromFile("white_tile.png");
+            }
+            else
+            {
+                pressedButton.Source = ImageSource.FromFile("black_tile.png");
+            }
+            
         }
     }
     
-    private bool isLoaded = false;
+    private readonly bool isLoaded;
     
-    private void OnCollectionViewSizeChanged(object sender, EventArgs e)
+    private void MainPage_OnSizeChanged(object sender, EventArgs e)
     {
-        var collectionView = sender as CollectionView;
-        if (collectionView != null && isLoaded)
+        if (!isLoaded || sender is not ContentPage page)
+            return;
+        
+        smallestDimension = Math.Min(page.Width * 0.85, page.Height * 0.8);
+
+        UxChessboardView.WidthRequest = smallestDimension;
+        UxChessboardView.HeightRequest = smallestDimension;
+        AdjustChessboardPieces();
+    }
+
+    private double smallestDimension;
+    private int width;
+    public int Width
+    {
+        get => width;
+        set
         {
-            var size = collectionView.Width / 8; // Assuming collectionView.Width is not null
-            foreach (ChessboardSquare item in (collectionView.ItemsSource as IEnumerable<ChessboardSquare>))
+            if (width != value)
             {
-                item.Width = (int)size;
-                item.Height = (int)size;
+                width = value;
+                OnPropertyChanged(nameof(Width));
             }
+        }
+    }
+
+    private int height;
+    public int Height
+    {
+        get => height;
+        set
+        {
+            if (height != value)
+            {
+                height = value;
+                OnPropertyChanged(nameof(Height));
+            }
+        }
+    }
+    private void AdjustChessboardPieces()
+    {
+        var size = UxChessboardView.Width / 8; 
+        foreach (ChessboardSquare item in (IEnumerable<ChessboardSquare>)UxChessboardView.ItemsSource)
+        {
+            item.Width = (int)size;
+            item.Height = (int)size;
+        }
+    }
+    
+    private void ChessboardView_OnSizeChanged(object sender, EventArgs e)
+    {
+        if (sender is CollectionView collectionView && isLoaded)
+        {
+            AdjustChessboardPieces();
         }
     }
 }

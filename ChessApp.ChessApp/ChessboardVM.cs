@@ -18,7 +18,7 @@ public class ChessboardVM : INotifyPropertyChanged
 
             Squares.Add(new ChessboardSquare(45, 45)
             {
-                ImageSource = ImageSource.FromFile("white_tile.png"),
+                ImageSource = ImageSource.FromFile("dotnet_bot.png"),
                 Color = squareColor
             });
         }

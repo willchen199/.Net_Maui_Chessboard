@@ -1,31 +1,32 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage
-    x:Class="ChessApp.MainPage"
-    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
-    <Grid ColumnDefinitions="2*, 6*, 2*" RowDefinitions="2*, 6*, 2*">
-        <CollectionView
-            Grid.Column="1"
-            Grid.Row="1"
-            ItemsSource="{Binding Squares}"
-            Margin="0"
-            SizeChanged="OnCollectionViewSizeChanged"
-            x:Name="ChessboardView">
+<ContentPage x:Class="ChessApp.MainPage"
+             xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             SizeChanged="MainPage_OnSizeChanged">
+    <Grid ColumnDefinitions="*, *, *" RowDefinitions="*, *, *">
+        <CollectionView x:Name="UxChessboardView"
+                        Grid.Row="1"
+                        Grid.Column="1"
+                        Margin="0"
+                        ItemsSource="{Binding Squares}"
+                        SizeChanged="ChessboardView_OnSizeChanged">
             <CollectionView.ItemsLayout>
-                <GridItemsLayout
-                    HorizontalItemSpacing="0"
-                    Orientation="Horizontal"
-                    Span="8"
-                    VerticalItemSpacing="0" />
+                <GridItemsLayout Orientation="Horizontal" Span="8" />
             </CollectionView.ItemsLayout>
             <CollectionView.ItemTemplate>
                 <DataTemplate>
-                    <ImageButton
-                        BackgroundColor="{Binding Color}"
-                        Clicked="ImageButton_OnClicked"
-                        HeightRequest="{Binding Height}"
-                        Source="{Binding ImageSource}"
-                        WidthRequest="{Binding Width}" />
+                    <Frame Padding="0"
+                           HasShadow="False"
+                           HeightRequest="{Binding Height}"
+                           IsClippedToBounds="True"
+                           WidthRequest="{Binding Width}">
+                        <ImageButton Aspect="AspectFill"
+                                     BackgroundColor="{Binding Color}"
+                                     Clicked="ImageButton_OnClicked"
+                                     HorizontalOptions="FillAndExpand"
+                                     Source="{Binding ImageSource}"
+                                     VerticalOptions="FillAndExpand" />
+                    </Frame>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>
