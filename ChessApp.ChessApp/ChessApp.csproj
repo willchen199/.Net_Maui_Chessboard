@@ -61,4 +61,17 @@
       <ProjectReference Include="..\ChessApp.Orbit.Engine\Orbit.Engine.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <MauiXaml Update="ChessPage.xaml">
+        <SubType>Designer</SubType>
+      </MauiXaml>
+    </ItemGroup>
+
+    <ItemGroup>
+      <Compile Update="ChessPage.xaml.cs">
+        <DependentUpon>ChessPage.xaml</DependentUpon>
+        <SubType>Code</SubType>
+      </Compile>
+    </ItemGroup>
+
 </Project>

@@ -3,7 +3,7 @@
 /// <summary>
 ///     Represents the main page of the Chess application.
 /// </summary>
-public partial class MainPage : ContentPage
+public partial class ChessPage : ContentPage
 {
     private readonly bool isLoaded; // Flag to check if the page is loaded.
 
@@ -13,9 +13,9 @@ public partial class MainPage : ContentPage
     private int width;
 
     /// <summary>
-    ///     Constructor for MainPage. Initializes the page components and sets up the view model.
+    ///     Constructor for ChessPage. Initializes the page components and sets up the view model.
     /// </summary>
-    public MainPage()
+    public ChessPage()
     {
         InitializeComponent(); // Initialize the page's components.
         BindingContext = new ChessboardVM(); // Set the binding context to a new Chessboard view model.
@@ -23,7 +23,7 @@ public partial class MainPage : ContentPage
     }
 
     /// <summary>
-    ///     Width property of the MainPage. Notifies when the property changes.
+    ///     Width property of the ChessPage. Notifies when the property changes.
     /// </summary>
     public int Width
     {
@@ -39,7 +39,7 @@ public partial class MainPage : ContentPage
     }
 
     /// <summary>
-    ///     Height property of the MainPage. Notifies when the property changes.
+    ///     Height property of the ChessPage. Notifies when the property changes.
     /// </summary>
     public int Height
     {
@@ -100,11 +100,11 @@ public partial class MainPage : ContentPage
     }
 
     /// <summary>
-    /// Event handler for when the size of the MainPage changes. Adjusts the chessboard size.
+    /// Event handler for when the size of the ChessPage changes. Adjusts the chessboard size.
     /// </summary>
     /// <param name="sender">The object that raised the event.</param>
     /// <param name="e">Event data.</param>
-    private void MainPage_OnSizeChanged(object sender, EventArgs e)
+    private void ChessPage_OnSizeChanged(object sender, EventArgs e)
     {
         // Return if the page is not loaded or sender is not a ContentPage.
         if (!isLoaded || sender is not ContentPage page)
