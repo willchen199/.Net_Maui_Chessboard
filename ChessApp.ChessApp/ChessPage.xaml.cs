@@ -1,7 +1,7 @@
 ﻿namespace ChessApp;
 
 /// <summary>
-///     Represents the main page of the Chess application.
+/// Represents the main page of the Chess application.
 /// </summary>
 public partial class ChessPage : ContentPage
 {
@@ -13,7 +13,7 @@ public partial class ChessPage : ContentPage
     private int width;
 
     /// <summary>
-    ///     Constructor for ChessPage. Initializes the page components and sets up the view model.
+    /// Constructor for ChessPage. Initializes the page components and sets up the view model.
     /// </summary>
     public ChessPage()
     {
@@ -23,7 +23,7 @@ public partial class ChessPage : ContentPage
     }
 
     /// <summary>
-    ///     Width property of the ChessPage. Notifies when the property changes.
+    /// Width property of the ChessPage. Notifies when the property changes.
     /// </summary>
     public int Width
     {
@@ -39,7 +39,7 @@ public partial class ChessPage : ContentPage
     }
 
     /// <summary>
-    ///     Height property of the ChessPage. Notifies when the property changes.
+    /// Height property of the ChessPage. Notifies when the property changes.
     /// </summary>
     public int Height
     {
@@ -55,7 +55,7 @@ public partial class ChessPage : ContentPage
     }
 
     /// <summary>
-    ///     Called when the page appears on the screen. Sets the minimum size for the window.
+    /// Called when the page appears on the screen. Sets the minimum size for the window.
     /// </summary>
     protected override void OnAppearing()
     {

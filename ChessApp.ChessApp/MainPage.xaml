@@ -1,0 +1,94 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage x:Class="ChessApp.MainPage"
+             xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             Title=""
+             BackgroundColor="Wheat">
+
+    <ScrollView>
+        <VerticalStackLayout>
+            <Label Padding="50"
+                   FontAttributes="Bold"
+                   FontFamily="Times New Roman"
+                   FontSize="175"
+                   HorizontalOptions="Center"
+                   Text="Chess"
+                   TextColor="Black"
+                   VerticalOptions="Center" />
+
+            <Label Margin="0,-125,0,0"
+                   Padding="50"
+                   FontAttributes="Bold"
+                   FontFamily="Times New Roman"
+                   FontSize="25"
+                   HorizontalOptions="Center"
+                   Text="by Shadow Wizard Developers"
+                   TextColor="Black"
+                   VerticalOptions="Center" />
+
+            <Button x:Name="SinglePlayer"
+                    Margin="15"
+                    BackgroundColor="#8F2C09"
+                    Clicked="OnCounterClick"
+                    FontFamily="Times New Roman"
+                    FontSize="35"
+                    HeightRequest="75"
+                    HorizontalOptions="Center"
+                    Text="Single Player"
+                    TextColor="Wheat"
+                    WidthRequest="350" />
+
+
+            <Button x:Name="LocalMultiplayer"
+                    Margin="15"
+                    BackgroundColor="#8F2C09"
+                    Clicked="OnCounterClick"
+                    FontFamily="Times New Roman"
+                    FontSize="35"
+                    HeightRequest="75"
+                    HorizontalOptions="Center"
+                    Text="Local Multiplayer"
+                    TextColor="Wheat"
+                    WidthRequest="350" />
+
+            <Button x:Name="OnlineMultiplayer"
+                    Margin="15"
+                    BackgroundColor="#8F2C09"
+                    Clicked="OnCounterClick"
+                    FontFamily="Times New Roman"
+                    FontSize="35"
+                    HeightRequest="75"
+                    HorizontalOptions="Center"
+                    Text="Online Multiplayer"
+                    TextColor="Wheat"
+                    WidthRequest="350" />
+
+            <Button x:Name="LoadGame"
+                    Margin="15"
+                    BackgroundColor="#8F2C09"
+                    Clicked="OnCounterClick"
+                    FontFamily="Times New Roman"
+                    FontSize="35"
+                    HeightRequest="75"
+                    HorizontalOptions="Center"
+                    Text="Load Game"
+                    TextColor="Wheat"
+                    WidthRequest="350" />
+
+            <Button x:Name="Settings"
+                    Margin="15"
+                    BackgroundColor="#8F2C09"
+                    Clicked="OpenSettings"
+                    FontFamily="Times New Roman"
+                    FontSize="35"
+                    HeightRequest="75"
+                    HorizontalOptions="Center"
+                    Text="Settings"
+                    TextColor="Wheat"
+                    WidthRequest="350" />
+
+
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>
