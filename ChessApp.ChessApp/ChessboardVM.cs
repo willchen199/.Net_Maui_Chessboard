@@ -1,6 +1,7 @@
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using ChessApp.Chesspieces;
 
 namespace ChessApp;
 
@@ -16,21 +17,72 @@ public class ChessboardVM : INotifyPropertyChanged
     {
         Squares = new ObservableCollection<ChessboardSquare>(); // Initialize the collection of squares.
 
-        // Loop to create 8x8 squares for the chessboard.
-        for (int row = 0; row < 8; row++)
         for (int col = 0; col < 8; col++)
+        for (int row = 0; row < 8; row++)
         {
-            bool isWhiteSquare = (row + col) % 2 == 0; // Determine if the square is white.
-            var squareColor = isWhiteSquare ? Colors.White : Colors.Black; // Set the color of the square.
+            bool isWhiteSquare = (row + col) % 2 == 0;
+            var squareColor = isWhiteSquare ? Colors.MintCream : Colors.SandyBrown;
 
-            // Add a new square to the collection with the specified properties.
-            Squares.Add(new ChessboardSquare(45, 45, row, col)
+            var chessPiece = CreateInitialPiece(row, col, squareColor);
+
+            Squares.Add(new ChessboardSquare(45, 45, row, col, chessPiece)
             {
-                ImageSource = ImageSource.FromFile("dotnet_bot.png"), // Set an image for the square.
-                Color = squareColor // Set the color of the square.
+                Chesspiece = chessPiece,
+                Color = squareColor
             });
         }
     }
+    
+    /// <summary>
+    /// Create the initial chess piece.
+    /// </summary>
+    /// <param name="row">The row this piece will spawn in.</param>
+    /// <param name="column">What column is this in?</param>
+    /// <param name="squareColor">What color is the square it's on?</param>
+    /// <returns></returns>
+    private IChesspiece CreateInitialPiece(int row, int column, Color squareColor)
+    {
+        if(row == 1 || row == 6)
+        {
+            return new Pawn(row == 1 ? "pawn_b.png" : "pawn_w.png", row, column);
+        }
+
+        if(row == 0 || row == 7)
+        {
+            switch (column)
+            {
+                case 0:
+                case 7:
+                    return new Rook(row == 0 ? "rook_b.png" : "rook_w.png", row, column);
+                case 1:
+                case 6:
+                    return new Knight(row == 0 ? "knight_b.png" : "knight_w.png", row, column);
+                case 2:
+                case 5:
+                    return new Bishop(row == 0 ? "bishop_b.png" : "bishop_w.png", row, column);
+                case 3:
+                    return new Queen(row == 0 ? "queen_b.png" : "queen_w.png", row, column);
+                case 4:
+                    return new King(row == 0 ? "king_b.png" : "king_w.png", row, column);
+            }
+        }
+
+        return new NoPiece("blank_square.png", row, column);
+    }
+    
+    public void MovePiece(ChessboardSquare fromSquare, ChessboardSquare toSquare)
+    {
+        if (fromSquare.Chesspiece != null)
+        {
+            // Move the piece
+            toSquare.Chesspiece = fromSquare.Chesspiece;
+            fromSquare.Chesspiece = null;
+
+            // Update properties for proper UI refresh
+            OnPropertyChanged(nameof(Squares));
+        }
+    }
+
 
     /// <summary>
     /// Collection of chessboard squares. Represents each square on the chessboard.

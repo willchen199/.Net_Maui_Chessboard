@@ -63,28 +63,44 @@ public partial class MainPage : ContentPage
         Window.MinimumHeight = 850; // Set the minimum height for the window.
         Window.MinimumWidth = 750; // Set the minimum width for the window.
     }
+    
+    private ChessboardSquare selectedSquare = null;
 
     /// <summary>
-    ///     Event handler for when a chess square is clicked. Toggles the color of the chess square.
+    /// Event handler for when a chess square is clicked. Toggles the color of the chess square.
     /// </summary>
     /// <param name="sender">The object that raised the event.</param>
     /// <param name="e">Event data.</param>
     private void ChessSquare_OnClicked(object sender, EventArgs e)
     {
-        // Check if the sender is an ImageButton.
-        if (sender.GetType() == typeof(ImageButton))
+        if (sender is ImageButton button && button.BindingContext is ChessboardSquare clickedSquare)
         {
-            var pressedButton = (ImageButton)sender; // Cast the sender to an ImageButton.
-            // Toggle the image source of the button between a black and white tile.
-            if (pressedButton.Source == ImageSource.FromFile("black_tile.png"))
-                ImageSource.FromFile("white_tile.png");
+            if (selectedSquare == null)
+            {
+                // Select the square if it has a piece
+                if (clickedSquare.Chesspiece != null)
+                    selectedSquare = clickedSquare;
+            }
             else
-                pressedButton.Source = ImageSource.FromFile("black_tile.png");
+            {
+                // Move the piece if another square is clicked
+                MovePiece(selectedSquare, clickedSquare);
+                selectedSquare = null; // Deselect the piece after moving
+            }
+        }
+    }
+    
+    private void MovePiece(ChessboardSquare fromSquare, ChessboardSquare toSquare)
+    {
+        if (fromSquare != null && toSquare != null)
+        {
+            var chessboardVM = (ChessboardVM)BindingContext;
+            chessboardVM.MovePiece(fromSquare, toSquare);
         }
     }
 
     /// <summary>
-    ///     Event handler for when the size of the MainPage changes. Adjusts the chessboard size.
+    /// Event handler for when the size of the MainPage changes. Adjusts the chessboard size.
     /// </summary>
     /// <param name="sender">The object that raised the event.</param>
     /// <param name="e">Event data.</param>
@@ -104,7 +120,7 @@ public partial class MainPage : ContentPage
     }
 
     /// <summary>
-    ///     Adjusts the size of the chessboard pieces based on the current chessboard view size.
+    /// Adjusts the size of the chessboard pieces based on the current chessboard view size.
     /// </summary>
     private void AdjustChessboardPieces()
     {
@@ -118,14 +134,13 @@ public partial class MainPage : ContentPage
     }
 
     /// <summary>
-    ///     Event handler for when the size of the chessboard view changes. Adjusts the chessboard pieces.
+    /// Event handler for when the size of the chessboard view changes. Adjusts the chessboard pieces.
     /// </summary>
     /// <param name="sender">The object that raised the event.</param>
     /// <param name="e">Event data.</param>
     private void ChessboardView_OnSizeChanged(object sender, EventArgs e)
     {
         // Check if the sender is a CollectionView and the page is loaded.
-        if (sender is CollectionView collectionView &&
-            isLoaded) AdjustChessboardPieces(); // Adjust the chessboard pieces.
+        if (sender is CollectionView collectionView && isLoaded) AdjustChessboardPieces(); // Adjust the chessboard pieces.
     }
 }

@@ -7,5 +7,6 @@ public enum ChesspieceName
     Rook,
     Bishop,
     Knight,
-    Pawn
+    Pawn,
+    None
 }

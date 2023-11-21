@@ -1,5 +1,6 @@
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using ChessApp.Chesspieces;
 
 namespace ChessApp;
 
@@ -13,8 +14,8 @@ public class ChessboardSquare : INotifyPropertyChanged
     private int _height;
     private int _row;
     private int _width;
-    private Color color;
-    private ImageSource imageSource;
+    private Color _color;
+    private IChesspiece _chessPiece;
 
     /// <summary>
     /// Constructor for ChessboardSquare. Initializes a new instance with specified dimensions and position.
@@ -23,12 +24,14 @@ public class ChessboardSquare : INotifyPropertyChanged
     /// <param name="height">Height of the square.</param>
     /// <param name="row">Row number of the square on the chessboard.</param>
     /// <param name="column">Column number of the square on the chessboard.</param>
-    public ChessboardSquare(int width, int height, int row, int column)
+    /// <param name="chessPiece">The chess piece on this square</param>
+    public ChessboardSquare(int width, int height, int row, int column, IChesspiece chessPiece)
     {
         _width = width;
         _height = height;
         _row = row;
         _column = column;
+        _chessPiece = chessPiece;
     }
 
     /// <summary>
@@ -52,19 +55,19 @@ public class ChessboardSquare : INotifyPropertyChanged
     /// <summary>
     /// Gets or sets the image source for the chessboard square.
     /// </summary>
-    public ImageSource ImageSource
+    public IChesspiece Chesspiece
     {
-        get => imageSource;
-        set => SetField(ref imageSource, value);
+        get => _chessPiece;
+        set => SetField(ref _chessPiece, value);
     }
 
     /// <summary>
-    /// Gets or sets the color of the chessboard square.
+    /// Gets or sets the image source for the chessboard square.
     /// </summary>
     public Color Color
     {
-        get => color;
-        set => SetField(ref color, value);
+        get => _color;
+        set => SetField(ref _color, value);
     }
 
     /// <summary>

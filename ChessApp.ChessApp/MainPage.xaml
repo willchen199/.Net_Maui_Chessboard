@@ -25,7 +25,7 @@
                                      BackgroundColor="{Binding Color}"
                                      Clicked="ChessSquare_OnClicked"
                                      HorizontalOptions="FillAndExpand"
-                                     Source="{Binding ImageSource}"
+                                     Source="{Binding Chesspiece.ImageSource}"
                                      VerticalOptions="FillAndExpand" />
                     </Frame>
                 </DataTemplate>
