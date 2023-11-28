@@ -6,6 +6,7 @@
              BackgroundColor="Wheat"
              SizeChanged="ChessPage_OnSizeChanged">
     <Grid ColumnDefinitions="*, *, *" RowDefinitions="*, *, *">
+        <Label Text="{Binding Selected}" />
         <CollectionView x:Name="UxChessboardView"
                         Grid.Row="1"
                         Grid.Column="1"

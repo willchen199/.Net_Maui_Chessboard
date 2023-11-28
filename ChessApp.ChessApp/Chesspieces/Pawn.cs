@@ -9,6 +9,7 @@ public class Pawn : IChesspiece
         
         CurrentRow = currentRow;
         CurrentColumn = currentColumn;
+        IsFirstMove = true;
         IsCaptured = false;
         IsInCheck = false;
         IsInCheckmate = false;
@@ -24,11 +25,13 @@ public class Pawn : IChesspiece
     }
     public ChesspieceName Name { get; set; }
     public string ImageSource { get; set; }
-    
-    public Color Color { get; set; }
+
+    public Color Color => ImageSource[^5] == 'w' ? Colors.White : Colors.Black;
+
     public int CurrentRow { get; set; }
     public int CurrentColumn { get; set; }
     public bool IsCaptured { get; set; }
+    private bool IsFirstMove { get; set; }
     public bool IsInCheck { get; set; }
     public bool IsInCheckmate { get; set; }
     public bool IsInStalemate { get; set; }
@@ -40,14 +43,29 @@ public class Pawn : IChesspiece
     public bool IsInCheckOrCheckmateOrStalemateOrNone { get; set; }
     public bool IsInCheckAndCheckmateOrStalemateOrNone { get; set; }
     public bool IsInCheckOrCheckmateAndStalemateOrNone { get; set; }
-    public void Move()
+    
+    public void Move(ChessboardSquare newSquare)
     {
-        throw new NotImplementedException();
+        CurrentRow = newSquare.Row;
+        CurrentColumn = newSquare.Column;
+        if(IsFirstMove)
+            IsFirstMove = false;
     }
 
-    public bool CanMove(int newRow, int newColumn)
+    public bool CanMove(ChessboardSquare oldSquare, ChessboardSquare newSquare)
     {
-        throw new NotImplementedException();
+        int rowDifference = Equals(Color, Colors.White) ? oldSquare.Row - newSquare.Row : newSquare.Row - oldSquare.Row;
+        int columnDifference = Math.Abs(newSquare.Column - oldSquare.Column);
+
+        // Standard move
+        if (columnDifference == 0 && ((IsFirstMove && rowDifference == 2) || rowDifference == 1))
+            return true;
+
+        // Capture move 
+        if (columnDifference == 1 && rowDifference == 1 && newSquare.Chesspiece.Name != ChesspieceName.None && !Equals(newSquare.Chesspiece.Color, Color))
+            return true;
+
+        return false;
     }
 
     public void Capture()

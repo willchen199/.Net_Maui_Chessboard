@@ -23,7 +23,7 @@ public class ChessboardVM : INotifyPropertyChanged
             bool isWhiteSquare = (row + col) % 2 == 0;
             var squareColor = isWhiteSquare ? Colors.MintCream : Colors.SandyBrown;
 
-            var chessPiece = CreateInitialPiece(row, col, squareColor);
+            var chessPiece = CreateInitialPiece(row, col);
 
             Squares.Add(new ChessboardSquare(45, 45, row, col, chessPiece)
             {
@@ -32,15 +32,19 @@ public class ChessboardVM : INotifyPropertyChanged
             });
         }
     }
-    
+
+    public ChessboardVM(ObservableCollection<ChessboardSquare> squares)
+    {
+        Squares = squares;
+    }
+
     /// <summary>
     /// Create the initial chess piece.
     /// </summary>
     /// <param name="row">The row this piece will spawn in.</param>
     /// <param name="column">What column is this in?</param>
-    /// <param name="squareColor">What color is the square it's on?</param>
     /// <returns></returns>
-    private IChesspiece CreateInitialPiece(int row, int column, Color squareColor)
+    private IChesspiece CreateInitialPiece(int row, int column)
     {
         if(row == 1 || row == 6)
         {
@@ -51,37 +55,36 @@ public class ChessboardVM : INotifyPropertyChanged
         {
             switch (column)
             {
-                case 0:
-                case 7:
-                    return new Rook(row == 0 ? "rook_b.png" : "rook_w.png", row, column);
-                case 1:
-                case 6:
-                    return new Knight(row == 0 ? "knight_b.png" : "knight_w.png", row, column);
-                case 2:
-                case 5:
-                    return new Bishop(row == 0 ? "bishop_b.png" : "bishop_w.png", row, column);
                 case 3:
                     return new Queen(row == 0 ? "queen_b.png" : "queen_w.png", row, column);
                 case 4:
                     return new King(row == 0 ? "king_b.png" : "king_w.png", row, column);
+                case 5:
+                    return new Bishop(row == 0 ? "bishop_b.png" : "bishop_w.png", row, column);
+                case 6:
+                    return new Knight(row == 0 ? "knight_b.png" : "knight_w.png", row, column);
+                case 7:
+                    return new Rook(row == 0 ? "rook_b.png" : "rook_w.png", row, column);
             }
         }
 
         return new NoPiece("blank_square.png", row, column);
     }
     
-    public void MovePiece(ChessboardSquare fromSquare, ChessboardSquare toSquare)
+    public void MovePiece(ChessboardSquare currentSquare, ChessboardSquare newSquare)
     {
-        if (fromSquare.Chesspiece != null)
-        {
-            // Move the piece
-            toSquare.Chesspiece = fromSquare.Chesspiece;
-            fromSquare.Chesspiece = null;
+        // Perform the move
+        newSquare.Chesspiece = currentSquare.Chesspiece;
+        currentSquare.Chesspiece = new NoPiece("blank_square.png", currentSquare.Row, currentSquare.Column);
 
-            // Update properties for proper UI refresh
-            OnPropertyChanged(nameof(Squares));
-        }
+        // Update the position of the piece
+        newSquare.Chesspiece.CurrentRow = newSquare.Row;
+        newSquare.Chesspiece.CurrentColumn = newSquare.Column;
+
+        // Notify the UI to refresh the squares
+        OnPropertyChanged(nameof(Squares));
     }
+
 
 
     /// <summary>

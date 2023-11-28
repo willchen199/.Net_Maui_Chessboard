@@ -1,6 +1,7 @@
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using ChessApp.Chesspieces;
+using ChessApp.Moving;
 
 namespace ChessApp;
 
@@ -33,6 +34,8 @@ public class ChessboardSquare : INotifyPropertyChanged
         _column = column;
         _chessPiece = chessPiece;
     }
+    
+    public Position CurrentPosition => new(Row, Column);
 
     /// <summary>
     /// Gets or sets the row of the chessboard square.

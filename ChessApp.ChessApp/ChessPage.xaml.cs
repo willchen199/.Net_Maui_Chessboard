@@ -1,4 +1,6 @@
-﻿namespace ChessApp;
+﻿using ChessApp.Chesspieces;
+
+namespace ChessApp;
 
 /// <summary>
 /// Represents the main page of the Chess application.
@@ -64,7 +66,7 @@ public partial class ChessPage : ContentPage
         Window.MinimumWidth = 750; // Set the minimum width for the window.
     }
     
-    private ChessboardSquare selectedSquare = null;
+    private ChessboardSquare SelectedSquare { get; set; }
 
     /// <summary>
     /// Event handler for when a chess square is clicked. Toggles the color of the chess square.
@@ -75,28 +77,26 @@ public partial class ChessPage : ContentPage
     {
         if (sender is ImageButton button && button.BindingContext is ChessboardSquare clickedSquare)
         {
-            if (selectedSquare == null)
+            if (SelectedSquare == null)
             {
                 // Select the square if it has a piece
-                if (clickedSquare.Chesspiece != null)
-                    selectedSquare = clickedSquare;
+                if (clickedSquare.Chesspiece != null && clickedSquare.Chesspiece.Name != ChesspieceName.None)
+                    SelectedSquare = clickedSquare;
             }
             else
             {
-                // Move the piece if another square is clicked
-                MovePiece(selectedSquare, clickedSquare);
-                selectedSquare = null; // Deselect the piece after moving
+                // Move the piece if the square is not the same as the selected square
+                if (clickedSquare != SelectedSquare && SelectedSquare.Chesspiece.CanMove(SelectedSquare, clickedSquare))
+                    MovePiece(SelectedSquare, clickedSquare);
+                SelectedSquare = null;
             }
         }
     }
     
     private void MovePiece(ChessboardSquare fromSquare, ChessboardSquare toSquare)
     {
-        if (fromSquare != null && toSquare != null)
-        {
-            var chessboardVM = (ChessboardVM)BindingContext;
-            chessboardVM.MovePiece(fromSquare, toSquare);
-        }
+        var chessboardVM = (ChessboardVM)BindingContext;
+        chessboardVM.MovePiece(fromSquare, toSquare);
     }
 
     /// <summary>

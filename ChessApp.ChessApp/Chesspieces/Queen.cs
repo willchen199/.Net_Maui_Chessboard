@@ -24,7 +24,7 @@ public class Queen : IChesspiece
     }
     public ChesspieceName Name { get; set; }
     public string ImageSource { get; set; }
-    public Color Color { get; set; }
+    public Color Color => ImageSource[^5] == 'w' ? Colors.White : Colors.Black;
     public int CurrentRow { get; set; }
     public int CurrentColumn { get; set; }
     public bool IsCaptured { get; set; }
@@ -39,14 +39,18 @@ public class Queen : IChesspiece
     public bool IsInCheckOrCheckmateOrStalemateOrNone { get; set; }
     public bool IsInCheckAndCheckmateOrStalemateOrNone { get; set; }
     public bool IsInCheckOrCheckmateAndStalemateOrNone { get; set; }
-    public void Move()
+    public void Move(ChessboardSquare newSquare)
     {
-        throw new NotImplementedException();
+        CurrentRow = newSquare.Row;
+        CurrentColumn = newSquare.Column;
     }
 
-    public bool CanMove(int newRow, int newColumn)
+    public bool CanMove(ChessboardSquare oldSquare, ChessboardSquare newSquare)
     {
-        throw new NotImplementedException();
+        int rowDifference = Math.Abs(newSquare.Row - oldSquare.Row);
+        int columnDifference = Math.Abs(newSquare.Column - oldSquare.Column);
+
+        return rowDifference == columnDifference || newSquare.Row == oldSquare.Row || newSquare.Column == oldSquare.Column;
     }
 
     public void Capture()

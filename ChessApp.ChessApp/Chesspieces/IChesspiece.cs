@@ -1,12 +1,15 @@
+using ChessApp.Moving;
+
 namespace ChessApp.Chesspieces;
 
 public interface IChesspiece
 {
     public ChesspieceName Name { get; set; }
     public string ImageSource { get; set; }
-    public Color Color { get; set; }
+    public Color Color { get; }
     public int CurrentRow { get; set; }
     public int CurrentColumn { get; set; }
+    public Position CurrentPosition => new(CurrentRow, CurrentColumn);
     public bool IsCaptured { get; set; }
     public bool IsInCheck { get; set; }
     public bool IsInCheckmate { get; set; }
@@ -20,8 +23,8 @@ public interface IChesspiece
     public bool IsInCheckAndCheckmateOrStalemateOrNone { get; set; }
     public bool IsInCheckOrCheckmateAndStalemateOrNone { get; set; }
 
-    public void Move();
-    public bool CanMove(int newRow, int newColumn);
+    public void Move(ChessboardSquare newSquare);
+    public bool CanMove(ChessboardSquare oldSquare, ChessboardSquare newSquare);
     public void Capture();
     public void Promote();
 }
