@@ -27,4 +27,9 @@ public partial class MainPage : ContentPage
         Window.MinimumHeight = 850; // Set the minimum height for the window.
         Window.MinimumWidth = 750; // Set the minimum width for the window.
     }
+
+    private void OnLoadClick(object sender, EventArgs e)
+    {
+        throw new NotImplementedException();
+    }
 }
