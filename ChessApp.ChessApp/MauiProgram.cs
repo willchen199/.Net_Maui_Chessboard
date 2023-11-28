@@ -9,7 +9,7 @@ public static class MauiProgram // Run on mac using `dotnet build -t:Run -f net7
     {
         var builder = MauiApp.CreateBuilder();
         builder.UseMauiApp<App>()
-            .ConfigureFonts(fonts => 
+            .ConfigureFonts(fonts =>
             {
                 fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
                 fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");

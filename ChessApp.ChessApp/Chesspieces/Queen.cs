@@ -2,43 +2,56 @@ namespace ChessApp.Chesspieces;
 
 public class Queen : IChesspiece
 {
-    public Queen( string imageSource, int currentRow, int currentColumn)
+    public Queen(string imageSource, int currentRow, int currentColumn)
     {
         Name = ChesspieceName.Queen;
         ImageSource = imageSource;
-        
+
         CurrentRow = currentRow;
         CurrentColumn = currentColumn;
         IsCaptured = false;
         IsInCheck = false;
         IsInCheckmate = false;
         IsInStalemate = false;
-        IsInCheckmateAndStalemate = false;
-        IsInCheckAndCheckmateAndStalemate = false;
-        IsInCheckOrCheckmateOrStalemate = false;
-        IsInCheckAndCheckmateOrStalemate = false;
-        IsInCheckOrCheckmateAndStalemate = false;
-        IsInCheckOrCheckmateOrStalemateOrNone = false;
-        IsInCheckAndCheckmateOrStalemateOrNone = false;
-        IsInCheckOrCheckmateAndStalemateOrNone = false;
     }
+
     public ChesspieceName Name { get; set; }
     public string ImageSource { get; set; }
-    public Color Color => ImageSource[^5] == 'w' ? Colors.White : Colors.Black;
+    public Color Color => ImageSource.EndsWith("w.png") ? Colors.White : Colors.Black;
     public int CurrentRow { get; set; }
     public int CurrentColumn { get; set; }
+
+    public bool HasClearPath(ChessboardSquare oldSquare, ChessboardSquare newSquare,
+        List<ChessboardSquare> currentSquares)
+    {
+        int rowDifference = newSquare.Row - oldSquare.Row;
+        int columnDifference = newSquare.Column - oldSquare.Column;
+
+        int rowDirection = rowDifference > 0 ? 1 : -1;
+        int columnDirection = columnDifference > 0 ? 1 : -1;
+
+        int potentialNewRow = oldSquare.Row + rowDirection;
+        int potentialNewColumn = oldSquare.Column + columnDirection;
+
+        while (potentialNewRow != newSquare.Row && potentialNewColumn != newSquare.Column)
+        {
+            if (currentSquares.Any(s => s.Row == potentialNewRow &&
+                                        s.Column == potentialNewColumn &&
+                                        s.Chesspiece.Name != ChesspieceName.None))
+                return false;
+
+            potentialNewRow += rowDirection;
+            potentialNewColumn += columnDirection;
+        }
+
+        return true;
+    }
+
     public bool IsCaptured { get; set; }
     public bool IsInCheck { get; set; }
     public bool IsInCheckmate { get; set; }
     public bool IsInStalemate { get; set; }
-    public bool IsInCheckmateAndStalemate { get; set; }
-    public bool IsInCheckAndCheckmateAndStalemate { get; set; }
-    public bool IsInCheckOrCheckmateOrStalemate { get; set; }
-    public bool IsInCheckAndCheckmateOrStalemate { get; set; }
-    public bool IsInCheckOrCheckmateAndStalemate { get; set; }
-    public bool IsInCheckOrCheckmateOrStalemateOrNone { get; set; }
-    public bool IsInCheckAndCheckmateOrStalemateOrNone { get; set; }
-    public bool IsInCheckOrCheckmateAndStalemateOrNone { get; set; }
+
     public void Move(ChessboardSquare newSquare)
     {
         CurrentRow = newSquare.Row;
@@ -50,7 +63,8 @@ public class Queen : IChesspiece
         int rowDifference = Math.Abs(newSquare.Row - oldSquare.Row);
         int columnDifference = Math.Abs(newSquare.Column - oldSquare.Column);
 
-        return rowDifference == columnDifference || newSquare.Row == oldSquare.Row || newSquare.Column == oldSquare.Column;
+        return rowDifference == columnDifference || newSquare.Row == oldSquare.Row ||
+               newSquare.Column == oldSquare.Column;
     }
 
     public void Capture()

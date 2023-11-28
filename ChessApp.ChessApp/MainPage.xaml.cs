@@ -2,11 +2,10 @@
 
 public partial class MainPage : ContentPage
 {
-
     public MainPage()
-	{
-		InitializeComponent();
-	}
+    {
+        InitializeComponent();
+    }
 
     private async void OnCounterClick(object sender, EventArgs e)
     {
@@ -17,7 +16,7 @@ public partial class MainPage : ContentPage
     {
         await Navigation.PushAsync(new SettingsPage());
     }
-    
+
     /// <summary>
     /// Called when the page appears on the screen. Sets the minimum size for the window.
     /// </summary>

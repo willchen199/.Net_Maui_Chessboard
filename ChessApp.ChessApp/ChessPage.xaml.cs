@@ -3,15 +3,17 @@
 namespace ChessApp;
 
 /// <summary>
-/// Represents the main page of the Chess application.
+/// Represents the Chessboard page.
 /// </summary>
 public partial class ChessPage : ContentPage
 {
-    private readonly bool isLoaded; // Flag to check if the page is loaded.
+    /// <summary>
+    /// Flag to check if the page is loaded.
+    /// </summary>
+    private readonly bool isLoaded;
 
     private int height;
-
-    private double smallestDimension; // Stores the smallest dimension of the chessboard.
+    private double smallestDimension;
     private int width;
 
     /// <summary>
@@ -65,7 +67,10 @@ public partial class ChessPage : ContentPage
         Window.MinimumHeight = 850; // Set the minimum height for the window.
         Window.MinimumWidth = 750; // Set the minimum width for the window.
     }
-    
+
+    /// <summary>
+    /// The currently selected square on the chessboard.
+    /// </summary>
     private ChessboardSquare SelectedSquare { get; set; }
 
     /// <summary>
@@ -75,24 +80,54 @@ public partial class ChessPage : ContentPage
     /// <param name="e">Event data.</param>
     private void ChessSquare_OnClicked(object sender, EventArgs e)
     {
-        if (sender is ImageButton button && button.BindingContext is ChessboardSquare clickedSquare)
+        if (sender is not ImageButton { BindingContext: ChessboardSquare clickedSquare })
+            return;
+
+        var chessboardVM = (ChessboardVM)BindingContext;
+
+        if (SelectedSquare == null &&
+            ((chessboardVM.IsWhiteTurn && !Equals(clickedSquare.Chesspiece.Color, Colors.White)) ||
+             (!chessboardVM.IsWhiteTurn && !Equals(clickedSquare.Chesspiece.Color, Colors.Black))))
         {
-            if (SelectedSquare == null)
+            return; // It's not the turn of the piece's color, so return early
+        }
+
+        // If a square is already selected and the clicked square is different
+        if (SelectedSquare != null && clickedSquare != SelectedSquare)
+        {
+            // Check if the move is valid
+            if (SelectedSquare.Chesspiece.CanMove(SelectedSquare, clickedSquare) &&
+                SelectedSquare.Chesspiece.HasClearPath(SelectedSquare, clickedSquare, chessboardVM.Squares.ToList()))
             {
-                // Select the square if it has a piece
-                if (clickedSquare.Chesspiece != null && clickedSquare.Chesspiece.Name != ChesspieceName.None)
-                    SelectedSquare = clickedSquare;
+                MovePiece(SelectedSquare, clickedSquare);
+                SelectedSquare.Chesspiece.Name = ChesspieceName.None;
+                chessboardVM.IsWhiteTurn =
+                    !chessboardVM.IsWhiteTurn; // Assuming you have a turn-based logic implemented
+                SelectedSquare = null; // Reset the selected square
             }
             else
             {
-                // Move the piece if the square is not the same as the selected square
-                if (clickedSquare != SelectedSquare && SelectedSquare.Chesspiece.CanMove(SelectedSquare, clickedSquare))
-                    MovePiece(SelectedSquare, clickedSquare);
-                SelectedSquare = null;
+                // Allow changing the selected square if the move is not valid
+                if (clickedSquare.Chesspiece.Name != ChesspieceName.None)
+                {
+                    SelectedSquare = clickedSquare;
+                }
             }
         }
+        else if (SelectedSquare == null &&
+                 clickedSquare.Chesspiece.Name != ChesspieceName.None &&
+                 clickedSquare.Chesspiece != null)
+        {
+            // Select the square if it contains a piece
+            SelectedSquare = clickedSquare;
+        }
     }
-    
+
+    /// <summary>
+    /// Moves a chess piece from one square to another on the chessboard.
+    /// </summary>
+    /// <param name="fromSquare">The square from which a chess piece is being moved.</param>
+    /// <param name="toSquare">The square to which the chess piece is moving.</param>
     private void MovePiece(ChessboardSquare fromSquare, ChessboardSquare toSquare)
     {
         var chessboardVM = (ChessboardVM)BindingContext;
@@ -141,6 +176,7 @@ public partial class ChessPage : ContentPage
     private void ChessboardView_OnSizeChanged(object sender, EventArgs e)
     {
         // Check if the sender is a CollectionView and the page is loaded.
-        if (sender is CollectionView collectionView && isLoaded) AdjustChessboardPieces(); // Adjust the chessboard pieces.
+        if (sender is CollectionView collectionView && isLoaded)
+            AdjustChessboardPieces(); // Adjust the chessboard pieces.
     }
 }

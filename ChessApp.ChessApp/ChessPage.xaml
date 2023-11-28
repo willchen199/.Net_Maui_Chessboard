@@ -5,11 +5,28 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              BackgroundColor="Wheat"
              SizeChanged="ChessPage_OnSizeChanged">
-    <Grid ColumnDefinitions="*, *, *" RowDefinitions="*, *, *">
-        <Label Text="{Binding Selected}" />
+    <Grid ColumnDefinitions="*, auto, *"
+          HorizontalOptions="Center"
+          RowDefinitions="auto, *, auto"
+          VerticalOptions="Center">
+
+        <!--  Turn Label with styling  -->
+        <Label Grid.Row="0"
+               Grid.Column="1"
+               Margin="20,10,20,0"
+               BackgroundColor="Transparent"
+               FontAttributes="Bold"
+               FontSize="Large"
+               HorizontalOptions="Center"
+               Text="{Binding TurnText}"
+               TextColor="Black"
+               VerticalOptions="End" />
+
+        <!--  Chessboard CollectionView  -->
         <CollectionView x:Name="UxChessboardView"
                         Grid.Row="1"
-                        Grid.Column="1"
+                        Grid.Column="0"
+                        Grid.ColumnSpan="3"
                         Margin="0"
                         ItemsSource="{Binding Squares}"
                         SizeChanged="ChessboardView_OnSizeChanged">
