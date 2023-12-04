@@ -17,6 +17,11 @@ public partial class MainPage : ContentPage
         await Navigation.PushAsync(new SettingsPage());
     }
 
+    private async void OpenLoadingPage(object sender, EventArgs e)
+    {
+        await Navigation.PushAsync(new LoadingPage());
+    }
+
     /// <summary>
     /// Called when the page appears on the screen. Sets the minimum size for the window.
     /// </summary>
@@ -27,8 +32,8 @@ public partial class MainPage : ContentPage
         Window.MinimumWidth = 750; // Set the minimum width for the window.
     }
 
-    private void OnLoadClick(object sender, EventArgs e)
-    {
-        throw new NotImplementedException();
-    }
+     private void OnLoadClick(object sender, EventArgs e)
+     {
+     ///    throw new NotImplementedException();
+     }
 }
