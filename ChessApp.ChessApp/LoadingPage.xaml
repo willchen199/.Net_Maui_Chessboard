@@ -10,7 +10,7 @@
             <Label Padding="50"
                    FontAttributes="Bold"
                    FontFamily="Times New Roman"
-                   FontSize="175"
+                   FontSize="125"
                    HorizontalOptions="Center"
                    Text="Saved Games"
                    TextColor="Black"
