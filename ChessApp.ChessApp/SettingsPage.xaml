@@ -2,11 +2,178 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="ChessApp.SettingsPage"
-             Title="SettingsPage">
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
+             Title="SettingsPage"
+             BackgroundColor="Wheat">
+    <VerticalStackLayout VerticalOptions="Center">
+        <HorizontalStackLayout HorizontalOptions="Center"
+                               BackgroundColor="#8F2C09"
+                               WidthRequest="350">
+            <Label x:Name="SoundEffectsLabel"
+                        Margin="15"
+                        FontFamily="Times New Roman"
+                        FontSize="35"
+                        HeightRequest="45"
+                        HorizontalOptions="Center"
+                        Text="Sound Effects"
+                        TextColor="wheat"
+                        WidthRequest="225" />
+            <Switch x:Name="SoundEffects"
+                    IsToggled="true"
+                    Toggled="SoundFXToggled"
+                    HorizontalOptions="CenterAndExpand"
+                    VerticalOptions="CenterAndExpand"
+                    BackgroundColor="#8F2C09"
+                    OnColor="Black"
+                    ThumbColor="#03C400"/>
+        </HorizontalStackLayout>
+
+        <HorizontalStackLayout HorizontalOptions="Center"
+                               BackgroundColor="#8F2C09"
+                               WidthRequest="350">
+            <Label x:Name="MoveHintsLabel"
+                        Margin="15"
+                        FontFamily="Times New Roman"
+                        FontSize="35"
+                        HeightRequest="45"
+                        HorizontalOptions="Center"
+                        Text="Move Hints"
+                        TextColor="wheat"
+                        WidthRequest="225" />
+            <Switch x:Name="MoveHints"
+                    IsToggled="true"
+                    Toggled="HintsToggled"
+                    HorizontalOptions="CenterAndExpand"
+                    VerticalOptions="CenterAndExpand"
+                    BackgroundColor="#8F2C09"
+                    OnColor="Black"
+                    ThumbColor="#03C400"/>
+        </HorizontalStackLayout>
+
+        <HorizontalStackLayout HorizontalOptions="Center"
+                               BackgroundColor="#8F2C09"
+                               WidthRequest="350">
+            <Label x:Name="ConfirmMoveLabel"
+                        Margin="15"
+                        FontFamily="Times New Roman"
+                        FontSize="35"
+                        HeightRequest="45"
+                        HorizontalOptions="Center"
+                        Text="Confirm Move"
+                        TextColor="wheat"
+                        WidthRequest="225" />
+            <Switch x:Name="ConfirmMove"
+                    IsToggled="true"
+                    Toggled="ConfirmToggled"
+                    HorizontalOptions="CenterAndExpand"
+                    VerticalOptions="CenterAndExpand"
+                    BackgroundColor="#8F2C09"
+                    OnColor="Black"
+                    ThumbColor="#03C400"/>
+        </HorizontalStackLayout>
+
+        <HorizontalStackLayout HorizontalOptions="Center"
+                               BackgroundColor="#8F2C09"
+                               WidthRequest="350">
+            <Label x:Name="DarkModeLabel"
+                        Margin="15"
+                        FontFamily="Times New Roman"
+                        FontSize="35"
+                        HeightRequest="45"
+                        HorizontalOptions="Center"
+                        Text="Dark Mode"
+                        TextColor="wheat"
+                        WidthRequest="225" />
+            <Switch x:Name="DarkMode"
+                    IsToggled="true"
+                    Toggled="DarkModeToggled"
+                    HorizontalOptions="CenterAndExpand"
+                    VerticalOptions="CenterAndExpand"
+                    BackgroundColor="#8F2C09"
+                    OnColor="Black"
+                    ThumbColor="#03C400"/>
+        </HorizontalStackLayout>
+
+        <HorizontalStackLayout HorizontalOptions="Center"
+                               BackgroundColor="#8F2C09"
+                               WidthRequest="350">
+            <Label x:Name="TurnTimerLabel"
+                        Margin="15"
+                        FontFamily="Times New Roman"
+                        FontSize="35"
+                        HeightRequest="45"
+                        HorizontalOptions="Center"
+                        Text="Turn Timer"
+                        TextColor="wheat"
+                        WidthRequest="225" />
+            <Switch x:Name="TurnTimer"
+                    IsToggled="true"
+                    Toggled="TimerToggled"
+                    HorizontalOptions="CenterAndExpand"
+                    VerticalOptions="CenterAndExpand"
+                    BackgroundColor="#8F2C09"
+                    OnColor="Black"
+                    ThumbColor="#03C400"/>
+        </HorizontalStackLayout>
+        
+
+        <!--<Button x:Name="HighlightMoves"
+                Margin="15"
+                BackgroundColor="#8F2C09"
+                
+                FontFamily="Times New Roman"
+                FontSize="35"
+                HeightRequest="75"
+                HorizontalOptions="Center"
+                Text="Highlight Possible Moves"
+                TextColor="Wheat"
+                WidthRequest="350" />
+
+        <Button x:Name="ConfirmMove"
+                Margin="15"
+                BackgroundColor="#8F2C09"
+                
+                FontFamily="Times New Roman"
+                FontSize="35"
+                HeightRequest="75"
+                HorizontalOptions="Center"
+                Text="Confirm Move"
+                TextColor="Wheat"
+                WidthRequest="350" />
+
+        <Button x:Name="DarkMode"
+                Margin="15"
+                BackgroundColor="#8F2C09"
+                
+                FontFamily="Times New Roman"
+                FontSize="35"
+                HeightRequest="75"
+                HorizontalOptions="Center"
+                Text="Dark Mode"
+                TextColor="Wheat"
+                WidthRequest="350" />
+
+        <Button x:Name="Timer"
+                Margin="15"
+                BackgroundColor="#8F2C09"
+                
+                FontFamily="Times New Roman"
+                FontSize="35"
+                HeightRequest="75"
+                HorizontalOptions="Center"
+                Text="Timer"
+                TextColor="Wheat"
+                WidthRequest="350" />-->
+
+        <Button x:Name="ResetSettings"
+                Margin="15"
+                BackgroundColor="#8F2C09"
+                Clicked="Click"
+                FontFamily="Times New Roman"
+                FontSize="35"
+                HeightRequest="75"
+                HorizontalOptions="Center"
+                Text="Reset Settings"
+                TextColor="Wheat"
+                WidthRequest="350" />
     </VerticalStackLayout>
 </ContentPage>

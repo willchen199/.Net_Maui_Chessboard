@@ -1,27 +1,39 @@
-﻿using System;
-using Microsoft.Maui.Accessibility;
-using Microsoft.Maui.Controls;
-
-namespace ChessApp;
+﻿namespace ChessApp;
 
 public partial class MainPage : ContentPage
 {
-    int count = 0;
-
     public MainPage()
     {
         InitializeComponent();
     }
 
-/*    private void OnCounterClicked(object sender, EventArgs e)
+    private async void OnCounterClick(object sender, EventArgs e)
     {
-        count++;
+        await Navigation.PushAsync(new ChessPage());
+    }
 
-        if (count == 1)
-            CounterBtn.Text = $"Clicked {count} time";
-        else
-            CounterBtn.Text = $"Clicked {count} times";
+    private async void OpenSettings(object sender, EventArgs e)
+    {
+        await Navigation.PushAsync(new SettingsPage());
+    }
 
-        SemanticScreenReader.Announce(CounterBtn.Text);
-    }*/
+    private async void OpenLoadingPage(object sender, EventArgs e)
+    {
+        await Navigation.PushAsync(new LoadingPage());
+    }
+
+    /// <summary>
+    /// Called when the page appears on the screen. Sets the minimum size for the window.
+    /// </summary>
+    protected override void OnAppearing()
+    {
+        base.OnAppearing(); // Call the base class implementation.
+        Window.MinimumHeight = 850; // Set the minimum height for the window.
+        Window.MinimumWidth = 750; // Set the minimum width for the window.
+    }
+
+     private void OnLoadClick(object sender, EventArgs e)
+     {
+     ///    throw new NotImplementedException();
+     }
 }

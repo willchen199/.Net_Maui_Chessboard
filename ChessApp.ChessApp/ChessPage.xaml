@@ -1,0 +1,54 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<!-- Wheat, AntiqueWhite, Black-->
+<ContentPage x:Class="ChessApp.ChessPage"
+             xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             BackgroundColor="Wheat"
+             SizeChanged="ChessPage_OnSizeChanged">
+    <Grid ColumnDefinitions="*, auto, *"
+          HorizontalOptions="Center"
+          RowDefinitions="auto, *, auto"
+          VerticalOptions="Center">
+
+        <!--  Turn Label with styling  -->
+        <Label Grid.Row="0"
+               Grid.Column="1"
+               Margin="20,10,20,0"
+               BackgroundColor="Transparent"
+               FontAttributes="Bold"
+               FontSize="Large"
+               HorizontalOptions="Center"
+               Text="{Binding TurnText}"
+               TextColor="Black"
+               VerticalOptions="End" />
+
+        <!--  Chessboard CollectionView  -->
+        <CollectionView x:Name="UxChessboardView"
+                        Grid.Row="1"
+                        Grid.Column="0"
+                        Grid.ColumnSpan="3"
+                        Margin="0"
+                        ItemsSource="{Binding Squares}"
+                        SizeChanged="ChessboardView_OnSizeChanged">
+            <CollectionView.ItemsLayout>
+                <GridItemsLayout Orientation="Horizontal" Span="8" />
+            </CollectionView.ItemsLayout>
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Frame Padding="0"
+                           HasShadow="False"
+                           HeightRequest="{Binding Height}"
+                           IsClippedToBounds="True"
+                           WidthRequest="{Binding Width}">
+                        <ImageButton Aspect="AspectFill"
+                                     BackgroundColor="{Binding Color}"
+                                     Clicked="ChessSquare_OnClicked"
+                                     HorizontalOptions="FillAndExpand"
+                                     Source="{Binding Chesspiece.ImageSource}"
+                                     VerticalOptions="FillAndExpand" />
+                    </Frame>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </Grid>
+</ContentPage>
