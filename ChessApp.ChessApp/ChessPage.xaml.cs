@@ -121,6 +121,10 @@ public partial class ChessPage : ContentPage
             // Select the square if it contains a piece
             SelectedSquare = clickedSquare;
         }
+
+        //Highlighting legal piece movements
+        chessboardVM.HighlightLegalMoves(SelectedSquare);
+
     }
 
     /// <summary>

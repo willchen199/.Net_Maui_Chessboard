@@ -19,7 +19,7 @@ public class ChessboardVM : INotifyPropertyChanged
     /// </summary>
     public ChessboardVM()
     {
-        Squares = new ObservableCollection<ChessboardSquare>(); // Initialize the collection of squares.
+        Squares = new ObservableCollection<ChessboardSquare>(); // Initialize the collection of squares. This is where the square objects are stored.
 
         for (int col = 0; col < 8; col++)
         for (int row = 0; row < 8; row++)
@@ -177,4 +177,72 @@ public class ChessboardVM : INotifyPropertyChanged
         OnPropertyChanged(propertyName); // Notify that the property has changed.
         return true;
     }
+
+
+
+    //******************************CONSTRUCTION ZONE***********************************//
+
+
+    //Following two summaries provided by ChatGPT.
+    //Code for HighlightLegalMoves and GetLegalMoves was also inspired by ChatGPT. However, significant changes have been made.
+
+    /// <summary>
+    /// Highlights the legal moves on the chessboard for the selected chess piece.
+    /// It resets the colors of all squares and then highlights the legal move squares.
+    /// </summary>
+    /// <param name="selectedSquare">The square containing the selected chess piece.</param>
+    public void HighlightLegalMoves(ChessboardSquare selectedSquare)
+    {
+
+        //Handling exception where no square is selected or when a square with no piece is selected
+        if (selectedSquare == null || selectedSquare.Chesspiece.Name == ChesspieceName.None) return;
+        
+        // Reset the color of all squares
+        foreach (var square in Squares)
+        {
+            square.Color = (square.Row + square.Column) % 2 == 0 ? Colors.MintCream : Colors.SandyBrown;
+        }
+
+        // Get the legal moves for the selected chess piece
+        List<ChessboardSquare> legalMoves = GetLegalMoves(selectedSquare);
+
+        // Highlight the legal moves with a different color
+        foreach (var legalSquare in legalMoves)
+        {
+            legalSquare.Color = Colors.LightGreen; // Change this color as needed
+        }
+
+        // Notify the UI to refresh the squares
+        OnPropertyChanged(nameof(Squares));
+    }
+
+    /// <summary>
+    /// Gets the list of legal moves for the selected chess piece on the chessboard.
+    /// </summary>
+    /// <param name="selectedSquare">The square containing the selected chess piece.</param>
+    /// <returns>A list of ChessboardSquare objects representing legal move destinations.</returns>
+    private List<ChessboardSquare> GetLegalMoves(ChessboardSquare selectedSquare)
+    {
+        // New list to store all chessboard square objects
+        List<ChessboardSquare> legalSquareMovementList = new List<ChessboardSquare>();
+
+        // Referencing currently selected chess piece to reference CanMove() method
+        IChesspiece currentpiece = selectedSquare.Chesspiece;
+
+        // Foreach loop to iterate through and check all possible legal chess piece moves
+        foreach (ChessboardSquare square in Squares)
+        {
+            // Accessing CanMove function of respective piece on selected square and checking legality of movement
+            if (currentpiece.CanMove(selectedSquare, square))
+            {
+                // Appending legal movement squares to list 
+                legalSquareMovementList.Add(square);
+            }
+        }
+
+        // Returning list of legal squares to move to
+        return legalSquareMovementList;
+    }
+
+
 }
