@@ -24,7 +24,8 @@
                    HorizontalOptions="Center"
                    Text="by Shadow Wizard Developers"
                    TextColor="Black"
-                   VerticalOptions="Center" />
+                   VerticalOptions="Center"
+                   Style="{StaticResource MainPageLabelStyle}"/>
 
             <Button x:Name="SinglePlayer"
                     Margin="15"

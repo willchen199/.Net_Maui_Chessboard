@@ -2,96 +2,52 @@
 
 public partial class SettingsPage : ContentPage
 {
+    Settings Settings = new Settings();
 	public SettingsPage()
 	{
+        // Set each of the settings to their current selection
 		InitializeComponent();
-	}
+        Settings.Instance.Initialize();
+        SoundEffects.IsToggled = Settings.Instance.SoundEffects;
+        ConfirmMove.IsToggled = Settings.Instance.ConfirmMove;
+        DarkMode.IsToggled = Settings.Instance.DarkMode;
+        MoveHints.IsToggled = Settings.Instance.MoveHints;
+        TurnTimer.IsToggled = Settings.Instance.TurnTimer;
+    }
 
+    // Reset settings button. Set all IsToggled values to true
 	private void Click(object sender, EventArgs e)
 	{
         SoundEffects.IsToggled = true;
         TurnTimer.IsToggled = true;
-        DarkMode.IsToggled = true;
+        DarkMode.IsToggled = false;
         ConfirmMove.IsToggled = true;
         MoveHints.IsToggled = true;
     }
 
+    // Each of these functions handle when a switch is toggled
     private void SoundFXToggled(object sender, ToggledEventArgs e)
     {
-        bool isOn = e.Value;
-		if (isOn)
-		{
-            // Switch is in the "On" state
-
-            SoundEffects.ThumbColor = Color.FromArgb("#03C400"); // Set the OnColor when switch is On
-        }
-		else
-		{
-            // Switch is in the "Off" state
-            SoundEffects.ThumbColor = Color.FromArgb("#FF0000"); // Set the OnColor when switch is Off
-        }
+        Settings.Instance.SoundEffects = e.Value;
     }
 
     private void TimerToggled(object sender, ToggledEventArgs e)
     {
-        bool isOn = e.Value;
-        if (isOn)
-        {
-            // Switch is in the "On" state
-
-            TurnTimer.ThumbColor = Color.FromArgb("#03C400"); // Set the OnColor when switch is On
-        }
-        else
-        {
-            // Switch is in the "Off" state
-            TurnTimer.ThumbColor = Color.FromArgb("#FF0000"); // Set the OnColor when switch is Off
-        }
+        Settings.Instance.TurnTimer = e.Value;
     }
 
     private void DarkModeToggled(object sender, ToggledEventArgs e)
     {
-        bool isOn = e.Value;
-        if (isOn)
-        {
-            // Switch is in the "On" state
+        Settings.Instance.DarkMode = e.Value;
 
-            DarkMode.ThumbColor = Color.FromArgb("#03C400"); // Set the OnColor when switch is On
-        }
-        else
-        {
-            // Switch is in the "Off" state
-            DarkMode.ThumbColor = Color.FromArgb("#FF0000"); // Set the OnColor when switch is Off
-        }
     }
     private void ConfirmToggled(object sender, ToggledEventArgs e)
     {
-        bool isOn = e.Value;
-        if (isOn)
-        {
-            // Switch is in the "On" state
-
-            ConfirmMove.ThumbColor = Color.FromArgb("#03C400"); // Set the OnColor when switch is On
-        }
-        else
-        {
-            // Switch is in the "Off" state
-            ConfirmMove.ThumbColor = Color.FromArgb("#FF0000"); // Set the OnColor when switch is Off
-        }
+        Settings.Instance.ConfirmMove = e.Value;
     }
 
     private void HintsToggled(object sender, ToggledEventArgs e)
     {
-        bool isOn = e.Value;
-        if (isOn)
-        {
-            // Switch is in the "On" state
-
-            MoveHints.ThumbColor = Color.FromArgb("#03C400"); // Set the OnColor when switch is On
-        }
-        else
-        {
-            // Switch is in the "Off" state
-            MoveHints.ThumbColor = Color.FromArgb("#FF0000"); // Set the OnColor when switch is Off
-        }
+        Settings.Instance.MoveHints = e.Value;
     }
 }

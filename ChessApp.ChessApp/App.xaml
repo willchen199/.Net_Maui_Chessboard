@@ -4,7 +4,34 @@
              xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
     <Application.Resources>
+
+        <!-- This Resource Dictionary is for styling the switches in the settings page -->
         <ResourceDictionary>
+            <Color x:Key="SwitchOnColor">Black</Color>
+            <Color x:Key="SwitchThumbColor">#03C400</Color>
+            <Color x:Key="SwitchOffColor">Red</Color>
+            <Color x:Key="SwitchBackgroundColor">#8F2C09</Color>
+
+            <Style x:Key="SwitchStyle" TargetType="Switch">
+                <Setter Property="OnColor" Value="{StaticResource SwitchOnColor}" />
+                <Setter Property="ThumbColor" Value="{StaticResource SwitchThumbColor}" />
+
+                <!-- Set BackgroundColor for both On and Off states -->
+                <Setter Property="BackgroundColor" Value="{StaticResource SwitchBackgroundColor}" />
+
+                <!-- Define a trigger to change colors when switch is off -->
+                <Style.Triggers>
+                    <Trigger TargetType="Switch" Property="IsToggled" Value="False">
+                        <Setter Property="OnColor" Value="{StaticResource SwitchOffColor}" />
+                        <Setter Property="ThumbColor" Value="{StaticResource SwitchOffColor}" />
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+
+            <!-- Styling for the main page-->
+            <Style x:Key="MainPageLabelStyle" TargetType="Label">
+                <Setter Property="TextColor" Value="Black" />
+            </Style>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Resources/Styles/Colors.xaml" />
                 <ResourceDictionary Source="Resources/Styles/Styles.xaml" />

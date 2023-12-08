@@ -5,6 +5,8 @@
              Title="SettingsPage"
              BackgroundColor="Wheat">
     <VerticalStackLayout VerticalOptions="Center">
+
+        <!-- Sound Effects Button-->
         <HorizontalStackLayout HorizontalOptions="Center"
                                BackgroundColor="#8F2C09"
                                WidthRequest="350">
@@ -18,15 +20,14 @@
                         TextColor="wheat"
                         WidthRequest="225" />
             <Switch x:Name="SoundEffects"
-                    IsToggled="true"
+                    IsToggled="{Binding SoundEffects}"
                     Toggled="SoundFXToggled"
                     HorizontalOptions="CenterAndExpand"
                     VerticalOptions="CenterAndExpand"
-                    BackgroundColor="#8F2C09"
-                    OnColor="Black"
-                    ThumbColor="#03C400"/>
+                    Style="{StaticResource SwitchStyle}"/>
         </HorizontalStackLayout>
 
+        <!-- Move Hints Button-->
         <HorizontalStackLayout HorizontalOptions="Center"
                                BackgroundColor="#8F2C09"
                                WidthRequest="350">
@@ -40,15 +41,14 @@
                         TextColor="wheat"
                         WidthRequest="225" />
             <Switch x:Name="MoveHints"
-                    IsToggled="true"
+                    IsToggled="{Binding MoveHints}"
                     Toggled="HintsToggled"
                     HorizontalOptions="CenterAndExpand"
                     VerticalOptions="CenterAndExpand"
-                    BackgroundColor="#8F2C09"
-                    OnColor="Black"
-                    ThumbColor="#03C400"/>
+                    Style="{StaticResource SwitchStyle}"/>
         </HorizontalStackLayout>
 
+        <!-- Confirm Move Button-->
         <HorizontalStackLayout HorizontalOptions="Center"
                                BackgroundColor="#8F2C09"
                                WidthRequest="350">
@@ -62,15 +62,14 @@
                         TextColor="wheat"
                         WidthRequest="225" />
             <Switch x:Name="ConfirmMove"
-                    IsToggled="true"
+                    IsToggled="{Binding ConfirmMove}"
                     Toggled="ConfirmToggled"
                     HorizontalOptions="CenterAndExpand"
                     VerticalOptions="CenterAndExpand"
-                    BackgroundColor="#8F2C09"
-                    OnColor="Black"
-                    ThumbColor="#03C400"/>
+                    Style="{StaticResource SwitchStyle}"/>
         </HorizontalStackLayout>
 
+        <!-- Dark Mode Button-->
         <HorizontalStackLayout HorizontalOptions="Center"
                                BackgroundColor="#8F2C09"
                                WidthRequest="350">
@@ -84,15 +83,14 @@
                         TextColor="wheat"
                         WidthRequest="225" />
             <Switch x:Name="DarkMode"
-                    IsToggled="true"
+                    IsToggled="{Binding DarkMode}"
                     Toggled="DarkModeToggled"
                     HorizontalOptions="CenterAndExpand"
                     VerticalOptions="CenterAndExpand"
-                    BackgroundColor="#8F2C09"
-                    OnColor="Black"
-                    ThumbColor="#03C400"/>
+                    Style="{StaticResource SwitchStyle}"/>
         </HorizontalStackLayout>
 
+        <!-- Turn Timer Button-->
         <HorizontalStackLayout HorizontalOptions="Center"
                                BackgroundColor="#8F2C09"
                                WidthRequest="350">
@@ -106,63 +104,12 @@
                         TextColor="wheat"
                         WidthRequest="225" />
             <Switch x:Name="TurnTimer"
-                    IsToggled="true"
+                    IsToggled="{Binding TurnTimer}"
                     Toggled="TimerToggled"
                     HorizontalOptions="CenterAndExpand"
                     VerticalOptions="CenterAndExpand"
-                    BackgroundColor="#8F2C09"
-                    OnColor="Black"
-                    ThumbColor="#03C400"/>
+                    Style="{StaticResource SwitchStyle}"/>
         </HorizontalStackLayout>
-        
-
-        <!--<Button x:Name="HighlightMoves"
-                Margin="15"
-                BackgroundColor="#8F2C09"
-                
-                FontFamily="Times New Roman"
-                FontSize="35"
-                HeightRequest="75"
-                HorizontalOptions="Center"
-                Text="Highlight Possible Moves"
-                TextColor="Wheat"
-                WidthRequest="350" />
-
-        <Button x:Name="ConfirmMove"
-                Margin="15"
-                BackgroundColor="#8F2C09"
-                
-                FontFamily="Times New Roman"
-                FontSize="35"
-                HeightRequest="75"
-                HorizontalOptions="Center"
-                Text="Confirm Move"
-                TextColor="Wheat"
-                WidthRequest="350" />
-
-        <Button x:Name="DarkMode"
-                Margin="15"
-                BackgroundColor="#8F2C09"
-                
-                FontFamily="Times New Roman"
-                FontSize="35"
-                HeightRequest="75"
-                HorizontalOptions="Center"
-                Text="Dark Mode"
-                TextColor="Wheat"
-                WidthRequest="350" />
-
-        <Button x:Name="Timer"
-                Margin="15"
-                BackgroundColor="#8F2C09"
-                
-                FontFamily="Times New Roman"
-                FontSize="35"
-                HeightRequest="75"
-                HorizontalOptions="Center"
-                Text="Timer"
-                TextColor="Wheat"
-                WidthRequest="350" />-->
 
         <Button x:Name="ResetSettings"
                 Margin="15"
