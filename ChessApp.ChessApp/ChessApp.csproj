@@ -71,12 +71,18 @@
       <MauiXaml Update="LoadingPage.xaml">
         <Generator>MSBuild:Compile</Generator>
       </MauiXaml>
+      <MauiXaml Update="PausePage.xaml">
+        <Generator>MSBuild:Compile</Generator>
+      </MauiXaml>
     </ItemGroup>
 
     <ItemGroup>
       <Compile Update="ChessPage.xaml.cs">
         <DependentUpon>ChessPage.xaml</DependentUpon>
         <SubType>Code</SubType>
+      </Compile>
+      <Compile Update="PausePage.xaml.cs">
+        <DependentUpon>PausePage.xaml</DependentUpon>
       </Compile>
     </ItemGroup>
 

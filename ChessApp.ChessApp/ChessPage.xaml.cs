@@ -183,4 +183,10 @@ public partial class ChessPage : ContentPage
         if (sender is CollectionView collectionView && isLoaded)
             AdjustChessboardPieces(); // Adjust the chessboard pieces.
     }
+
+    private async void OpenPausePage(object sender, EventArgs e)
+    {
+        await Navigation.PushAsync(new PausePage());
+    }
+
 }

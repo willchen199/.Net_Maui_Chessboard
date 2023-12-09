@@ -6,46 +6,58 @@
              BackgroundColor="Wheat"
              SizeChanged="ChessPage_OnSizeChanged">
     <Grid ColumnDefinitions="*, auto, *"
-          HorizontalOptions="Center"
-          RowDefinitions="auto, *, auto"
-          VerticalOptions="Center">
+      HorizontalOptions="Center"
+      RowDefinitions="auto, *, auto"
+      VerticalOptions="Center">
 
         <!--  Turn Label with styling  -->
         <Label Grid.Row="0"
-               Grid.Column="1"
-               Margin="20,10,20,0"
-               BackgroundColor="Transparent"
-               FontAttributes="Bold"
-               FontSize="Large"
-               HorizontalOptions="Center"
-               Text="{Binding TurnText}"
-               TextColor="Black"
-               VerticalOptions="End" />
+           Grid.Column="0"
+           Margin="20,10,20,0"
+           BackgroundColor="Transparent"
+           FontAttributes="Bold"
+           FontSize="Large"
+           HorizontalTextAlignment="Center"
+           Text="{Binding TurnText}"
+           TextColor="Black"
+           VerticalOptions="End" />
 
-        <!--  Chessboard CollectionView  -->
+        <Button Grid.Row="0"
+            Grid.Column="1"
+            Padding="0"
+            BackgroundColor="Transparent"
+            CornerRadius="10"
+            FontAttributes="Bold"
+            FontSize="Large"
+            Text="Pause"
+            HorizontalOptions="End"
+            TextColor="Black"
+            Clicked="OpenPausePage" />
+
+        <!-- Chessboard CollectionView -->
         <CollectionView x:Name="UxChessboardView"
-                        Grid.Row="1"
-                        Grid.Column="0"
-                        Grid.ColumnSpan="3"
-                        Margin="0"
-                        ItemsSource="{Binding Squares}"
-                        SizeChanged="ChessboardView_OnSizeChanged">
+                    Grid.Row="1"
+                    Grid.Column="0"
+                    Grid.ColumnSpan="3"
+                    Margin="0"
+                    ItemsSource="{Binding Squares}"
+                    SizeChanged="ChessboardView_OnSizeChanged">
             <CollectionView.ItemsLayout>
                 <GridItemsLayout Orientation="Horizontal" Span="8" />
             </CollectionView.ItemsLayout>
             <CollectionView.ItemTemplate>
                 <DataTemplate>
                     <Frame Padding="0"
-                           HasShadow="False"
-                           HeightRequest="{Binding Height}"
-                           IsClippedToBounds="True"
-                           WidthRequest="{Binding Width}">
+                       HasShadow="False"
+                       HeightRequest="{Binding Height}"
+                       IsClippedToBounds="True"
+                       WidthRequest="{Binding Width}">
                         <ImageButton Aspect="AspectFill"
-                                     BackgroundColor="{Binding Color}"
-                                     Clicked="ChessSquare_OnClicked"
-                                     HorizontalOptions="FillAndExpand"
-                                     Source="{Binding Chesspiece.ImageSource}"
-                                     VerticalOptions="FillAndExpand" />
+                                 BackgroundColor="{Binding Color}"
+                                 Clicked="ChessSquare_OnClicked"
+                                 HorizontalOptions="FillAndExpand"
+                                 Source="{Binding Chesspiece.ImageSource}"
+                                 VerticalOptions="FillAndExpand" />
                     </Frame>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
