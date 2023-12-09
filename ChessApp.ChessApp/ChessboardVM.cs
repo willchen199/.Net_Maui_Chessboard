@@ -94,6 +94,11 @@ public class ChessboardVM : INotifyPropertyChanged
         return new NoPiece("blank_square.png", row, column);
     }
 
+
+    //***********************************CONSTRUCTION ZONE***********************************************
+
+
+
     /// <summary>
     /// Moves a chess piece from one square to another on the chessboard.
     /// It updates the positions of the chess pieces within the internal collection
@@ -111,10 +116,57 @@ public class ChessboardVM : INotifyPropertyChanged
         newSquare.Chesspiece.CurrentRow = newSquare.Row;
         newSquare.Chesspiece.CurrentColumn = newSquare.Column;
 
+        // Check if the moved piece is a pawn and if it reaches the end of the chessboard
+        if (newSquare.Chesspiece is Pawn pawn)
+        {
+            if (pawn.Color == Colors.White && newSquare.Row == 0)
+            {
+                // Pawn reached the end, prompt for promotion
+                PromptPawnPromotion(pawn, newSquare, 'w');
+            }
+            else if (pawn.Color == Colors.Black && newSquare.Row == 7)
+            {
+                PromptPawnPromotion(pawn, newSquare, 'b');
+            }
+        }
+
         // Notify the UI to refresh the squares
         OnPropertyChanged(nameof(Squares));
         ResetHighlighting();
     }
+
+    private void PromptPawnPromotion(Pawn pawn, ChessboardSquare square, char colorSpecifier)
+    {
+        // You can implement a dialog or any user interaction mechanism here to choose the promotion piece.
+        // For simplicity, let's assume you have a method to choose the promotion piece.
+        IChesspiece promotedPiece = ChoosePromotionPiece(colorSpecifier);
+
+        // Set the promoted piece on the square
+        square.Chesspiece = promotedPiece;
+
+        // Update the position of the promoted piece
+        square.Chesspiece.CurrentRow = square.Row;
+        square.Chesspiece.CurrentColumn = square.Column;
+    }
+
+    private IChesspiece ChoosePromotionPiece(char colorSpecifier)
+    {
+        // You can implement a dialog or any user interaction mechanism to choose the promotion piece.
+        // For simplicity, let's assume you always promote to a queen.
+
+        if (colorSpecifier == 'w')
+            return new Queen("queen_w.png", 0, 0);
+        else
+            return new Queen("queen_b.png", 0, 0);
+
+    }
+
+
+
+
+    //***********************************CONSTRUCTION ZONE***********************************************
+
+
 
 
     /// <summary>
@@ -178,10 +230,6 @@ public class ChessboardVM : INotifyPropertyChanged
         OnPropertyChanged(propertyName); // Notify that the property has changed.
         return true;
     }
-
-
-
-    //******************************CONSTRUCTION ZONE***********************************//
 
 
     //Following two summaries provided by ChatGPT.
