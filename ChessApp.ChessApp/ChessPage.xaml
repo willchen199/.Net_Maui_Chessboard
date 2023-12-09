@@ -1,10 +1,32 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<!-- Wheat, AntiqueWhite, Black-->
 <ContentPage x:Class="ChessApp.ChessPage"
              xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             BackgroundColor="Wheat"
-             SizeChanged="ChessPage_OnSizeChanged">
+             SizeChanged="ChessPage_OnSizeChanged"
+             BackgroundColor="{DynamicResource PageBackgroundColor}">
+    <ContentPage.Resources>
+        <!-- Define Light and Dark styles -->
+        <Style x:Key="LightLabelStyle" TargetType="Label">
+            <Setter Property="TextColor" Value="Black" />
+        </Style>
+        <Style x:Key="LightLabelTextStyle" TargetType="Label">
+            <Setter Property="TextColor" Value="Black" />
+        </Style>
+        <Style x:Key="DarkLabelTextStyle" TargetType="Label">
+            <Setter Property="TextColor" Value="White" />
+        </Style>
+        <Style x:Key="DarkLabelStyle" TargetType="Label">
+            <Setter Property="TextColor" Value="White" />
+        </Style>
+
+        <!-- Define Dynamic Resource for Page Background Color -->
+        <Color x:Key="LightPageBackgroundColor">Wheat</Color>
+        <Color x:Key="DarkPageBackgroundColor">Black</Color>
+
+        <Style x:Key="LightSwitchStyle" TargetType="Switch"></Style>
+        <Style x:Key="DarkSwitchStyle" TargetType="Switch"></Style>
+    </ContentPage.Resources>
+
     <Grid ColumnDefinitions="*, auto, *"
           HorizontalOptions="Center"
           RowDefinitions="auto, *, auto"
@@ -19,7 +41,7 @@
                FontSize="Large"
                HorizontalOptions="Center"
                Text="{Binding TurnText}"
-               TextColor="Black"
+               Style="{DynamicResource LabelTextStyle}" 
                VerticalOptions="End" />
 
         <!--  Chessboard CollectionView  -->
