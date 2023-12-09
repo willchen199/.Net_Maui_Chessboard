@@ -34,7 +34,7 @@
 
         <!--  Turn Label with styling  -->
         <Label Grid.Row="0"
-               Grid.Column="1"
+               Grid.Column="0"
                Margin="20,10,20,0"
                BackgroundColor="Transparent"
                FontAttributes="Bold"
