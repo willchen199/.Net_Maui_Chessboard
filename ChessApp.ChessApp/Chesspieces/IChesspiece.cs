@@ -20,6 +20,7 @@ public interface IChesspiece
     public bool IsInStalemate { get; set; }
 
     public void Move(ChessboardSquare newSquare);
+
     public bool CanMove(ChessboardSquare oldSquare, ChessboardSquare newSquare);
     public void Capture();
     public void Promote();

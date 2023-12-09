@@ -105,7 +105,7 @@ public class ChessboardVM : INotifyPropertyChanged
     {
         // Perform the move
         newSquare.Chesspiece = currentSquare.Chesspiece;
-        currentSquare.Chesspiece = new NoPiece("blank_square.png", currentSquare.Row, currentSquare.Column);
+        currentSquare.Chesspiece = null;
 
         // Update the position of the piece
         newSquare.Chesspiece.CurrentRow = newSquare.Row;
@@ -113,6 +113,7 @@ public class ChessboardVM : INotifyPropertyChanged
 
         // Notify the UI to refresh the squares
         OnPropertyChanged(nameof(Squares));
+        ResetHighlighting();
     }
 
 
@@ -195,7 +196,8 @@ public class ChessboardVM : INotifyPropertyChanged
     {
 
         //Handling exception where no square is selected or when a square with no piece is selected
-        if (selectedSquare == null || selectedSquare.Chesspiece.Name == ChesspieceName.None) return;
+        if (selectedSquare == null || selectedSquare.Chesspiece.Name == ChesspieceName.None) 
+            return;
         
         // Reset the color of all squares
         foreach (var square in Squares)
@@ -215,6 +217,21 @@ public class ChessboardVM : INotifyPropertyChanged
         // Notify the UI to refresh the squares
         OnPropertyChanged(nameof(Squares));
     }
+    
+    /// <summary>
+    /// Resets the highlighted squares when a piece moves or when a new piece is selected.
+    /// </summary>
+    private void ResetHighlighting()
+    {
+        foreach (var square in Squares)
+        {
+            square.Color = (square.Row + square.Column) % 2 == 0 ? Colors.MintCream : Colors.SandyBrown;
+        }
+
+        // Notify the UI to refresh the squares
+        OnPropertyChanged(nameof(Squares));
+    }
+
 
     /// <summary>
     /// Gets the list of legal moves for the selected chess piece on the chessboard.
