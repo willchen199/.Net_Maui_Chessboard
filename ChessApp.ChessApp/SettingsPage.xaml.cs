@@ -5,8 +5,23 @@ public partial class SettingsPage : ContentPage
     Settings Settings = new Settings();
 	public SettingsPage()
 	{
-        // Set each of the settings to their current selection
+
+        
 		InitializeComponent();
+
+        // Set styles based on dark mode state
+        if (Settings.Instance.DarkMode)
+        {
+            Resources["PageBackgroundColor"] = Resources["DarkPageBackgroundColor"];
+            Resources["LightSwitchStyle"] = Resources["DarkSwitchStyle"];
+        }
+        else
+        {
+            Resources["PageBackgroundColor"] = Resources["LightPageBackgroundColor"];
+            Resources["LightSwitchStyle"] = Resources["LightSwitchStyle"];
+        }
+
+        // Set each of the settings to their current selection
         Settings.Instance.Initialize();
         SoundEffects.IsToggled = Settings.Instance.SoundEffects;
         ConfirmMove.IsToggled = Settings.Instance.ConfirmMove;
@@ -39,6 +54,20 @@ public partial class SettingsPage : ContentPage
     private void DarkModeToggled(object sender, ToggledEventArgs e)
     {
         Settings.Instance.DarkMode = e.Value;
+        // Update UI immediately based on the new Dark Mode state
+        if (e.Value)
+        {
+            Resources["PageBackgroundColor"] = Resources["DarkPageBackgroundColor"];
+            Resources["LightSwitchStyle"] = Resources["DarkSwitchStyle"];
+        }
+        else
+        {
+            Resources["PageBackgroundColor"] = Resources["LightPageBackgroundColor"];
+            Resources["LightSwitchStyle"] = Resources["LightSwitchStyle"];
+        }
+
+        // Notify other pages that dark mode has been changed
+        MessagingCenter.Send<SettingsPage, bool>(this, "DarkModeChanged", e.Value);
 
     }
     private void ConfirmToggled(object sender, ToggledEventArgs e)

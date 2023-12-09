@@ -1,4 +1,5 @@
 ﻿using ChessApp.Chesspieces;
+using ChessApp.Moving;
 
 namespace ChessApp;
 
@@ -22,10 +23,54 @@ public partial class ChessPage : ContentPage
     public ChessPage()
     {
         InitializeComponent(); // Initialize the page's components.
+        SubscribeToMessages();
+        // Set styles based on dark mode state
+        Settings Settings = new Settings();
+        if (Settings.Instance.DarkMode)
+        {
+            UpdateDarkModeStyles();
+        }
+        else
+        {
+            UpdateLightModeStyles();
+        }
         BindingContext = new ChessboardVM(); // Set the binding context to a new Chessboard view model.
         isLoaded = true; // Flag to indicate the page is loaded.
+        SelectedSquare = new ChessboardSquare(0, 0, 0, 0, new NoPiece("", 4, 4));
     }
 
+    // Messages lets the program know if dark mode is toggled while the program is running. 
+    private void SubscribeToMessages()
+    {
+        MessagingCenter.Subscribe<SettingsPage, bool>(this, "DarkModeChanged", OnDarkModeChanged);
+    }
+
+    private void OnDarkModeChanged(SettingsPage sender, bool isDarkMode)
+    {
+        // Update UI based on the new dark mode state
+        if (isDarkMode)
+        {
+            UpdateDarkModeStyles();
+        }
+        else
+        {
+            UpdateLightModeStyles();
+        }
+    }
+
+    private void UpdateDarkModeStyles()
+    {
+        Resources["PageBackgroundColor"] = Resources["DarkPageBackgroundColor"];
+        Resources["LightSwitchStyle"] = Resources["DarkSwitchStyle"];
+        Resources["LabelTextStyle"] = Resources["DarkLabelTextStyle"];
+    }
+
+    private void UpdateLightModeStyles()
+    {
+        Resources["PageBackgroundColor"] = Resources["LightPageBackgroundColor"];
+        Resources["LightSwitchStyle"] = Resources["LightSwitchStyle"];
+        Resources["LabelTextStyle"] = Resources["LightLabelTextStyle"];
+    }
     /// <summary>
     /// Width property of the ChessPage. Notifies when the property changes.
     /// </summary>
@@ -85,56 +130,53 @@ public partial class ChessPage : ContentPage
 
         var chessboardVM = (ChessboardVM)BindingContext;
 
-        if (SelectedSquare == null &&
-            ((chessboardVM.IsWhiteTurn && !Equals(clickedSquare.Chesspiece.Color, Colors.White)) ||
-             (!chessboardVM.IsWhiteTurn && !Equals(clickedSquare.Chesspiece.Color, Colors.Black))))
-        {
-            return; // It's not the turn of the piece's color, so return early
-        }
-
-        // If a square is already selected and the clicked square is different
-        if (SelectedSquare != null && clickedSquare != SelectedSquare)
-        {
-            // Check if the move is valid
-            if (SelectedSquare.Chesspiece.CanMove(SelectedSquare, clickedSquare) &&
-                SelectedSquare.Chesspiece.HasClearPath(SelectedSquare, clickedSquare, chessboardVM.Squares.ToList()))
-            {
-                MovePiece(SelectedSquare, clickedSquare);
-                SelectedSquare.Chesspiece.Name = ChesspieceName.None;
-                chessboardVM.IsWhiteTurn =
-                    !chessboardVM.IsWhiteTurn; // Assuming you have a turn-based logic implemented
-                SelectedSquare = null; // Reset the selected square
-            }
-            else
-            {
-                // Allow changing the selected square if the move is not valid
-                if (clickedSquare.Chesspiece.Name != ChesspieceName.None)
-                {
-                    SelectedSquare = clickedSquare;
-                }
-            }
-        }
-        else if (SelectedSquare == null &&
-                 clickedSquare.Chesspiece.Name != ChesspieceName.None &&
-                 clickedSquare.Chesspiece != null)
-        {
-            // Select the square if it contains a piece
+        if (CanSelectSquare(clickedSquare, chessboardVM))
             SelectedSquare = clickedSquare;
+        
+        // Highlight legal moves if a square is selected
+        chessboardVM.HighlightLegalMoves(SelectedSquare);
+    }
+    
+    private bool CanSelectSquare(ChessboardSquare clickedSquare, ChessboardVM chessboardVM)
+    {
+        // If the clicked square has no piece, and no square is currently selected, return false
+        if (clickedSquare.Chesspiece.Name.Equals(ChesspieceName.None) && SelectedSquare == null)
+            return false;
+
+        // If the clicked square has a piece and it's the turn of that piece's color
+        if (!clickedSquare.Chesspiece.Name.Equals(ChesspieceName.None) &&
+            IsTurnOfPieceColor(clickedSquare.Chesspiece.Color, chessboardVM))
+        {
+            return true;
         }
 
-        //Highlighting legal piece movements
-        chessboardVM.HighlightLegalMoves(SelectedSquare);
+        // If a square is already selected and the clicked square is a valid move target
+        if (SelectedSquare != null && SelectedSquare.Chesspiece.CanMove(SelectedSquare, clickedSquare) &&
+            SelectedSquare.Chesspiece.HasClearPath(SelectedSquare, clickedSquare, chessboardVM.Squares.ToList()))
+        {
+            MovePiece(SelectedSquare, clickedSquare, chessboardVM); // Perform the move
+            chessboardVM.IsWhiteTurn = !chessboardVM.IsWhiteTurn; // Change the turn
+            SelectedSquare = null; // Deselect the square
+            return false; // No need to select the clicked square after moving
+        }
 
+        return false;
     }
+
+    private bool IsTurnOfPieceColor(Color pieceColor, ChessboardVM chessboardVM)
+    {
+        return (pieceColor.Equals(Colors.White) && chessboardVM.IsWhiteTurn) ||
+               (!pieceColor.Equals(Colors.White) && !chessboardVM.IsWhiteTurn);
+    }
+
 
     /// <summary>
     /// Moves a chess piece from one square to another on the chessboard.
     /// </summary>
     /// <param name="fromSquare">The square from which a chess piece is being moved.</param>
     /// <param name="toSquare">The square to which the chess piece is moving.</param>
-    private void MovePiece(ChessboardSquare fromSquare, ChessboardSquare toSquare)
+    private void MovePiece(ChessboardSquare fromSquare, ChessboardSquare toSquare, ChessboardVM chessboardVM)
     {
-        var chessboardVM = (ChessboardVM)BindingContext;
         chessboardVM.MovePiece(fromSquare, toSquare);
     }
 

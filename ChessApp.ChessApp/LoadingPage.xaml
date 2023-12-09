@@ -1,9 +1,31 @@
-<?xml version="1.0" encoding="utf-8" ?>
+﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="ChessApp.LoadingPage"
              Title="LoadingPage"
-             BackgroundColor="Wheat">
+             BackgroundColor="{DynamicResource PageBackgroundColor}">
+    <ContentPage.Resources>
+        <!-- Define Light and Dark styles -->
+        <Style x:Key="LightLabelStyle" TargetType="Label">
+            <Setter Property="TextColor" Value="Black" />
+        </Style>
+        <Style x:Key="LightLabelTextStyle" TargetType="Label">
+            <Setter Property="TextColor" Value="Black" />
+        </Style>
+        <Style x:Key="DarkLabelTextStyle" TargetType="Label">
+            <Setter Property="TextColor" Value="White" />
+        </Style>
+        <Style x:Key="DarkLabelStyle" TargetType="Label">
+            <Setter Property="TextColor" Value="White" />
+        </Style>
+
+        <!-- Define Dynamic Resource for Page Background Color -->
+        <Color x:Key="LightPageBackgroundColor">Wheat</Color>
+        <Color x:Key="DarkPageBackgroundColor">Black</Color>
+
+        <Style x:Key="LightSwitchStyle" TargetType="Switch"></Style>
+        <Style x:Key="DarkSwitchStyle" TargetType="Switch"></Style>
+    </ContentPage.Resources>
 
     <ScrollView>
         <VerticalStackLayout>
@@ -13,7 +35,7 @@
                    FontSize="125"
                    HorizontalOptions="Center"
                    Text="Saved Games"
-                   TextColor="Black"
+                   Style="{DynamicResource LabelTextStyle}"
                    VerticalOptions="Center" />
 
             <Button x:Name="SaveSlot1"
