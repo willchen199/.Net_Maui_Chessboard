@@ -2,10 +2,10 @@
 <ContentPage x:Class="ChessApp.ChessPage"
              xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             SizeChanged="ChessPage_OnSizeChanged"
-             BackgroundColor="{DynamicResource PageBackgroundColor}">
+             BackgroundColor="{DynamicResource PageBackgroundColor}"
+             SizeChanged="ChessPage_OnSizeChanged">
     <ContentPage.Resources>
-        <!-- Define Light and Dark styles -->
+        <!--  Define Light and Dark styles  -->
         <Style x:Key="LightLabelStyle" TargetType="Label">
             <Setter Property="TextColor" Value="Black" />
         </Style>
@@ -19,18 +19,18 @@
             <Setter Property="TextColor" Value="White" />
         </Style>
 
-        <!-- Define Dynamic Resource for Page Background Color -->
+        <!--  Define Dynamic Resource for Page Background Color  -->
         <Color x:Key="LightPageBackgroundColor">Wheat</Color>
         <Color x:Key="DarkPageBackgroundColor">Black</Color>
 
-        <Style x:Key="LightSwitchStyle" TargetType="Switch"></Style>
-        <Style x:Key="DarkSwitchStyle" TargetType="Switch"></Style>
+        <Style x:Key="LightSwitchStyle" TargetType="Switch" />
+        <Style x:Key="DarkSwitchStyle" TargetType="Switch" />
     </ContentPage.Resources>
 
     <Grid ColumnDefinitions="*, auto, *"
-      HorizontalOptions="Center"
-      RowDefinitions="auto, *, auto"
-      VerticalOptions="Center">
+          HorizontalOptions="Center"
+          RowDefinitions="auto, *, auto"
+          VerticalOptions="Center">
 
         <!--  Turn Label with styling  -->
         <Label Grid.Row="0"
@@ -40,46 +40,49 @@
                FontAttributes="Bold"
                FontSize="Large"
                HorizontalOptions="Center"
+               HorizontalTextAlignment="Center"
                Text="{Binding TurnText}"
                TextColor="Black"
-               VerticalOptions="End" />
+               VerticalOptions="End"
+               VerticalTextAlignment="Center"
+               WidthRequest="100"
+               ZIndex="5" />
 
-        <Button Grid.Row="0"
-            Grid.Column="1"
-            Padding="0"
-            BackgroundColor="Transparent"
-            CornerRadius="10"
-            FontAttributes="Bold"
-            FontSize="Large"
-            Text="Pause"
-            HorizontalOptions="End"
-            TextColor="Black"
-            Clicked="OpenPausePage" />
+        <ImageButton Grid.Row="0"
+                     Grid.ColumnSpan="3"
+                     Padding="10"
+                     Clicked="OpenPausePage"
+                     CornerRadius="10"
+                     HeightRequest="100"
+                     HorizontalOptions="End"
+                     Source="pause_icon.png"
+                     VerticalOptions="Center"
+                     WidthRequest="100" />
 
-        <!-- Chessboard CollectionView -->
+        <!--  Chessboard CollectionView  -->
         <CollectionView x:Name="UxChessboardView"
-                    Grid.Row="1"
-                    Grid.Column="0"
-                    Grid.ColumnSpan="3"
-                    Margin="0"
-                    ItemsSource="{Binding Squares}"
-                    SizeChanged="ChessboardView_OnSizeChanged">
+                        Grid.Row="1"
+                        Grid.Column="0"
+                        Grid.ColumnSpan="3"
+                        Margin="0"
+                        ItemsSource="{Binding Squares}"
+                        SizeChanged="ChessboardView_OnSizeChanged">
             <CollectionView.ItemsLayout>
                 <GridItemsLayout Orientation="Horizontal" Span="8" />
             </CollectionView.ItemsLayout>
             <CollectionView.ItemTemplate>
                 <DataTemplate>
                     <Frame Padding="0"
-                       HasShadow="False"
-                       HeightRequest="{Binding Height}"
-                       IsClippedToBounds="True"
-                       WidthRequest="{Binding Width}">
+                           HasShadow="False"
+                           HeightRequest="{Binding Height}"
+                           IsClippedToBounds="True"
+                           WidthRequest="{Binding Width}">
                         <ImageButton Aspect="AspectFill"
-                                 BackgroundColor="{Binding Color}"
-                                 Clicked="ChessSquare_OnClicked"
-                                 HorizontalOptions="FillAndExpand"
-                                 Source="{Binding Chesspiece.ImageSource}"
-                                 VerticalOptions="FillAndExpand" />
+                                     BackgroundColor="{Binding Color}"
+                                     Clicked="ChessSquare_OnClicked"
+                                     HorizontalOptions="FillAndExpand"
+                                     Source="{Binding Chesspiece.ImageSource}"
+                                     VerticalOptions="FillAndExpand" />
                     </Frame>
                 </DataTemplate>
             </CollectionView.ItemTemplate>

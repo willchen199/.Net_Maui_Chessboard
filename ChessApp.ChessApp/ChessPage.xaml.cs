@@ -137,6 +137,12 @@ public partial class ChessPage : ContentPage
         chessboardVM.HighlightLegalMoves(SelectedSquare);
     }
     
+    /// <summary>
+    /// Checks if the clicked square can be selected.
+    /// </summary>
+    /// <param name="clickedSquare">The target square.</param>
+    /// <param name="chessboardVM">The chessboard's VM.</param>
+    /// <returns></returns>
     private bool CanSelectSquare(ChessboardSquare clickedSquare, ChessboardVM chessboardVM)
     {
         // If the clicked square has no piece, and no square is currently selected, return false
@@ -162,6 +168,12 @@ public partial class ChessPage : ContentPage
         return false;
     }
 
+    /// <summary>
+    /// Checks if it is the turn of the specified square's piece color.
+    /// </summary>
+    /// <param name="pieceColor">The color of the chess piece.</param>
+    /// <param name="chessboardVM">The chessboard's VM.</param>
+    /// <returns></returns>
     private bool IsColorsTurn(Color pieceColor, ChessboardVM chessboardVM)
     {
         return (pieceColor.Equals(Colors.White) && chessboardVM.IsWhiteTurn) ||
