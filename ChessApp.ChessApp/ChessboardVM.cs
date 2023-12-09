@@ -105,7 +105,7 @@ public class ChessboardVM : INotifyPropertyChanged
     {
         // Perform the move
         newSquare.Chesspiece = currentSquare.Chesspiece;
-        currentSquare.Chesspiece = null;
+        currentSquare.Chesspiece = new NoPiece("blank_square.png", currentSquare.Row, currentSquare.Column);
 
         // Update the position of the piece
         newSquare.Chesspiece.CurrentRow = newSquare.Row;
@@ -200,10 +200,7 @@ public class ChessboardVM : INotifyPropertyChanged
             return;
         
         // Reset the color of all squares
-        foreach (var square in Squares)
-        {
-            square.Color = (square.Row + square.Column) % 2 == 0 ? Colors.MintCream : Colors.SandyBrown;
-        }
+        ResetHighlighting();
 
         // Get the legal moves for the selected chess piece
         List<ChessboardSquare> legalMoves = GetLegalMoves(selectedSquare);
@@ -240,23 +237,25 @@ public class ChessboardVM : INotifyPropertyChanged
     /// <returns>A list of ChessboardSquare objects representing legal move destinations.</returns>
     private List<ChessboardSquare> GetLegalMoves(ChessboardSquare selectedSquare)
     {
-        // New list to store all chessboard square objects
-        List<ChessboardSquare> legalSquareMovementList = new List<ChessboardSquare>();
-
         // Referencing currently selected chess piece to reference CanMove() method
-        IChesspiece currentpiece = selectedSquare.Chesspiece;
+        IChesspiece currentPiece = selectedSquare.Chesspiece;
+        
+        // New list to store all chessboard square objects
+        List<ChessboardSquare> legalSquareMovementList = new List<ChessboardSquare> {selectedSquare};
 
         // Foreach loop to iterate through and check all possible legal chess piece moves
         foreach (ChessboardSquare square in Squares)
         {
             // Accessing CanMove function of respective piece on selected square and checking legality of movement
-            if (currentpiece.CanMove(selectedSquare, square))
+            if (currentPiece.CanMove(selectedSquare, square, Squares))
             {
                 // Appending legal movement squares to list 
                 legalSquareMovementList.Add(square);
             }
         }
 
+        legalSquareMovementList = currentPiece.AvailableSquares(selectedSquare, Squares).ToList();
+        
         // Returning list of legal squares to move to
         return legalSquareMovementList;
     }

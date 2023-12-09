@@ -143,16 +143,15 @@ public partial class ChessPage : ContentPage
         if (clickedSquare.Chesspiece.Name.Equals(ChesspieceName.None) && SelectedSquare == null)
             return false;
 
-        // If the clicked square has a piece and it's the turn of that piece's color
+        // If the clicked square has a piece and it's the turn of that piece's color, select the square
         if (!clickedSquare.Chesspiece.Name.Equals(ChesspieceName.None) &&
-            IsTurnOfPieceColor(clickedSquare.Chesspiece.Color, chessboardVM))
+            IsColorsTurn(clickedSquare.Chesspiece.Color, chessboardVM))
         {
             return true;
         }
 
         // If a square is already selected and the clicked square is a valid move target
-        if (SelectedSquare != null && SelectedSquare.Chesspiece.CanMove(SelectedSquare, clickedSquare) &&
-            SelectedSquare.Chesspiece.HasClearPath(SelectedSquare, clickedSquare, chessboardVM.Squares.ToList()))
+        if (SelectedSquare != null && SelectedSquare.Chesspiece.CanMove(SelectedSquare, clickedSquare, chessboardVM.Squares))
         {
             MovePiece(SelectedSquare, clickedSquare, chessboardVM); // Perform the move
             chessboardVM.IsWhiteTurn = !chessboardVM.IsWhiteTurn; // Change the turn
@@ -163,7 +162,7 @@ public partial class ChessPage : ContentPage
         return false;
     }
 
-    private bool IsTurnOfPieceColor(Color pieceColor, ChessboardVM chessboardVM)
+    private bool IsColorsTurn(Color pieceColor, ChessboardVM chessboardVM)
     {
         return (pieceColor.Equals(Colors.White) && chessboardVM.IsWhiteTurn) ||
                (!pieceColor.Equals(Colors.White) && !chessboardVM.IsWhiteTurn);

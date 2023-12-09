@@ -1,3 +1,5 @@
+using System.Collections.ObjectModel;
+
 namespace ChessApp.Chesspieces;
 
 public class King : IChesspiece
@@ -15,18 +17,36 @@ public class King : IChesspiece
         IsInStalemate = false;
     }
 
+    public List<ChessboardSquare> AvailableSquares(ChessboardSquare currentSquare,
+        ObservableCollection<ChessboardSquare> chessboardSquares)
+    {
+        List<ChessboardSquare> availableSquares = new();
+        int[] rowOffsets = new int[] { -1, -1, -1, 0, 1, 1, 1, 0 };
+        int[] colOffsets = new int[] { -1, 0, 1, 1, 1, 0, -1, -1 };
+
+        for (int i = 0; i < 8; i++)
+        {
+            int newRow = currentSquare.Row + rowOffsets[i];
+            int newCol = currentSquare.Column + colOffsets[i];
+
+            if (newRow >= 0 && newRow <= 7 && newCol >= 0 && newCol <= 7)
+            {
+                ChessboardSquare potentialSquare = chessboardSquares.FirstOrDefault(s => s.Row == newRow && s.Column == newCol);
+                if (potentialSquare.Chesspiece.Name == ChesspieceName.None || potentialSquare.Chesspiece.Color != currentSquare.Chesspiece.Color)
+                {
+                    availableSquares.Add(potentialSquare);
+                }
+            }
+        }
+
+        return availableSquares;
+    }
+
     public ChesspieceName Name { get; set; }
     public string ImageSource { get; set; }
     public Color Color => ImageSource.EndsWith("w.png") ? Colors.White : Colors.Black;
     public int CurrentRow { get; set; }
     public int CurrentColumn { get; set; }
-
-    public bool HasClearPath(ChessboardSquare oldSquare, ChessboardSquare newSquare,
-        List<ChessboardSquare> currentSquares)
-    {
-        return true;
-    }
-
     public bool IsCaptured { get; set; }
     public bool IsInCheck { get; set; }
     public bool IsInCheckmate { get; set; }
@@ -38,12 +58,12 @@ public class King : IChesspiece
         CurrentColumn = newSquare.Column;
     }
 
-    public bool CanMove(ChessboardSquare oldSquare, ChessboardSquare newSquare)
+    public bool CanMove(ChessboardSquare oldSquare, ChessboardSquare newSquare, ObservableCollection<ChessboardSquare> chessboardSquares)
     {
         int rowDifference = Math.Abs(newSquare.Row - oldSquare.Row);
         int columnDifference = Math.Abs(newSquare.Column - oldSquare.Column);
 
-        return rowDifference <= 1 && columnDifference <= 1;
+        return rowDifference <= 1 && columnDifference <= 1 && AvailableSquares(oldSquare, chessboardSquares).Contains(newSquare);
     }
 
     public void Capture()

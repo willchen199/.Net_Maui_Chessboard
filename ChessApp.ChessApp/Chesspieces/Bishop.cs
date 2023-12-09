@@ -1,3 +1,5 @@
+using System.Collections.ObjectModel;
+
 namespace ChessApp.Chesspieces;
 
 public class Bishop : IChesspiece
@@ -31,38 +33,49 @@ public class Bishop : IChesspiece
         CurrentColumn = newSquare.Column;
     }
 
-    public bool CanMove(ChessboardSquare oldSquare, ChessboardSquare newSquare)
+    public bool CanMove(ChessboardSquare oldSquare, ChessboardSquare newSquare, ObservableCollection<ChessboardSquare> chessboardSquares)
     {
         int rowDifference = Math.Abs(newSquare.Row - oldSquare.Row);
         int columnDifference = Math.Abs(newSquare.Column - oldSquare.Column);
 
-        return rowDifference == columnDifference;
+        return rowDifference == columnDifference && AvailableSquares(oldSquare, chessboardSquares).Contains(newSquare);
     }
 
-    public bool HasClearPath(ChessboardSquare oldSquare, ChessboardSquare newSquare,
-        List<ChessboardSquare> currentSquares)
+    public List<ChessboardSquare> AvailableSquares(ChessboardSquare currentSquare, 
+        ObservableCollection<ChessboardSquare> chessboardSquares)
     {
-        int rowDifference = newSquare.Row - oldSquare.Row;
-        int columnDifference = newSquare.Column - oldSquare.Column;
-
-        int rowDirection = rowDifference > 0 ? 1 : -1;
-        int columnDirection = columnDifference > 0 ? 1 : -1;
-
-        int potentialNewRow = oldSquare.Row + rowDirection;
-        int potentialNewColumn = oldSquare.Column + columnDirection;
-
-        while (potentialNewRow != newSquare.Row && potentialNewColumn != newSquare.Column)
+        List<ChessboardSquare> availableSquares = new List<ChessboardSquare>();
+        int[][] directions = { new[] { 1, 1 }, new[] { 1, -1 }, new[] { -1, -1 }, new[] { -1, 1 } };
+        
+        foreach (var dir in directions)
         {
-            if (currentSquares.Any(s => s.Row == potentialNewRow &&
-                                        s.Column == potentialNewColumn &&
-                                        s.Chesspiece.Name != ChesspieceName.None))
-                return false;
+            int newRow = currentSquare.Row; // 7
+            int newCol = currentSquare.Column; // 2
 
-            potentialNewRow += rowDirection;
-            potentialNewColumn += columnDirection;
+            while (true)
+            {
+                newRow += dir[0];
+                newCol += dir[1];
+
+                if (newRow < 0 || newRow > 7 || newCol < 0 || newCol > 7)
+                    break;
+
+                ChessboardSquare potentialSquare = chessboardSquares.FirstOrDefault(s => s.Row == newRow && s.Column == newCol);
+                if (potentialSquare.Chesspiece.Name == ChesspieceName.None)
+                {
+                    availableSquares.Add(potentialSquare);
+                }
+                else
+                {
+                    if (potentialSquare.Chesspiece.Color != currentSquare.Chesspiece.Color)
+                        availableSquares.Add(potentialSquare);
+                
+                    break;
+                }
+            }
         }
 
-        return true;
+        return availableSquares;
     }
 
     public void Capture()
