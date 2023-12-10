@@ -42,7 +42,7 @@
                HorizontalOptions="Center"
                HorizontalTextAlignment="Center"
                Text="{Binding TurnText}"
-               TextColor="Black"
+               Style="{DynamicResource LabelTextStyle}"
                VerticalOptions="End"
                VerticalTextAlignment="Center"
                WidthRequest="100"
@@ -56,6 +56,17 @@
                      HeightRequest="100"
                      HorizontalOptions="End"
                      Source="pause_icon.png"
+                     VerticalOptions="Center"
+                     WidthRequest="100" />
+
+        <ImageButton Grid.Row="0"
+                     Grid.ColumnSpan="3"
+                     Padding="10"
+                     Clicked="OpenPausePage"
+                     CornerRadius="10"
+                     HeightRequest="100"
+                     HorizontalOptions="End"
+                     Source="whitepausebutton.png"
                      VerticalOptions="Center"
                      WidthRequest="100" />
 

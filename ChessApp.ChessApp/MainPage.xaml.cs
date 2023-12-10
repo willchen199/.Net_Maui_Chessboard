@@ -6,6 +6,7 @@ public partial class MainPage : ContentPage
     {
         InitializeComponent();
         SubscribeToMessages();
+
         // Set styles based on dark mode state
         Settings Settings = new Settings();
         if (Settings.Instance.DarkMode)
@@ -21,25 +22,13 @@ public partial class MainPage : ContentPage
     // Messages lets the program know if dark mode is toggled while the program is running. 
     private void SubscribeToMessages()
     {
-        MessagingCenter.Subscribe<PausePopup>(this, "NavigateToMainPage", (sender) =>
-        {
-            Device.BeginInvokeOnMainThread(async () =>
-            {
-                await Navigation.PopAsync(); // Assuming the popup was opened over the main page
-            });
-        });
         MessagingCenter.Subscribe<SettingsPage, bool>(this, "DarkModeChanged", OnDarkModeChanged);
-        MessagingCenter.Subscribe<PausePopup, ChessboardVM>(this, "NavigateToChessPage", async (sender, chessboardVM) =>
-        {
-            await Navigation.PushAsync(new ChessPage());
-        });
     }
-    
+
     protected override void OnDisappearing()
     {
         base.OnDisappearing();
         MessagingCenter.Unsubscribe<PausePopup>(this, "NavigateToMainPage");
-        MessagingCenter.Unsubscribe<SettingsPage, bool>(this, "DarkModeChanged");
         MessagingCenter.Unsubscribe<PausePopup, ChessboardVM>(this, "NavigateToChessPage");
     }
 
