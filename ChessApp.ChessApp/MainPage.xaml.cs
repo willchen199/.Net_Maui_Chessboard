@@ -1,65 +1,37 @@
 ﻿// Importing necessary namespaces
 using ChessApp;
 
-// Namespace declaration for the ChessApp
-namespace ChessApp
+public partial class MainPage : ContentPage
 {
-    // Partial class for the MainPage, extending ContentPage
-    public partial class MainPage : ContentPage
+    public MainPage()
     {
-        // Constructor for the MainPage
-        public MainPage()
+        InitializeComponent();
+        SubscribeToMessages();
+
+        // Set styles based on dark mode state
+        Settings Settings = new Settings();
+        if (Settings.Instance.DarkMode)
         {
-            // Initialize the page components
-            InitializeComponent();
-
-            // Subscribe to messages for various events
-            SubscribeToMessages();
-
-            // Set styles based on the current dark mode state
-            Settings Settings = new Settings();
-            if (Settings.Instance.DarkMode)
-            {
-                UpdateDarkModeStyles();
-            }
-            else
-            {
-                UpdateLightModeStyles();
-            }
+            UpdateDarkModeStyles();
         }
-
-        // Subscribe to messages for events like dark mode changes
-        private void SubscribeToMessages()
+        else
         {
-            // Subscribe to navigate back to the main page when a certain message is received
-            MessagingCenter.Subscribe<PausePopup>(this, "NavigateToMainPage", (sender) =>
-            {
-                Device.BeginInvokeOnMainThread(async () =>
-                {
-                    await Navigation.PopAsync(); // Assuming the popup was opened over the main page
-                });
-            });
-
-            // Subscribe to dark mode change events
-            MessagingCenter.Subscribe<SettingsPage, bool>(this, "DarkModeChanged", OnDarkModeChanged);
-
-            // Subscribe to navigate to ChessPage when a certain message is received
-            MessagingCenter.Subscribe<PausePopup, ChessboardVM>(this, "NavigateToChessPage", async (sender, chessboardVM) =>
-            {
-                await Navigation.PushAsync(new ChessPage());
-            });
+            UpdateLightModeStyles();
         }
+    }
 
-        // Event handler for page disappearing
-        protected override void OnDisappearing()
-        {
-            base.OnDisappearing();
+    // Messages lets the program know if dark mode is toggled while the program is running. 
+    private void SubscribeToMessages()
+    {
+        MessagingCenter.Subscribe<SettingsPage, bool>(this, "DarkModeChanged", OnDarkModeChanged);
+    }
 
-            // Unsubscribe from messages to avoid memory leaks
-            MessagingCenter.Unsubscribe<PausePopup>(this, "NavigateToMainPage");
-            MessagingCenter.Unsubscribe<SettingsPage, bool>(this, "DarkModeChanged");
-            MessagingCenter.Unsubscribe<PausePopup, ChessboardVM>(this, "NavigateToChessPage");
-        }
+    protected override void OnDisappearing()
+    {
+        base.OnDisappearing();
+        MessagingCenter.Unsubscribe<PausePopup>(this, "NavigateToMainPage");
+        MessagingCenter.Unsubscribe<PausePopup, ChessboardVM>(this, "NavigateToChessPage");
+    }
 
         // Event handler for dark mode changes
         private void OnDarkModeChanged(SettingsPage sender, bool isDarkMode)
