@@ -44,10 +44,12 @@ public class ChessboardVM : INotifyPropertyChanged
     /// This constructor can be used when you need to set up a chessboard with a pre-defined state.
     /// </summary>
     /// <param name="squares">A collection of ChessboardSquare objects representing the chessboard layout.</param>
-    public ChessboardVM(ObservableCollection<ChessboardSquare> squares)
+    public ChessboardVM(ObservableCollection<ChessboardSquare> squares, bool isWhiteTurn)
     {
-        Squares = squares;
+        Squares = squares ?? throw new ArgumentNullException(nameof(squares));
+        IsWhiteTurn = isWhiteTurn;
     }
+
 
     /// <summary>
     /// Creates the initial chess piece for a given position on the chessboard.
@@ -94,6 +96,8 @@ public class ChessboardVM : INotifyPropertyChanged
         return new NoPiece("blank_square.png", row, column);
     }
 
+
+
     /// <summary>
     /// Moves a chess piece from one square to another on the chessboard.
     /// It updates the positions of the chess pieces within the internal collection
@@ -111,15 +115,71 @@ public class ChessboardVM : INotifyPropertyChanged
         newSquare.Chesspiece.CurrentRow = newSquare.Row;
         newSquare.Chesspiece.CurrentColumn = newSquare.Column;
 
+        // Check if the moved piece is a pawn and if it reaches the end of the chessboard
+        if (newSquare.Chesspiece is Pawn pawn)
+        {
+            if (pawn.Color == Colors.White && newSquare.Row == 0)
+            {
+                // Pawn reached the end, prompt for promotion
+                PromptPawnPromotion(pawn, newSquare, 'w');
+            }
+            else if (pawn.Color == Colors.Black && newSquare.Row == 7)
+            {
+                PromptPawnPromotion(pawn, newSquare, 'b');
+            }
+        }
+
         // Notify the UI to refresh the squares
         OnPropertyChanged(nameof(Squares));
+        ResetHighlighting();
+    }
+
+
+
+
+    /// <summary>
+    /// Method inspired by ChatGPT (code changed)
+    /// Prompts the user to choose a promotion piece for a given pawn and sets it on the specified chessboard square.
+    /// </summary>
+    /// <param name="pawn">The pawn to be promoted.</param>
+    /// <param name="square">The chessboard square where the pawn is located.</param>
+    /// <param name="colorSpecifier">The color specifier ('w' for white, 'b' for black) indicating the color of the promoted piece.</param>
+    private void PromptPawnPromotion(Pawn pawn, ChessboardSquare square, char colorSpecifier)
+    {
+        //Creating promoted piece
+        IChesspiece promotedPiece = ChoosePromotionPiece(colorSpecifier);
+
+        // Set the promoted piece on the square
+        square.Chesspiece = promotedPiece;
+
+        // Update the position of the promoted piece
+        square.Chesspiece.CurrentRow = square.Row;
+        square.Chesspiece.CurrentColumn = square.Column;
+    }
+
+
+    /// <summary>
+    /// Method inspired by ChatGPT (code changed)
+    /// Allows the user to choose a promotion piece based on the color specifier.
+    /// For simplicity, this implementation always promotes to a queen.
+    /// </summary>
+    /// <param name="colorSpecifier">The color specifier ('w' for white, 'b' for black) indicating the color of the promoted piece.</param>
+    /// <returns>The chosen promotion piece (always a Queen in this implementation).</returns>
+    private IChesspiece ChoosePromotionPiece(char colorSpecifier)
+    {
+
+        // Return a new Queen instance with the appropriate image file and initial position.
+        if (colorSpecifier == 'w')
+            return new Queen("queen_w.png", 0, 0);
+        else
+            return new Queen("queen_b.png", 0, 0);
     }
 
 
     /// <summary>
     /// An ObservableCollection of ChessboardSquare objects that represents the squares on the chessboard.
     /// </summary>
-    public ObservableCollection<ChessboardSquare> Squares { get; } // Property to hold the squares.
+    public ObservableCollection<ChessboardSquare> Squares { get; set; } // Property to hold the squares.
 
     /// <summary>
     /// An event that is raised when a property value changes.
@@ -179,10 +239,6 @@ public class ChessboardVM : INotifyPropertyChanged
     }
 
 
-
-    //******************************CONSTRUCTION ZONE***********************************//
-
-
     //Following two summaries provided by ChatGPT.
     //Code for HighlightLegalMoves and GetLegalMoves was also inspired by ChatGPT. However, significant changes have been made.
 
@@ -195,13 +251,11 @@ public class ChessboardVM : INotifyPropertyChanged
     {
 
         //Handling exception where no square is selected or when a square with no piece is selected
-        if (selectedSquare == null || selectedSquare.Chesspiece.Name == ChesspieceName.None) return;
+        if (selectedSquare == null || selectedSquare.Chesspiece.Name == ChesspieceName.None) 
+            return;
         
         // Reset the color of all squares
-        foreach (var square in Squares)
-        {
-            square.Color = (square.Row + square.Column) % 2 == 0 ? Colors.MintCream : Colors.SandyBrown;
-        }
+        ResetHighlighting();
 
         // Get the legal moves for the selected chess piece
         List<ChessboardSquare> legalMoves = GetLegalMoves(selectedSquare);
@@ -215,6 +269,21 @@ public class ChessboardVM : INotifyPropertyChanged
         // Notify the UI to refresh the squares
         OnPropertyChanged(nameof(Squares));
     }
+    
+    /// <summary>
+    /// Resets the highlighted squares when a piece moves or when a new piece is selected.
+    /// </summary>
+    private void ResetHighlighting()
+    {
+        foreach (var square in Squares)
+        {
+            square.Color = (square.Row + square.Column) % 2 == 0 ? Colors.MintCream : Colors.SandyBrown;
+        }
+
+        // Notify the UI to refresh the squares
+        OnPropertyChanged(nameof(Squares));
+    }
+
 
     /// <summary>
     /// Gets the list of legal moves for the selected chess piece on the chessboard.
@@ -223,23 +292,25 @@ public class ChessboardVM : INotifyPropertyChanged
     /// <returns>A list of ChessboardSquare objects representing legal move destinations.</returns>
     private List<ChessboardSquare> GetLegalMoves(ChessboardSquare selectedSquare)
     {
-        // New list to store all chessboard square objects
-        List<ChessboardSquare> legalSquareMovementList = new List<ChessboardSquare>();
-
         // Referencing currently selected chess piece to reference CanMove() method
-        IChesspiece currentpiece = selectedSquare.Chesspiece;
+        IChesspiece currentPiece = selectedSquare.Chesspiece;
+        
+        // New list to store all chessboard square objects
+        List<ChessboardSquare> legalSquareMovementList = new List<ChessboardSquare> {selectedSquare};
 
         // Foreach loop to iterate through and check all possible legal chess piece moves
         foreach (ChessboardSquare square in Squares)
         {
             // Accessing CanMove function of respective piece on selected square and checking legality of movement
-            if (currentpiece.CanMove(selectedSquare, square))
+            if (currentPiece.CanMove(selectedSquare, square, Squares))
             {
                 // Appending legal movement squares to list 
                 legalSquareMovementList.Add(square);
             }
         }
 
+        legalSquareMovementList = currentPiece.AvailableSquares(selectedSquare, Squares).ToList();
+        
         // Returning list of legal squares to move to
         return legalSquareMovementList;
     }

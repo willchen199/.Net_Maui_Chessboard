@@ -1,26 +1,81 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<!-- Wheat, AntiqueWhite, Black-->
+<!-- ChessPage: The main page displaying the chessboard and game-related information -->
 <ContentPage x:Class="ChessApp.ChessPage"
              xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             BackgroundColor="Wheat"
+             BackgroundColor="{DynamicResource PageBackgroundColor}" 
              SizeChanged="ChessPage_OnSizeChanged">
+
+    <!-- Resource dictionary containing styles and colors -->
+    <ContentPage.Resources>
+
+        <!-- Styles for labels in light and dark modes -->
+        <Style x:Key="LightLabelStyle" TargetType="Label">
+            <Setter Property="TextColor" Value="Black" />
+        </Style>
+        <Style x:Key="LightLabelTextStyle" TargetType="Label">
+            <Setter Property="TextColor" Value="Black" />
+        </Style>
+        <Style x:Key="DarkLabelTextStyle" TargetType="Label">
+            <Setter Property="TextColor" Value="White" />
+        </Style>
+        <Style x:Key="DarkLabelStyle" TargetType="Label">
+            <Setter Property="TextColor" Value="White" />
+        </Style>
+
+        <!-- Dynamic Resources for Page Background Color -->
+        <Color x:Key="LightPageBackgroundColor">Wheat</Color>
+        <Color x:Key="DarkPageBackgroundColor">Black</Color>
+
+        <!-- Styles for switches in light and dark modes -->
+        <Style x:Key="LightSwitchStyle" TargetType="Switch" />
+        <Style x:Key="DarkSwitchStyle" TargetType="Switch" />
+    </ContentPage.Resources>
+
+    <!-- Main layout grid with columns and rows -->
     <Grid ColumnDefinitions="*, auto, *"
           HorizontalOptions="Center"
           RowDefinitions="auto, *, auto"
           VerticalOptions="Center">
 
-        <!--  Turn Label with styling  -->
+        <!-- Turn Label with styling -->
         <Label Grid.Row="0"
-               Grid.Column="1"
+               Grid.Column="0"
                Margin="20,10,20,0"
                BackgroundColor="Transparent"
                FontAttributes="Bold"
                FontSize="Large"
                HorizontalOptions="Center"
+               HorizontalTextAlignment="Center"
                Text="{Binding TurnText}"
-               TextColor="Black"
-               VerticalOptions="End" />
+               Style="{DynamicResource LabelTextStyle}"
+               VerticalOptions="End"
+               VerticalTextAlignment="Center"
+               WidthRequest="100"
+               ZIndex="5" />
+
+        <!-- Pause Button (ImageButton) -->
+        <ImageButton Grid.Row="0"
+                     Grid.ColumnSpan="3"
+                     Padding="10"
+                     Clicked="OpenPausePage"
+                     CornerRadius="10"
+                     HeightRequest="100"
+                     HorizontalOptions="End"
+                     Source="pause_icon.png"
+                     VerticalOptions="Center"
+                     WidthRequest="100" />
+
+        <ImageButton Grid.Row="0"
+                     Grid.ColumnSpan="3"
+                     Padding="10"
+                     Clicked="OpenPausePage"
+                     CornerRadius="10"
+                     HeightRequest="100"
+                     HorizontalOptions="End"
+                     Source="whitepausebutton.png"
+                     VerticalOptions="Center"
+                     WidthRequest="100" />
 
         <!--  Chessboard CollectionView  -->
         <CollectionView x:Name="UxChessboardView"
@@ -30,9 +85,13 @@
                         Margin="0"
                         ItemsSource="{Binding Squares}"
                         SizeChanged="ChessboardView_OnSizeChanged">
+
+            <!-- Grid layout for chessboard -->
             <CollectionView.ItemsLayout>
                 <GridItemsLayout Orientation="Horizontal" Span="8" />
             </CollectionView.ItemsLayout>
+
+            <!-- Data template for each square in the chessboard -->
             <CollectionView.ItemTemplate>
                 <DataTemplate>
                     <Frame Padding="0"
@@ -40,6 +99,8 @@
                            HeightRequest="{Binding Height}"
                            IsClippedToBounds="True"
                            WidthRequest="{Binding Width}">
+
+                        <!-- ImageButton representing each chess square -->
                         <ImageButton Aspect="AspectFill"
                                      BackgroundColor="{Binding Color}"
                                      Clicked="ChessSquare_OnClicked"

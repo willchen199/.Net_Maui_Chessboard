@@ -1,33 +1,67 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<!--  LoadingPage: The page responsible for displaying saved game slots  -->
+<ContentPage x:Class="ChessApp.LoadingPage"
+             xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="ChessApp.LoadingPage"
              Title="LoadingPage"
-             BackgroundColor="Wheat">
+             BackgroundColor="{DynamicResource PageBackgroundColor}">
 
+    <!--  Resource dictionary containing styles and colors  -->
+    <ContentPage.Resources>
+
+        <!--  Styles for labels in light and dark modes  -->
+        <Style x:Key="LightLabelStyle" TargetType="Label">
+            <Setter Property="TextColor" Value="Black" />
+        </Style>
+        <Style x:Key="LightLabelTextStyle" TargetType="Label">
+            <Setter Property="TextColor" Value="Black" />
+        </Style>
+        <Style x:Key="DarkLabelTextStyle" TargetType="Label">
+            <Setter Property="TextColor" Value="White" />
+        </Style>
+        <Style x:Key="DarkLabelStyle" TargetType="Label">
+            <Setter Property="TextColor" Value="White" />
+        </Style>
+
+        <!--  Dynamic Resources for Page Background Color  -->
+        <Color x:Key="LightPageBackgroundColor">Wheat</Color>
+        <Color x:Key="DarkPageBackgroundColor">Black</Color>
+
+        <!--  Styles for switches in light and dark modes  -->
+        <Style x:Key="LightSwitchStyle" TargetType="Switch" />
+        <Style x:Key="DarkSwitchStyle" TargetType="Switch" />
+    </ContentPage.Resources>
+
+    <!--  Scrollable layout for the LoadingPage content  -->
     <ScrollView>
+
+        <!--  VerticalStackLayout to organize content vertically  -->
         <VerticalStackLayout>
+
+            <!--  Header label displaying "Saved Games"  -->
             <Label Padding="50"
                    FontAttributes="Bold"
                    FontFamily="Times New Roman"
                    FontSize="125"
                    HorizontalOptions="Center"
+                   Style="{DynamicResource LabelTextStyle}"
                    Text="Saved Games"
-                   TextColor="Black"
                    VerticalOptions="Center" />
 
+            <!--  Button for saving/loading Slot 1  -->
             <Button x:Name="SaveSlot1"
                     Margin="15"
-                    BackgroundColor="#8F2C09"             
+                    BackgroundColor="#8F2C09"
+                    Clicked="SavedSlot1"
                     FontFamily="Times New Roman"
                     FontSize="35"
                     HeightRequest="75"
                     HorizontalOptions="Center"
-                    Text="Save 1"
+                    Text="Load Save 1"
                     TextColor="Wheat"
                     WidthRequest="350" />
-                    <!--Clicked="SaveSlot1"-->
 
+            <!--  Button for saving/loading Slot 2  -->
             <Button x:Name="SaveSlot2"
                     Margin="15"
                     BackgroundColor="#8F2C09"
@@ -35,12 +69,11 @@
                     FontSize="35"
                     HeightRequest="75"
                     HorizontalOptions="Center"
-                    Text="Save 2"
+                    Text="Load Save 2"
                     TextColor="Wheat"
                     WidthRequest="350" />
-                    <!--Clicked="SaveSlot2"-->
 
-
+            <!--  Button for saving/loading Slot 3  -->
             <Button x:Name="SaveSlot3"
                     Margin="15"
                     BackgroundColor="#8F2C09"
@@ -48,11 +81,9 @@
                     FontSize="35"
                     HeightRequest="75"
                     HorizontalOptions="Center"
-                    Text="Save 3"
+                    Text="Load Save 3"
                     TextColor="Wheat"
                     WidthRequest="350" />
-                    <!--Clicked="SaveSlot1"-->
-
         </VerticalStackLayout>
     </ScrollView>
 </ContentPage>

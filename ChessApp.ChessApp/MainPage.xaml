@@ -1,35 +1,69 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
+<!-- MainPage: The main page of the ChessApp, providing options for various game modes and settings -->
 <ContentPage x:Class="ChessApp.MainPage"
              xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             Title=""
-             BackgroundColor="Wheat">
+             Title="MainPage"
+             BackgroundColor="{DynamicResource PageBackgroundColor}">
 
+    <!-- Resource dictionary containing styles and colors -->
+    <ContentPage.Resources>
+
+        <!-- Styles for labels in light and dark modes -->
+        <Style x:Key="LightLabelStyle" TargetType="Label">
+            <Setter Property="TextColor" Value="Black" />
+        </Style>
+        <Style x:Key="LightLabelTextStyle" TargetType="Label">
+            <Setter Property="TextColor" Value="Black" />
+        </Style>
+        <Style x:Key="DarkLabelTextStyle" TargetType="Label">
+            <Setter Property="TextColor" Value="White" />
+        </Style>
+        <Style x:Key="DarkLabelStyle" TargetType="Label">
+            <Setter Property="TextColor" Value="White" />
+        </Style>
+
+        <!-- Dynamic Resources for Page Background Color -->
+        <Color x:Key="LightPageBackgroundColor">Wheat</Color>
+        <Color x:Key="DarkPageBackgroundColor">Black</Color>
+
+        <!-- Styles for switches in light and dark modes -->
+        <Style x:Key="LightSwitchStyle" TargetType="Switch" />
+        <Style x:Key="DarkSwitchStyle" TargetType="Switch" />
+    </ContentPage.Resources>
+
+    <!-- Scrollable layout for the MainPage content -->
     <ScrollView>
+
+        <!-- VerticalStackLayout to organize content vertically -->
         <VerticalStackLayout>
+
+            <!-- Header label displaying "Chess" -->
             <Label Padding="50"
                    FontAttributes="Bold"
                    FontFamily="Times New Roman"
                    FontSize="175"
                    HorizontalOptions="Center"
+                   Style="{DynamicResource LabelTextStyle}"
                    Text="Chess"
-                   TextColor="Black"
                    VerticalOptions="Center" />
 
+            <!-- Subtitle label displaying "by Shadow Wizard Developers" -->
             <Label Margin="0,-125,0,0"
                    Padding="50"
                    FontAttributes="Bold"
                    FontFamily="Times New Roman"
                    FontSize="25"
                    HorizontalOptions="Center"
+                   Style="{DynamicResource LabelTextStyle}"
                    Text="by Shadow Wizard Developers"
-                   TextColor="Black"
                    VerticalOptions="Center" />
 
+            <!-- Button to start a Single Player game -->
             <Button x:Name="SinglePlayer"
                     Margin="15"
                     BackgroundColor="#8F2C09"
-                    Clicked="OnCounterClick"
+                    Clicked="OpenNewChessPage"
                     FontFamily="Times New Roman"
                     FontSize="35"
                     HeightRequest="75"
@@ -38,11 +72,11 @@
                     TextColor="Wheat"
                     WidthRequest="350" />
 
-
+            <!-- Button to start a Local Multiplayer game -->
             <Button x:Name="LocalMultiplayer"
                     Margin="15"
                     BackgroundColor="#8F2C09"
-                    Clicked="OnCounterClick"
+                    Clicked="OpenNewChessPage"
                     FontFamily="Times New Roman"
                     FontSize="35"
                     HeightRequest="75"
@@ -51,10 +85,11 @@
                     TextColor="Wheat"
                     WidthRequest="350" />
 
+            <!-- Button to start an Online Multiplayer game -->
             <Button x:Name="OnlineMultiplayer"
                     Margin="15"
                     BackgroundColor="#8F2C09"
-                    Clicked="OnCounterClick"
+                    Clicked="OpenNewChessPage"
                     FontFamily="Times New Roman"
                     FontSize="35"
                     HeightRequest="75"
@@ -63,6 +98,7 @@
                     TextColor="Wheat"
                     WidthRequest="350" />
 
+            <!-- Button to load a saved game -->
             <Button x:Name="LoadGame"
                     Margin="15"
                     BackgroundColor="#8F2C09"
@@ -75,6 +111,7 @@
                     TextColor="Wheat"
                     WidthRequest="350" />
 
+            <!-- Button to access the Settings page -->
             <Button x:Name="Settings"
                     Margin="15"
                     BackgroundColor="#8F2C09"
@@ -86,8 +123,6 @@
                     Text="Settings"
                     TextColor="Wheat"
                     WidthRequest="350" />
-
-
         </VerticalStackLayout>
     </ScrollView>
 

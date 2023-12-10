@@ -7,7 +7,7 @@ We created a chess game that switches between iOS and Android devices without lo
 
 Our game ensures that your ongoing matches, achievements, and preferences stay synchronized across platforms, providing a truly versatile gaming experience.
 
-[Software Demo Video](http://youtube.link.goes.here)
+[Software Demo Video](https://youtu.be/1c21rRXE2ys)
 
 # Development Environment
 
@@ -17,7 +17,7 @@ C# and xaml are mainly used in the chess game.
 
 .json
 
-libary: 
+# Modules: 
 1.Azure.Storage.Blobs
 2.CommunityToolkit.Mau
 3.Microsoft.Extensions.Logging.Debug
