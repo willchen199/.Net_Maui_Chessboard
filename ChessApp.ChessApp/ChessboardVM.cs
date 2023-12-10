@@ -95,9 +95,6 @@ public class ChessboardVM : INotifyPropertyChanged
     }
 
 
-    //***********************************CONSTRUCTION ZONE***********************************************
-
-
 
     /// <summary>
     /// Moves a chess piece from one square to another on the chessboard.
@@ -135,10 +132,19 @@ public class ChessboardVM : INotifyPropertyChanged
         ResetHighlighting();
     }
 
+
+
+
+    /// <summary>
+    /// Method inspired by ChatGPT (code changed)
+    /// Prompts the user to choose a promotion piece for a given pawn and sets it on the specified chessboard square.
+    /// </summary>
+    /// <param name="pawn">The pawn to be promoted.</param>
+    /// <param name="square">The chessboard square where the pawn is located.</param>
+    /// <param name="colorSpecifier">The color specifier ('w' for white, 'b' for black) indicating the color of the promoted piece.</param>
     private void PromptPawnPromotion(Pawn pawn, ChessboardSquare square, char colorSpecifier)
     {
-        // You can implement a dialog or any user interaction mechanism here to choose the promotion piece.
-        // For simplicity, let's assume you have a method to choose the promotion piece.
+        //Creating promoted piece
         IChesspiece promotedPiece = ChoosePromotionPiece(colorSpecifier);
 
         // Set the promoted piece on the square
@@ -149,24 +155,23 @@ public class ChessboardVM : INotifyPropertyChanged
         square.Chesspiece.CurrentColumn = square.Column;
     }
 
+
+    /// <summary>
+    /// Method inspired by ChatGPT (code changed)
+    /// Allows the user to choose a promotion piece based on the color specifier.
+    /// For simplicity, this implementation always promotes to a queen.
+    /// </summary>
+    /// <param name="colorSpecifier">The color specifier ('w' for white, 'b' for black) indicating the color of the promoted piece.</param>
+    /// <returns>The chosen promotion piece (always a Queen in this implementation).</returns>
     private IChesspiece ChoosePromotionPiece(char colorSpecifier)
     {
-        // You can implement a dialog or any user interaction mechanism to choose the promotion piece.
-        // For simplicity, let's assume you always promote to a queen.
 
+        // Return a new Queen instance with the appropriate image file and initial position.
         if (colorSpecifier == 'w')
             return new Queen("queen_w.png", 0, 0);
         else
             return new Queen("queen_b.png", 0, 0);
-
     }
-
-
-
-
-    //***********************************CONSTRUCTION ZONE***********************************************
-
-
 
 
     /// <summary>
