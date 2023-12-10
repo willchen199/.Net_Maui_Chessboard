@@ -3,7 +3,7 @@
 
 Welcome to our innovative chess gaming experience powered by .NET MAUI, where the thrill of the game meets the convenience of cross-platform compatibility.
 
-we are applying promgraming with class and we are creating chess game that switch between iOS and Android devices without losing progress. 
+We created a chess game that switches between iOS and Android devices without losing progress. 
 
 Our game ensures that your ongoing matches, achievements, and preferences stay synchronized across platforms, providing a truly versatile gaming experience.
 
@@ -11,9 +11,9 @@ Our game ensures that your ongoing matches, achievements, and preferences stay s
 
 # Development Environment
 
-We used .Net MAUI for this group project
+We used .Net MAUI for this group project.
 
-C# is mainly used in the chess game
+C# and xaml are mainly used in the chess game.
 
 .json
 
@@ -41,5 +41,5 @@ libary:
 # Future Work
 
 * Checkmate logic
-* undo moves
-* advance piece movement
+* Undo moves
+* Advance piece movement
