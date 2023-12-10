@@ -18,10 +18,10 @@ C# and xaml are mainly used in the chess game.
 .json
 
 # Modules: 
-1.Azure.Storage.Blobs
-2.CommunityToolkit.Mau
-3.Microsoft.Extensions.Logging.Debug
-4.Newtonsoft.Json" Version
+1. Azure.Storage.Blobs
+2. CommunityToolkit.Mau
+3. Microsoft.Extensions.Logging.Debug
+4. Newtonsoft.Json" Version
 
 
 # Collaborators
