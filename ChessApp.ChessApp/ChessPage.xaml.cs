@@ -42,7 +42,11 @@ public partial class ChessPage : ContentPage
     
     public ChessPage(ChessboardVM chessboardVM)
     {
+        BindingContext = new ChessboardVM(chessboardVM.Squares, chessboardVM.IsWhiteTurn); // Set the binding context to a new Chessboard view model.
+        isLoaded = true; // Flag to indicate the page is loaded.
+        SelectedSquare = chessboardVM.Squares.FirstOrDefault(s => s.Chesspiece.Name == ChesspieceName.None);
         InitializeComponent(); // Initialize the page's components.
+        
         SubscribeToMessages();
         // Set styles based on dark mode state
         Settings Settings = new Settings();
@@ -54,9 +58,6 @@ public partial class ChessPage : ContentPage
         {
             UpdateLightModeStyles();
         }
-        BindingContext = chessboardVM; // Set the binding context to a new Chessboard view model.
-        isLoaded = true; // Flag to indicate the page is loaded.
-        SelectedSquare = new ChessboardSquare(0, 0, 0, 0, new NoPiece("", 4, 4));
     }
 
     // Messages lets the program know if dark mode is toggled while the program is running. 

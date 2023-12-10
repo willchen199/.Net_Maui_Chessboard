@@ -44,10 +44,12 @@ public class ChessboardVM : INotifyPropertyChanged
     /// This constructor can be used when you need to set up a chessboard with a pre-defined state.
     /// </summary>
     /// <param name="squares">A collection of ChessboardSquare objects representing the chessboard layout.</param>
-    public ChessboardVM(ObservableCollection<ChessboardSquare> squares)
+    public ChessboardVM(ObservableCollection<ChessboardSquare> squares, bool isWhiteTurn)
     {
-        Squares = squares;
+        Squares = squares ?? throw new ArgumentNullException(nameof(squares));
+        IsWhiteTurn = isWhiteTurn;
     }
+
 
     /// <summary>
     /// Creates the initial chess piece for a given position on the chessboard.
@@ -177,7 +179,7 @@ public class ChessboardVM : INotifyPropertyChanged
     /// <summary>
     /// An ObservableCollection of ChessboardSquare objects that represents the squares on the chessboard.
     /// </summary>
-    public ObservableCollection<ChessboardSquare> Squares { get; } // Property to hold the squares.
+    public ObservableCollection<ChessboardSquare> Squares { get; set; } // Property to hold the squares.
 
     /// <summary>
     /// An event that is raised when a property value changes.

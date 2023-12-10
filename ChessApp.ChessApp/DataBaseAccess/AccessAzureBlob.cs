@@ -11,7 +11,7 @@ public class AccessAzureBlob
         BlobContainerClient containerClient = new BlobContainerClient(connectionString, ContainerName);
         await containerClient.CreateIfNotExistsAsync();
 
-        BlobClient blobClient = containerClient.GetBlobClient(blobName);
+        BlobClient blobClient = containerClient.GetBlobClient($"{userName}/{blobName}");
         await blobClient.UploadAsync(BinaryData.FromString(stringToUpload), overwrite: true);
     }
 
@@ -20,7 +20,7 @@ public class AccessAzureBlob
         string connectionString = Environment.GetEnvironmentVariable("AZURE_STORAGE_CONNECTION_STRING");
         BlobContainerClient containerClient = new BlobContainerClient(connectionString, ContainerName);
 
-        BlobClient blobClient = containerClient.GetBlobClient(blobName);
+        BlobClient blobClient = containerClient.GetBlobClient($"{userName}/{blobName}");
         BlobDownloadResult downloadResult = await blobClient.DownloadContentAsync();
         return downloadResult.Content.ToString();
     }
