@@ -1,5 +1,4 @@
 using System.Collections.ObjectModel;
-using ChessApp.Moving;
 
 namespace ChessApp.Chesspieces
 {
@@ -9,6 +8,26 @@ namespace ChessApp.Chesspieces
         // Method to get the available squares for the chess piece
         List<ChessboardSquare> AvailableSquares(ChessboardSquare currentSquare,
             ObservableCollection<ChessboardSquare> chessboardSquares);
+        
+        /// <summary>
+        /// I wrote this just had GPT comment it. 
+        /// Checks if the current chess piece can capture the opponent's king.
+        /// </summary>
+        /// <param name="currentSquare">The current square occupied by the chess piece.</param>
+        /// <param name="chessboardSquares">The collection of all chessboard squares.</param>
+        /// <returns>True if the piece can capture the opponent's king, otherwise false.</returns>
+        public virtual bool CanCaptureOpponentKing(ChessboardSquare currentSquare, ObservableCollection<ChessboardSquare> chessboardSquares)
+        {
+            // Get the available squares to which the chess piece can move.
+            return AvailableSquares(currentSquare, chessboardSquares).Any(move =>
+            {
+                // Retrieve the chess piece on the destination square of the potential move.
+                IChesspiece piece = chessboardSquares[move.Row * 8 + move.Column].Chesspiece;
+
+                // Check if the destination square is occupied by a chess piece and it is a king.
+                return piece != null && piece.Name == ChesspieceName.King;
+            });
+        }
 
         // Property to get or set the name of the chess piece
         public ChesspieceName Name { get; set; }

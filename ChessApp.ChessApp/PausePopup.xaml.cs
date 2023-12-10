@@ -1,7 +1,7 @@
 // Importing necessary namespaces
-using ChessApp.DataBaseAccess; // Namespace for database access
-using CommunityToolkit.Maui.Views; // Namespace for MAUI Community Toolkit views
-using Newtonsoft.Json; // Newtonsoft.Json for JSON serialization
+using ChessApp.DataBaseAccess;
+using CommunityToolkit.Maui.Views;
+using Newtonsoft.Json;
 
 // Namespace declaration for the ChessApp
 namespace ChessApp
@@ -50,6 +50,9 @@ namespace ChessApp
 
             // Upload JSON to Azure Blob Storage
             await AccessAzureBlob.UploadFromStringAsync("testUser", "testBlobOne", json);
+            
+            Close();
+
         }
     }
 }
