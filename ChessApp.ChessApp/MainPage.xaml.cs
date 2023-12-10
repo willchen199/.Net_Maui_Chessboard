@@ -21,7 +21,26 @@ public partial class MainPage : ContentPage
     // Messages lets the program know if dark mode is toggled while the program is running. 
     private void SubscribeToMessages()
     {
+        MessagingCenter.Subscribe<PausePopup>(this, "NavigateToMainPage", (sender) =>
+        {
+            Device.BeginInvokeOnMainThread(async () =>
+            {
+                await Navigation.PopAsync(); // Assuming the popup was opened over the main page
+            });
+        });
         MessagingCenter.Subscribe<SettingsPage, bool>(this, "DarkModeChanged", OnDarkModeChanged);
+        MessagingCenter.Subscribe<PausePopup, ChessboardVM>(this, "NavigateToChessPage", async (sender, chessboardVM) =>
+        {
+            await Navigation.PushAsync(new ChessPage());
+        });
+    }
+    
+    protected override void OnDisappearing()
+    {
+        base.OnDisappearing();
+        MessagingCenter.Unsubscribe<PausePopup>(this, "NavigateToMainPage");
+        MessagingCenter.Unsubscribe<SettingsPage, bool>(this, "DarkModeChanged");
+        MessagingCenter.Unsubscribe<PausePopup, ChessboardVM>(this, "NavigateToChessPage");
     }
 
 
@@ -52,7 +71,7 @@ public partial class MainPage : ContentPage
         Resources["LabelTextStyle"] = Resources["LightLabelTextStyle"];
     }
 
-    private async void OnCounterClick(object sender, EventArgs e)
+    private async void OpenNewChessPage(object sender, EventArgs e)
     {
         await Navigation.PushAsync(new ChessPage());
     }

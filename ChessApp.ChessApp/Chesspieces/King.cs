@@ -17,6 +17,10 @@ public class King : IChesspiece
         IsInStalemate = false;
     }
 
+    public King()
+    {
+    }
+
     public List<ChessboardSquare> AvailableSquares(ChessboardSquare currentSquare,
         ObservableCollection<ChessboardSquare> chessboardSquares)
     {

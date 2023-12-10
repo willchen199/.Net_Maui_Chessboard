@@ -5,7 +5,7 @@
              Title=""
              BackgroundColor="{DynamicResource PageBackgroundColor}">
     <ContentPage.Resources>
-        <!-- Define Light and Dark styles -->
+        <!--  Define Light and Dark styles  -->
         <Style x:Key="LightLabelStyle" TargetType="Label">
             <Setter Property="TextColor" Value="Black" />
         </Style>
@@ -19,15 +19,15 @@
             <Setter Property="TextColor" Value="White" />
         </Style>
 
-        <!-- Define Dynamic Resource for Page Background Color -->
+        <!--  Define Dynamic Resource for Page Background Color  -->
         <Color x:Key="LightPageBackgroundColor">Wheat</Color>
         <Color x:Key="DarkPageBackgroundColor">Black</Color>
 
-        <Style x:Key="LightSwitchStyle" TargetType="Switch"></Style>
-        <Style x:Key="DarkSwitchStyle" TargetType="Switch"></Style>
+        <Style x:Key="LightSwitchStyle" TargetType="Switch" />
+        <Style x:Key="DarkSwitchStyle" TargetType="Switch" />
     </ContentPage.Resources>
 
-    
+
     <ScrollView>
         <VerticalStackLayout>
             <Label Padding="50"
@@ -35,9 +35,9 @@
                    FontFamily="Times New Roman"
                    FontSize="175"
                    HorizontalOptions="Center"
+                   Style="{DynamicResource LabelTextStyle}"
                    Text="Chess"
-                   VerticalOptions="Center"
-                   Style="{DynamicResource LabelTextStyle}"/>
+                   VerticalOptions="Center" />
 
             <Label Margin="0,-125,0,0"
                    Padding="50"
@@ -45,14 +45,14 @@
                    FontFamily="Times New Roman"
                    FontSize="25"
                    HorizontalOptions="Center"
+                   Style="{DynamicResource LabelTextStyle}"
                    Text="by Shadow Wizard Developers"
-                   VerticalOptions="Center"
-                   Style="{DynamicResource LabelTextStyle}"/>
+                   VerticalOptions="Center" />
 
             <Button x:Name="SinglePlayer"
                     Margin="15"
                     BackgroundColor="#8F2C09"
-                    Clicked="OnCounterClick"
+                    Clicked="OpenNewChessPage"
                     FontFamily="Times New Roman"
                     FontSize="35"
                     HeightRequest="75"
@@ -65,7 +65,7 @@
             <Button x:Name="LocalMultiplayer"
                     Margin="15"
                     BackgroundColor="#8F2C09"
-                    Clicked="OnCounterClick"
+                    Clicked="OpenNewChessPage"
                     FontFamily="Times New Roman"
                     FontSize="35"
                     HeightRequest="75"
@@ -77,7 +77,7 @@
             <Button x:Name="OnlineMultiplayer"
                     Margin="15"
                     BackgroundColor="#8F2C09"
-                    Clicked="OnCounterClick"
+                    Clicked="OpenNewChessPage"
                     FontFamily="Times New Roman"
                     FontSize="35"
                     HeightRequest="75"

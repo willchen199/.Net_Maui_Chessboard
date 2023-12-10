@@ -19,7 +19,6 @@ public class AccessAzureBlob
     {
         string connectionString = Environment.GetEnvironmentVariable("AZURE_STORAGE_CONNECTION_STRING");            
         BlobContainerClient containerClient = new BlobContainerClient(connectionString, ContainerName);
-        await containerClient.CreateIfNotExistsAsync();
 
         BlobClient blobClient = containerClient.GetBlobClient(blobName);
         BlobDownloadResult downloadResult = await blobClient.DownloadContentAsync();
