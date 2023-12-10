@@ -18,6 +18,10 @@ public class Pawn : IChesspiece
         IsInStalemate = false;
     }
 
+    public Pawn()
+    {
+    }
+
     public List<ChessboardSquare> AvailableSquares(ChessboardSquare currentSquare,
         ObservableCollection<ChessboardSquare> chessboardSquares)
     {

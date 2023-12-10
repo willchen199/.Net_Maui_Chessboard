@@ -1,5 +1,6 @@
 ﻿using ChessApp.Chesspieces;
 using ChessApp.Moving;
+using CommunityToolkit.Maui.Views;
 
 namespace ChessApp;
 
@@ -35,6 +36,25 @@ public partial class ChessPage : ContentPage
             UpdateLightModeStyles();
         }
         BindingContext = new ChessboardVM(); // Set the binding context to a new Chessboard view model.
+        isLoaded = true; // Flag to indicate the page is loaded.
+        SelectedSquare = new ChessboardSquare(0, 0, 0, 0, new NoPiece("", 4, 4));
+    }
+    
+    public ChessPage(ChessboardVM chessboardVM)
+    {
+        InitializeComponent(); // Initialize the page's components.
+        SubscribeToMessages();
+        // Set styles based on dark mode state
+        Settings Settings = new Settings();
+        if (Settings.Instance.DarkMode)
+        {
+            UpdateDarkModeStyles();
+        }
+        else
+        {
+            UpdateLightModeStyles();
+        }
+        BindingContext = chessboardVM; // Set the binding context to a new Chessboard view model.
         isLoaded = true; // Flag to indicate the page is loaded.
         SelectedSquare = new ChessboardSquare(0, 0, 0, 0, new NoPiece("", 4, 4));
     }
@@ -237,9 +257,10 @@ public partial class ChessPage : ContentPage
             AdjustChessboardPieces(); // Adjust the chessboard pieces.
     }
 
-    private async void OpenPausePage(object sender, EventArgs e)
+    private void OpenPausePage(object sender, EventArgs e)
     {
-        await Navigation.PushAsync(new PausePage());
+        var chessboardVM = (ChessboardVM)BindingContext;
+        var pausePopup = new PausePopup(chessboardVM);
+        this.ShowPopupAsync(pausePopup);
     }
-
 }

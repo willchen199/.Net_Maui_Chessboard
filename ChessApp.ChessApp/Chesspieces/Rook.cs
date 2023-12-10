@@ -17,6 +17,10 @@ public class Rook : IChesspiece
         IsInStalemate = false;
     }
 
+    public Rook()
+    {
+    }
+
     public List<ChessboardSquare> AvailableSquares(ChessboardSquare currentSquare,
         ObservableCollection<ChessboardSquare> chessboardSquares)
     {

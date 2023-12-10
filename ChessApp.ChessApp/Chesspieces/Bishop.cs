@@ -17,6 +17,10 @@ public class Bishop : IChesspiece
         IsInStalemate = false;
     }
 
+    public Bishop()
+    {
+    }
+
     public ChesspieceName Name { get; set; }
     public string ImageSource { get; set; }
     public Color Color => ImageSource.EndsWith("w.png") ? Colors.White : Colors.Black;

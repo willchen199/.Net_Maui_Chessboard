@@ -17,6 +17,10 @@ public class NoPiece : IChesspiece
         IsInStalemate = false;
     }
 
+    public NoPiece()
+    {
+    }
+
     public List<ChessboardSquare> AvailableSquares(ChessboardSquare currentSquare,
         ObservableCollection<ChessboardSquare> chessboardSquares)
     {

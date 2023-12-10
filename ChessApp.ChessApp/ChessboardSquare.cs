@@ -34,6 +34,8 @@ public class ChessboardSquare : INotifyPropertyChanged
         _column = column;
         _chessPiece = chessPiece;
     }
+    
+    public ChessboardSquare(){}
 
     public Position Position => new(Row, Column);
 

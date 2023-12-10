@@ -1,25 +1,22 @@
 ﻿using Microsoft.Extensions.Logging;
 using Orbit.Engine;
+using CommunityToolkit.Maui;
 
 namespace ChessApp;
-
 public static class MauiProgram // Run on mac using `dotnet build -t:Run -f net7.0-maccatalyst`
 {
     public static MauiApp CreateMauiApp()
     {
         var builder = MauiApp.CreateBuilder();
-        builder.UseMauiApp<App>()
-            .ConfigureFonts(fonts =>
-            {
-                fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
-                fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
-            })
-            .UseOrbitEngine();
-
+        builder.UseMauiApp<App>().ConfigureFonts(fonts =>
+        {
+            fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
+            fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
+        }).UseOrbitEngine()
+            .UseMauiCommunityToolkit();
 #if DEBUG
         builder.Logging.AddDebug();
 #endif
-
         return builder.Build();
     }
 }

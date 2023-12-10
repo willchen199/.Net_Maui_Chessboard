@@ -1,11 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+<ContentPage x:Class="ChessApp.LoadingPage"
+             xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="ChessApp.LoadingPage"
              Title="LoadingPage"
              BackgroundColor="{DynamicResource PageBackgroundColor}">
     <ContentPage.Resources>
-        <!-- Define Light and Dark styles -->
+        <!--  Define Light and Dark styles  -->
         <Style x:Key="LightLabelStyle" TargetType="Label">
             <Setter Property="TextColor" Value="Black" />
         </Style>
@@ -19,12 +19,12 @@
             <Setter Property="TextColor" Value="White" />
         </Style>
 
-        <!-- Define Dynamic Resource for Page Background Color -->
+        <!--  Define Dynamic Resource for Page Background Color  -->
         <Color x:Key="LightPageBackgroundColor">Wheat</Color>
         <Color x:Key="DarkPageBackgroundColor">Black</Color>
 
-        <Style x:Key="LightSwitchStyle" TargetType="Switch"></Style>
-        <Style x:Key="DarkSwitchStyle" TargetType="Switch"></Style>
+        <Style x:Key="LightSwitchStyle" TargetType="Switch" />
+        <Style x:Key="DarkSwitchStyle" TargetType="Switch" />
     </ContentPage.Resources>
 
     <ScrollView>
@@ -34,13 +34,14 @@
                    FontFamily="Times New Roman"
                    FontSize="125"
                    HorizontalOptions="Center"
-                   Text="Saved Games"
                    Style="{DynamicResource LabelTextStyle}"
+                   Text="Saved Games"
                    VerticalOptions="Center" />
 
             <Button x:Name="SaveSlot1"
                     Margin="15"
-                    BackgroundColor="#8F2C09"             
+                    BackgroundColor="#8F2C09"
+                    Clicked="SavedSlot1"
                     FontFamily="Times New Roman"
                     FontSize="35"
                     HeightRequest="75"
@@ -48,7 +49,6 @@
                     Text="Save 1"
                     TextColor="Wheat"
                     WidthRequest="350" />
-                    <!--Clicked="SaveSlot1"-->
 
             <Button x:Name="SaveSlot2"
                     Margin="15"
@@ -60,7 +60,7 @@
                     Text="Save 2"
                     TextColor="Wheat"
                     WidthRequest="350" />
-                    <!--Clicked="SaveSlot2"-->
+            <!--  Clicked="SaveSlot2"  -->
 
 
             <Button x:Name="SaveSlot3"
@@ -73,7 +73,7 @@
                     Text="Save 3"
                     TextColor="Wheat"
                     WidthRequest="350" />
-                    <!--Clicked="SaveSlot1"-->
+            <!--  Clicked="SaveSlot1"  -->
 
         </VerticalStackLayout>
     </ScrollView>

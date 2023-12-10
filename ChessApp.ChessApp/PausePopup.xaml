@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<toolkit:Popup x:Class="ChessApp.PausePopup"
+               xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+               xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+               xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+               CanBeDismissedByTappingOutsideOfPopup="False">
+
+    <VerticalStackLayout BackgroundColor="{DynamicResource PageBackgroundColor}">
+        <Button Clicked="ClosePopup" Text="Close" />
+        <Label Padding="50"
+               FontAttributes="Bold"
+               FontFamily="Times New Roman"
+               FontSize="70"
+               HorizontalOptions="Center"
+               Text="Save Game"
+               TextColor="Black"
+               VerticalOptions="Center" />
+
+        <Button x:Name="SaveSlot1"
+                Margin="15"
+                BackgroundColor="#8F2C09"
+                Clicked="SaveSlot1_OnClicked"
+                FontFamily="Times New Roman"
+                FontSize="25"
+                HeightRequest="75"
+                HorizontalOptions="Center"
+                Text="Slot 1"
+                TextColor="Wheat"
+                WidthRequest="350" />
+        <!--  Clicked="SaveSlot1"  -->
+
+        <Button x:Name="SaveSlot2"
+                Margin="15"
+                BackgroundColor="#8F2C09"
+                FontFamily="Times New Roman"
+                FontSize="25"
+                HeightRequest="75"
+                HorizontalOptions="Center"
+                Text="Slot 2"
+                TextColor="Wheat"
+                WidthRequest="350" />
+        <!--  Clicked="SaveSlot2"  -->
+
+
+        <Button x:Name="SaveSlot3"
+                Margin="15"
+                BackgroundColor="#8F2C09"
+                FontFamily="Times New Roman"
+                FontSize="25"
+                HeightRequest="75"
+                HorizontalOptions="Center"
+                Text="Slot 3"
+                TextColor="Wheat"
+                WidthRequest="350" />
+        <!--  Clicked="SaveSlot1"  -->
+
+        <Button x:Name="OpenMainPage"
+                Margin="15"
+                BackgroundColor="#8F2C09"
+                Clicked="GoToMainPage"
+                FontFamily="Times New Roman"
+                FontSize="25"
+                HeightRequest="75"
+                HorizontalOptions="Center"
+                Text="Return to Main Page"
+                TextColor="Wheat"
+                WidthRequest="350" />
+    </VerticalStackLayout>
+</toolkit:Popup>

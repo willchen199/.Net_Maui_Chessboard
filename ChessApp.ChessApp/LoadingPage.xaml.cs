@@ -1,3 +1,6 @@
+using ChessApp.DataBaseAccess;
+using Newtonsoft.Json;
+
 namespace ChessApp;
 
 public partial class LoadingPage : ContentPage
@@ -53,5 +56,24 @@ public partial class LoadingPage : ContentPage
         Resources["LabelTextStyle"] = Resources["LightLabelTextStyle"];
     }
 
+    public ChessboardVM DeserializeChessboardVM(string json)
+    {
+        return JsonConvert.DeserializeObject<ChessboardVM>(json);
+    }
 
+    private async void SavedSlot1(object sender, EventArgs e)
+    {
+        string savedGame = await AccessAzureBlob.DownloadToStringAsync("testUser", "testBlobOne");
+        try
+        {
+            ChessboardVM chessboardVM = DeserializeChessboardVM(savedGame);
+            if (chessboardVM != null)
+                await Navigation.PushAsync(new ChessPage(chessboardVM));
+        }
+        catch (Exception exception)
+        {
+            Console.WriteLine(exception);
+            throw;
+        }
+    }
 }

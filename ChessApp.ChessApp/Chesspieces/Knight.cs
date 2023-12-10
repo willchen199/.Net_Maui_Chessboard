@@ -17,6 +17,10 @@ public class Knight : IChesspiece
         IsInStalemate = false;
     }
 
+    public Knight()
+    {
+    }
+
     public List<ChessboardSquare> AvailableSquares(ChessboardSquare currentSquare,
         ObservableCollection<ChessboardSquare> chessboardSquares)
     {
