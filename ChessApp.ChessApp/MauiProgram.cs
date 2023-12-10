@@ -1,22 +1,36 @@
-﻿using Microsoft.Extensions.Logging;
-using Orbit.Engine;
-using CommunityToolkit.Maui;
+﻿// Importing necessary namespaces
+using Microsoft.Extensions.Logging; // Logging utilities for application
+using Orbit.Engine; // Orbit Engine library
+using CommunityToolkit.Maui; // Community Toolkit for MAUI
 
-namespace ChessApp;
-public static class MauiProgram // Run on mac using `dotnet build -t:Run -f net7.0-maccatalyst`
+// Namespace declaration for the ChessApp
+namespace ChessApp
 {
-    public static MauiApp CreateMauiApp()
+    // Static class representing the main program for MAUI
+    public static class MauiProgram // Run on mac using `dotnet build -t:Run -f net7.0-maccatalyst`
     {
-        var builder = MauiApp.CreateBuilder();
-        builder.UseMauiApp<App>().ConfigureFonts(fonts =>
+        // Method to create and configure the MAUI app
+        public static MauiApp CreateMauiApp()
         {
-            fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
-            fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
-        }).UseOrbitEngine()
-            .UseMauiCommunityToolkit();
+            // Create a builder for the MAUI app
+            var builder = MauiApp.CreateBuilder();
+
+            // Configure the MAUI app to use the specified App class and fonts
+            builder.UseMauiApp<App>().ConfigureFonts(fonts =>
+            {
+                // Add custom fonts to the app
+                fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
+                fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
+            }).UseOrbitEngine() // Use the Orbit Engine for additional features
+              .UseMauiCommunityToolkit(); // Use the MAUI Community Toolkit for additional controls and utilities
+
 #if DEBUG
-        builder.Logging.AddDebug();
+            // Add debugging capabilities in DEBUG mode
+            builder.Logging.AddDebug();
 #endif
-        return builder.Build();
+
+            // Build and return the configured MAUI app
+            return builder.Build();
+        }
     }
 }

@@ -1,12 +1,18 @@
 <?xml version="1.0" encoding="utf-8" ?>
+<!-- PausePopup: A popup used for pausing the game and saving progress -->
 <toolkit:Popup x:Class="ChessApp.PausePopup"
                xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
                xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
                CanBeDismissedByTappingOutsideOfPopup="False">
 
+    <!-- VerticalStackLayout to organize content vertically with a dynamic background color -->
     <VerticalStackLayout BackgroundColor="{DynamicResource PageBackgroundColor}">
+
+        <!-- Button to close the popup -->
         <Button Clicked="ClosePopup" Text="Close" />
+
+        <!-- Label displaying "Save Game" as a title -->
         <Label Padding="50"
                FontAttributes="Bold"
                FontFamily="Times New Roman"
@@ -16,6 +22,7 @@
                TextColor="Black"
                VerticalOptions="Center" />
 
+        <!-- Button to save the game in Slot 1 -->
         <Button x:Name="SaveSlot1"
                 Margin="15"
                 BackgroundColor="#8F2C09"
@@ -27,8 +34,8 @@
                 Text="Slot 1"
                 TextColor="Wheat"
                 WidthRequest="350" />
-        <!--  Clicked="SaveSlot1"  -->
 
+        <!-- Button to save the game in Slot 2 -->
         <Button x:Name="SaveSlot2"
                 Margin="15"
                 BackgroundColor="#8F2C09"
@@ -39,9 +46,8 @@
                 Text="Slot 2"
                 TextColor="Wheat"
                 WidthRequest="350" />
-        <!--  Clicked="SaveSlot2"  -->
 
-
+        <!-- Button to save the game in Slot 3 -->
         <Button x:Name="SaveSlot3"
                 Margin="15"
                 BackgroundColor="#8F2C09"
@@ -52,8 +58,8 @@
                 Text="Slot 3"
                 TextColor="Wheat"
                 WidthRequest="350" />
-        <!--  Clicked="SaveSlot1"  -->
 
+        <!-- Button to return to the Main Page -->
         <Button x:Name="OpenMainPage"
                 Margin="15"
                 BackgroundColor="#8F2C09"

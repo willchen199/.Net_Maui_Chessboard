@@ -56,10 +56,12 @@
       <None Remove="Resources\Images\white_chess_tile.png" />
     </ItemGroup>
 
-    <ItemGroup>
-        <PackageReference Include="Azure.Storage.Blobs" Version="12.20.0-beta.1" />
-        <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="7.0.0" />
-    </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="Azure.Storage.Blobs" Version="12.20.0-beta.1" />
+		<PackageReference Include="CommunityToolkit.Maui" Version="6.1.0" />
+		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="7.0.0" />
+		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+	</ItemGroup>
 
     <ItemGroup>
       <ProjectReference Include="..\ChessApp.Orbit.Engine\Orbit.Engine.csproj" />

@@ -1,82 +1,121 @@
+using System;
 using System.Collections.ObjectModel;
+using System.Collections.Generic;
+using System.Linq;
 
-namespace ChessApp.Chesspieces;
-
-public class King : IChesspiece
+namespace ChessApp.Chesspieces
 {
-    public King(string imageSource, int currentRow, int currentColumn)
+    // Class representing a King chess piece implementing the IChesspiece interface
+    public class King : IChesspiece
     {
-        Name = ChesspieceName.King;
-        ImageSource = imageSource;
-
-        CurrentRow = currentRow;
-        CurrentColumn = currentColumn;
-        IsCaptured = false;
-        IsInCheck = false;
-        IsInCheckmate = false;
-        IsInStalemate = false;
-    }
-
-    public King()
-    {
-    }
-
-    public List<ChessboardSquare> AvailableSquares(ChessboardSquare currentSquare,
-        ObservableCollection<ChessboardSquare> chessboardSquares)
-    {
-        List<ChessboardSquare> availableSquares = new();
-        int[] rowOffsets = new int[] { -1, -1, -1, 0, 1, 1, 1, 0 };
-        int[] colOffsets = new int[] { -1, 0, 1, 1, 1, 0, -1, -1 };
-
-        for (int i = 0; i < 8; i++)
+        // Constructor for initializing a King with specific parameters
+        public King(string imageSource, int currentRow, int currentColumn)
         {
-            int newRow = currentSquare.Row + rowOffsets[i];
-            int newCol = currentSquare.Column + colOffsets[i];
-
-            if (newRow >= 0 && newRow <= 7 && newCol >= 0 && newCol <= 7)
-            {
-                ChessboardSquare potentialSquare = chessboardSquares.FirstOrDefault(s => s.Row == newRow && s.Column == newCol);
-                if (potentialSquare.Chesspiece.Name == ChesspieceName.None || potentialSquare.Chesspiece.Color != currentSquare.Chesspiece.Color)
-                {
-                    availableSquares.Add(potentialSquare);
-                }
-            }
+            // Set the properties of the King
+            Name = ChesspieceName.King;
+            ImageSource = imageSource;
+            CurrentRow = currentRow;
+            CurrentColumn = currentColumn;
+            IsCaptured = false;
+            IsInCheck = false;
+            IsInCheckmate = false;
+            IsInStalemate = false;
         }
 
-        return availableSquares;
-    }
+        // Default constructor for a King with no parameters
+        public King()
+        {
+        }
 
-    public ChesspieceName Name { get; set; }
-    public string ImageSource { get; set; }
-    public Color Color => ImageSource.EndsWith("w.png") ? Colors.White : Colors.Black;
-    public int CurrentRow { get; set; }
-    public int CurrentColumn { get; set; }
-    public bool IsCaptured { get; set; }
-    public bool IsInCheck { get; set; }
-    public bool IsInCheckmate { get; set; }
-    public bool IsInStalemate { get; set; }
+        // Method to get the available squares for the King
+        public List<ChessboardSquare> AvailableSquares(ChessboardSquare currentSquare,
+            ObservableCollection<ChessboardSquare> chessboardSquares)
+        {
+            // List to store the available squares for the King
+            List<ChessboardSquare> availableSquares = new List<ChessboardSquare>();
 
-    public void Move(ChessboardSquare newSquare)
-    {
-        CurrentRow = newSquare.Row;
-        CurrentColumn = newSquare.Column;
-    }
+            // Offsets for all possible moves of a King
+            int[] rowOffsets = new int[] { -1, -1, -1, 0, 1, 1, 1, 0 };
+            int[] colOffsets = new int[] { -1, 0, 1, 1, 1, 0, -1, -1 };
 
-    public bool CanMove(ChessboardSquare oldSquare, ChessboardSquare newSquare, ObservableCollection<ChessboardSquare> chessboardSquares)
-    {
-        int rowDifference = Math.Abs(newSquare.Row - oldSquare.Row);
-        int columnDifference = Math.Abs(newSquare.Column - oldSquare.Column);
+            // Check each potential move of the King
+            for (int i = 0; i < 8; i++)
+            {
+                int newRow = currentSquare.Row + rowOffsets[i];
+                int newCol = currentSquare.Column + colOffsets[i];
 
-        return rowDifference <= 1 && columnDifference <= 1 && AvailableSquares(oldSquare, chessboardSquares).Contains(newSquare);
-    }
+                // Ensure the potential move is within the chessboard boundaries
+                if (newRow >= 0 && newRow <= 7 && newCol >= 0 && newCol <= 7)
+                {
+                    ChessboardSquare potentialSquare = chessboardSquares.FirstOrDefault(s => s.Row == newRow && s.Column == newCol);
 
-    public void Capture()
-    {
-        throw new NotImplementedException();
-    }
+                    // If the square is empty or has an opponent's piece, add it to available squares
+                    if (potentialSquare.Chesspiece.Name == ChesspieceName.None || potentialSquare.Chesspiece.Color != currentSquare.Chesspiece.Color)
+                    {
+                        availableSquares.Add(potentialSquare);
+                    }
+                }
+            }
 
-    public void Promote()
-    {
-        throw new NotImplementedException();
+            return availableSquares;
+        }
+
+        // Property to get or set the name of the King
+        public ChesspieceName Name { get; set; }
+
+        // Property to get or set the image source of the King
+        public string ImageSource { get; set; }
+
+        // Property to get the color of the King based on its image source
+        public Color Color => ImageSource.EndsWith("w.png") ? Colors.White : Colors.Black;
+
+        // Property to get or set the current row of the King on the chessboard
+        public int CurrentRow { get; set; }
+
+        // Property to get or set the current column of the King on the chessboard
+        public int CurrentColumn { get; set; }
+
+        // Property to get or set the captured status of the King
+        public bool IsCaptured { get; set; }
+
+        // Property to get or set whether the King is in check
+        public bool IsInCheck { get; set; }
+
+        // Property to get or set whether the King is in checkmate
+        public bool IsInCheckmate { get; set; }
+
+        // Property to get or set whether the King is in stalemate
+        public bool IsInStalemate { get; set; }
+
+        // Method to move the King to a new chessboard square
+        public void Move(ChessboardSquare newSquare)
+        {
+            // Update the current row and column of the King
+            CurrentRow = newSquare.Row;
+            CurrentColumn = newSquare.Column;
+        }
+
+        // Method to check if the King can move from the old square to the new square
+        public bool CanMove(ChessboardSquare oldSquare, ChessboardSquare newSquare, ObservableCollection<ChessboardSquare> chessboardSquares)
+        {
+            // Calculate the row and column differences
+            int rowDifference = Math.Abs(newSquare.Row - oldSquare.Row);
+            int columnDifference = Math.Abs(newSquare.Column - oldSquare.Column);
+
+            // Check if the move is within the King's valid range and if the destination square is in the available squares
+            return rowDifference <= 1 && columnDifference <= 1 && AvailableSquares(oldSquare, chessboardSquares).Contains(newSquare);
+        }
+
+        // Method representing the capture action (not implemented)
+        public void Capture()
+        {
+            throw new NotImplementedException("King capture not implemented.");
+        }
+
+        // Method representing the promotion action (not implemented)
+        public void Promote()
+        {
+            throw new NotImplementedException("King promotion not implemented.");
+        }
     }
 }

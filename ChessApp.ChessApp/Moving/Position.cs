@@ -1,13 +1,21 @@
-namespace ChessApp.Moving;
-
-public class Position
+// Namespace declaration for the Position class in the Moving namespace
+namespace ChessApp.Moving
 {
-    public Position(int row, int column)
+    // Class representing a position on a two-dimensional grid
+    public class Position
     {
-        Row = row;
-        Column = column;
-    }
+        // Constructor to initialize a Position with specified row and column values
+        public Position(int row, int column)
+        {
+            // Set the Row and Column properties
+            Row = row;
+            Column = column;
+        }
 
-    public int Row { get; set; }
-    public int Column { get; set; }
+        // Property to get or set the row value of the position
+        public int Row { get; set; }
+
+        // Property to get or set the column value of the position
+        public int Column { get; set; }
+    }
 }
