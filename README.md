@@ -35,8 +35,8 @@ libary:
   
 # Useful Websites
 
-* [StackOVerflow](https://stackoverflow.com/)
-* [w3school](https://www.w3schools.com/cs/index.php)
+* [Stack Overflow](https://stackoverflow.com/)
+* [W3schools](https://www.w3schools.com/cs/index.php)
 
 # Future Work
 
